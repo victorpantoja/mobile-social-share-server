@@ -17,11 +17,11 @@ stop-be:
 
 start-nginx:
 	@echo "Starting nginx..."
-	@sudo /usr/local/nginx/sbin/nginx -c `pwd`/conf/nginx-mobile-social-share.conf
+	@sudo /opt/nginx/sbin/nginx -c `pwd`/conf/nginx-mobile-social-share.conf
 
 stop-nginx:
 	@echo "Stopping nginx..."
-	@sudo /usr/local/nginx/sbin/nginx -c `pwd`/conf/nginx-mobile-social-share.conf -s stop 2> /dev/null; true
+	@sudo /opt/nginx/sbin/nginx -c `pwd`/conf/nginx-mobile-social-share.conf -s stop 2> /dev/null; true
 
 start: start-nginx start-be
 	@echo "========================="
