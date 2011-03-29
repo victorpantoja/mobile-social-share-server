@@ -9,7 +9,7 @@ kill:
 
 start-be:
 	@echo "Starting mobile-social-share server..."
-	@python mss/start.py
+	@python mss/start.py > /dev/null &
 
 stop-be:
 	@echo "Stopping mobile-social-share server..."
