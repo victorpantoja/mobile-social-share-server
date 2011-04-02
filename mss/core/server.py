@@ -3,6 +3,7 @@
 
 from mss.core.daemon import Daemon
 from mss.handler.facebook import CanvasHandler
+from mss.handler.context import ContextHandler
 
 from tornado.options import options
 
@@ -26,6 +27,7 @@ class MSSServer(Daemon):
         application = Application([
             (r"/media/(.*)", StaticFileHandler, {"path": options.media_dir}),
             (r"/canvas/", CanvasHandler),
+            (r"/context", ContextHandler),
         ], cookie_secret=COOKIE_SECRET)
                 
         http_server =   HTTPServer(application,xheaders=True)

@@ -24,6 +24,12 @@ def main():
         
     logging.getLogger().setLevel(getattr(logging, tornado.options.options.logging.upper())) 
     
+    # settings    
+    from mss import core
+
+    from mss import settings
+    core.settings = settings
+    
     from mss.core.server import MSSServer
     server = MSSServer()
     

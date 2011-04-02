@@ -1,8 +1,20 @@
-#Mon Mar 28 22:48:15 BRT 2011
+#Sat Apr 02 14:26:20 BRT 2011
 eclipse.preferences.version=1
+encoding//mss/core/beanstalk.py=utf-8
+encoding//mss/core/cache/__init__.py=utf-8
+encoding//mss/core/cache/backend.py=utf-8
+encoding//mss/core/cache/extension.py=utf-8
+encoding//mss/core/cache/nginx.py=utf-8
+encoding//mss/core/cache/util.py=utf-8
+encoding//mss/core/daemon.py=utf-8
 encoding//mss/core/meta.py=utf-8
 encoding//mss/core/server.py=utf-8
 encoding//mss/handler/__init__.py=utf-8
 encoding//mss/handler/base.py=utf-8
+encoding//mss/handler/context.py=utf-8
 encoding//mss/handler/facebook.py=utf-8
+encoding//mss/settings.py=utf-8
 encoding//mss/start.py=utf-8
+encoding//mss/utils/__init__.py=utf-8
+encoding//mss/utils/beanstalkhelper.py=utf-8
+encoding//mss/utils/encoding.py=utf-8
