@@ -12,7 +12,7 @@ class ContextHandler(BaseHandler):
     def post(self, **kw):
 
         cache = get_cache()
-        cache.set("locale","-22.95799, -43.19406")
-        cache.set("content","<b>Victor Pantoja</b><br />Hey! I'm Here!")
+        cache.set("locale",self.get_argument('location'))
+        cache.set("content",self.get_argument('text'))
 
-        return "OK"
+        self.write("ok")

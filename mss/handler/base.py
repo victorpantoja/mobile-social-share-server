@@ -6,6 +6,8 @@ from mako.template import Template
 from mako.lookup import TemplateLookup
 from tornado.options import options
 
+import simplejson
+
 class BaseHandler(RequestHandler):
     def __init__(self, application, request, transforms=None):
         RequestHandler.__init__(self, application, request)
@@ -31,12 +33,12 @@ class BaseHandler(RequestHandler):
                 logging.exception("Erro ao renderizar o template!")
                 raise e
         
-    def render_error(self, message="Ops! Ocorreu um erro!", handler=None):
-        return self.render_to_json({"errors":{"error":{"message": message}}}, handler)
+    def render_error(self, message="Ops! Ocorreu um erro!"):
+        return self.render_to_json({"errors":{"error":{"message": message}}})
 
-    def render_success(self, message="Operação realizada com sucesso!", handler=None):
-        return self.render_to_json({"errors":"", "message":message}, handler)
+    def render_success(self, message="Operação realizada com sucesso!"):
+        return self.render_to_json({"errors":"", "message":message})
     
-    def render_to_json(self, data, handler):
-        handler.set_header("Content-Type", "application/json; charset=UTF-8")
+    def render_to_json(self, data):
+        self.set_header("Content-Type", "application/json; charset=UTF-8")
         return simplejson.dumps(data)
