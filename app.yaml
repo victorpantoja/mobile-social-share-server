@@ -1,0 +1,13 @@
+application: mobile-social-share
+version: 1
+runtime: python
+api_version: 1
+
+handlers:
+- url: /media/(.*\.(html|css|js|gif|jpg|png|ico))
+  static_files: media/\1
+  upload: media/.*
+  expiration: "1d"
+  
+- url: /.*
+  script: main.py
