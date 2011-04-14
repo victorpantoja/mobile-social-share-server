@@ -1,5 +1,8 @@
-#Sun Apr 03 22:50:40 BRT 2011
+#Mon Apr 11 12:50:11 BRT 2011
 eclipse.preferences.version=1
 encoding//handlers/context.py=utf-8
 encoding//handlers/facebook.py=utf-8
+encoding//handlers/user.py=utf-8
+encoding//models/user.py=utf-8
+encoding//tests/functional/handlers/test_context.py=utf-8
 encoding/main.py=utf-8

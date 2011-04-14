@@ -6,6 +6,7 @@ from google.appengine.ext.webapp.util import run_wsgi_app
 
 from handlers.facebook import CanvasHandler
 from handlers.context import ContextHandler
+from handlers.user import LoginHandler, CreateLoginHandler
 
 class MainPage(webapp.RequestHandler):
   def get(self):
@@ -16,7 +17,9 @@ def main():
     routes = [
         (r'/', MainPage),
         (r"/canvas/", CanvasHandler),
-        (r"/context", ContextHandler)
+        (r"/context", ContextHandler),
+        (r"/login", LoginHandler),
+        (r"/login/create", CreateLoginHandler)
     ]
     
     application = webapp.WSGIApplication(routes, debug=True)
