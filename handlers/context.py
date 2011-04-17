@@ -12,3 +12,4 @@ class ContextHandler(webapp.RequestHandler):
     def post(self, **kw):
         memcache.set("locale",self.request.GET[u'location'])
         memcache.set("content",self.request.GET[u'text'])
+
