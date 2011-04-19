@@ -14,5 +14,5 @@ class CanvasHandler(BaseHandler):
         cache = get_cache()
         locale = cache.get("locale")
         content = cache.get("content")
-        
+
         self.render_template("facebook/canvas.html",locale=locale, content=content)

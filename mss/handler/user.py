@@ -38,19 +38,12 @@ class CreateLoginHandler(BaseHandler):
         user = User()
         user.username = self.get_argument('username')
         
-        _users = None
-         
-#        if _users.count() > 0:
-#           self.response.headers['Content-Type'] = 'application/json'
-#           self.response.out.write(simplejson.dumps({'status':'error', 'msg':'Username already exists.'}))
-#           return
-        
         user.first_name = self.get_argument('firstName')
         user.last_name = self.get_argument('lastName')
         user.password = self.create_random_passord()
         user.created = datetime.now()
         user.last_login = datetime.now()
-        
+
         try:
             user.save()
         except:
