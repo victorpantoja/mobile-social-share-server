@@ -33,3 +33,30 @@ stop: stop-nginx stop-be
 	@echo "Suite mobile-social-share stopped!!!"
 	@echo "========================="
 	@sleep 2
+
+db: drop_db create_db migrate_db
+
+drop_db:
+	@echo -n $(red)
+	@echo "Dropping database..."
+	@echo -n $(white)
+	@mysql -u root -e 'DROP DATABASE IF EXISTS mss;'
+	@echo -n $(normal)
+
+create_db:
+	@echo "Creating database..."
+	@echo -n $(white)
+	@mysql -u root -e 'CREATE DATABASE IF NOT EXISTS mss;'
+	@echo -n $(green)
+	@echo 'Database `mss` created!'
+	@echo -n $(normal)
+	
+migrate_db:
+	@echo "Migrating mss"
+	@echo -n $(white)
+	@db-migrate -c migrations/local.conf
+	@echo -n $(green)
+	@echo "Database migrated!"
+	@echo -n $(green)
+	@echo "DONE"
+	@echo -n $(normal)

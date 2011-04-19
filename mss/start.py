@@ -14,6 +14,9 @@ def main():
     tornado.options.define("as_daemon", type=bool, default=False, help="run server as daemon")
     tornado.options.define("template_dir", type=str, default="%s/templates" % project_root)
     tornado.options.define("media_dir", type=str, default="%s/media" % project_root)
+    tornado.options.define("EMAIL", type=dict)
+    tornado.options.define("DATABASE_ENGINE", type=dict)
+    tornado.options.define("DATABASE_POOL_SIZE", type=int)
 
     tornado.options.parse_command_line()        
     

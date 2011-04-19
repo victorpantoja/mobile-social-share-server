@@ -1,0 +1,20 @@
+SQL_UP = u"""
+
+CREATE TABLE `users` (
+  `user_id` integer unsigned NOT NULL AUTO_INCREMENT,
+  `lastname_txt` varchar(100) NOT NULL,
+  `firstname_txt` varchar(100) NOT NULL,
+  `username_txt` varchar(20) NOT NULL,
+  `password_txt` varchar(10) NOT NULL,
+  `criate_dt` datetime NOT NULL,
+  `lastlogin_dt` datetime NOT NULL,
+  PRIMARY KEY (`user_id`),
+  UNIQUE KEY `uk_username` (`username_txt`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+"""
+SQL_DOWN = u"""
+
+drop table users;
+
+"""

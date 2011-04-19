@@ -4,6 +4,11 @@
 log_file_prefix = "/opt/logs/mss/mss.log"
 logging='debug'
 
+EMAIL = {
+    "server":"smtpar.globoi.com",
+    "port":25,
+}
+
 DATABASE_ENGINE = {
     "read":"mysql://root@localhost/mss?charset=utf8&use_unicode=0",
     "write":"mysql://root@localhost/mss?charset=utf8&use_unicode=0"

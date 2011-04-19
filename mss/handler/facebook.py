@@ -13,7 +13,6 @@ class CanvasHandler(BaseHandler):
 
         cache = get_cache()
         locale = cache.get("locale")
-        locale2 = "-22.961396,-43.199315" 
         content = cache.get("content")
         
         self.render_template("facebook/canvas.html",locale=locale, content=content)

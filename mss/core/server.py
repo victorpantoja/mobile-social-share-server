@@ -4,6 +4,8 @@
 from mss.core.daemon import Daemon
 from mss.handler.facebook import CanvasHandler
 from mss.handler.context import ContextHandler
+from mss.handler.user import LoginHandler, CreateLoginHandler
+
 
 from tornado.options import options
 
@@ -23,12 +25,16 @@ class MSSServer(Daemon):
         return Daemon.__init__(self, options.pidfile)
 
     def run(self):
-    
-        application = Application([
+        
+        routes = [
             (r"/media/(.*)", StaticFileHandler, {"path": options.media_dir}),
             (r"/canvas/", CanvasHandler),
             (r"/context", ContextHandler),
-        ], cookie_secret=COOKIE_SECRET)
+            (r"/login", LoginHandler),
+            (r"/login/create", CreateLoginHandler)
+        ]
+    
+        application = Application(routes, cookie_secret=COOKIE_SECRET)
                 
         http_server =   HTTPServer(application,xheaders=True)
         http_server.listen(options.port)
