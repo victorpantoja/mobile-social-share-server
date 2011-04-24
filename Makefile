@@ -6,6 +6,14 @@ clean:
 kill:
 	@echo "Killing mobile-social-share server..."
 	@-ps aux | egrep 'mss/start.py' | egrep -v grep | awk '{ print $$2 }' | xargs kill -9
+	
+start-memcached:
+	@echo "Starting memcached..."
+	@memcached -d 512
+	
+stop-memcached:
+	@echo "Killing memcached..."
+	@-ps aux | egrep 'memcached -d 512' | egrep -v grep | awk '{ print $2 }' | xargs kill -9 2> /dev/null; true
 
 start-be:
 	@echo "Starting mobile-social-share server..."
@@ -60,3 +68,15 @@ migrate_db:
 	@echo -n $(green)
 	@echo "DONE"
 	@echo -n $(normal)
+	
+unit: clean
+	@echo "Running unit tests..."
+	@export PYTHONPATH=$PYTHONPATH:`pwd`:`pwd`/mss  &&  \
+		cd mss && \
+	    nosetests -s --verbose --with-coverage --cover-package=mss mss/unit/*
+	
+functional: clean
+	@echo "Running functional tests..."
+	@export PYTHONPATH=$PYTHONPATH:`pwd`:`pwd`/mss  &&  \
+		cd mss && \
+	    nosetests -s --verbose --with-coverage --cover-package=mss tests/functional/*
