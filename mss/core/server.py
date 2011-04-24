@@ -13,8 +13,6 @@ from tornado.httpserver import HTTPServer
 from tornado.web import Application, StaticFileHandler, RequestHandler, HTTPError
 from tornado.ioloop import IOLoop
 
-import tornado.autoreload
-
 import logging
 
 
@@ -43,7 +41,5 @@ class MSSServer(Daemon):
                 
         logging.info("mobile-social-share server START! listening port %s " % options.port)
         
-        ioloop = IOLoop()
-        tornado.autoreload.start(ioloop)
+        IOLoop.instance().start()
         
-        ioloop.start()
