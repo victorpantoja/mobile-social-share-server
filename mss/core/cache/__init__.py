@@ -2,7 +2,7 @@
 #!/usr/bin/env python
 
 from mss.core.cache.extension import CachedQuery, CachedExtension
-from mss.core.cache.util import get_cache, cache_key, cached, cached_timeout
+from mss.core.cache.util import get_cache, cache_key, cached
 import logging
 
 __all__ = (

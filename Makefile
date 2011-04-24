@@ -73,7 +73,7 @@ unit: clean
 	@echo "Running unit tests..."
 	@export PYTHONPATH=$PYTHONPATH:`pwd`:`pwd`/mss  &&  \
 		cd mss && \
-	    nosetests -s --verbose --with-coverage --cover-package=mss mss/unit/*
+	    nosetests -s --verbose --with-coverage --cover-package=mss tests/unit/*
 	
 functional: clean
 	@echo "Running functional tests..."
