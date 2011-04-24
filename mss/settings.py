@@ -18,13 +18,7 @@ MSS_BOXES = [ "localhost" ]
 
 DATABASE_POOL_SIZE = 25
 
-CACHE_BACKEND_OPTS = {
-    "memcached": ["%s:11211" % box for box in MSS_BOXES],
-    "redis":{
-        "master":"localhost:6379",
-        "slave":"localhost:6379"
-    }
-}
+CACHE_BACKEND_OPTS = ["%s:11211" % box for box in MSS_BOXES]
 
 CACHE_BACKEND = "memcached"
 CACHE_TIMEOUT = 63300

@@ -17,5 +17,7 @@ tornado.options.define("media_dir", type=str, default="%s/media" % project_root)
 tornado.options.define("EMAIL", type=dict)
 tornado.options.define("DATABASE_ENGINE", type=dict, default={"read":"mysql://root@localhost/mss?charset=utf8&use_unicode=0", "write":"mysql://root@localhost/mss?charset=utf8&use_unicode=0"})
 tornado.options.define("DATABASE_POOL_SIZE", type=int, default=25)
+tornado.options.define("CACHE_BACKEND_OPTS", multiple=True, default=["localhost:11211"])
+tornado.options.define("CACHE_TIMEOUT", type=int, default=63300)
 
 logging.getLogger().setLevel(getattr(logging, "error"))

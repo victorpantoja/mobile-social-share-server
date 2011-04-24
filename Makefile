@@ -75,7 +75,7 @@ unit: clean
 		cd mss && \
 	    nosetests -s --verbose --with-coverage --cover-package=mss tests/unit/*
 	
-functional: clean
+functional: clean start-memcached
 	@echo "Running functional tests..."
 	@export PYTHONPATH=$PYTHONPATH:`pwd`:`pwd`/mss  &&  \
 		cd mss && \

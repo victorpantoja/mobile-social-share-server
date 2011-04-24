@@ -17,6 +17,8 @@ def main():
     tornado.options.define("EMAIL", type=dict)
     tornado.options.define("DATABASE_ENGINE", type=dict)
     tornado.options.define("DATABASE_POOL_SIZE", type=int)
+    tornado.options.define("CACHE_BACKEND_OPTS", multiple=True)
+    tornado.options.define("CACHE_TIMEOUT", type=int)
 
     tornado.options.parse_command_line()        
     
