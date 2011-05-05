@@ -14,7 +14,7 @@ options.define("pidfile", type=str, default="/opt/logs/mss/mss.pid", help="pidfi
 options.define("as_daemon", type=bool, default=False, help="run server as daemon")
 options.define("template_dir", type=str, default="%s/templates" % project_root)
 options.define("media_dir", type=str, default="%s/media" % project_root)
-options.define("EMAIL", type=dict)
+options.define("EMAIL", type=dict, default={"server":"smtp.gmail.com","port":25,})
 options.define("DATABASE_ENGINE", type=dict, default={"read":"mysql://root@localhost/mss?charset=utf8&use_unicode=0", "write":"mysql://root@localhost/mss?charset=utf8&use_unicode=0"})
 options.define("DATABASE_POOL_SIZE", type=int, default=25)
 options.define("CACHE_BACKEND_OPTS", multiple=True, default=["localhost:11211"])
