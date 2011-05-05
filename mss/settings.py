@@ -5,7 +5,7 @@ log_file_prefix = "/opt/logs/mss/mss.log"
 logging='debug'
 
 EMAIL = {
-    "server":"smtpar.globoi.com",
+    "server":"smtp.gmail.com",
     "port":25,
 }
 

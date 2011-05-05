@@ -5,8 +5,11 @@ from tornado.web import RequestHandler
 from mako.template import Template
 from mako.lookup import TemplateLookup
 from tornado.options import options
+from mss.core.cache import get_cache
 
 import simplejson
+from mss.core import meta
+from mss.models.user import User
 
 class BaseHandler(RequestHandler):
     def __init__(self, application, request, transforms=None):
@@ -42,3 +45,22 @@ class BaseHandler(RequestHandler):
     def render_to_json(self, data):
         self.set_header("Content-Type", "application/json; charset=UTF-8")
         return simplejson.dumps(data)
+    
+def authenticated(fn):
+    def authenticated_fn(self, *args, **kw):
+        session = meta.get_session()
+        
+        cache = get_cache()
+
+        username = cache.get(self.get_argument('auth'))
+            
+        if not username:
+            self.set_header("Content-Type", "application/json; charset=UTF-8")
+            self.write(simplejson.dumps({'status':'error', 'msg':'User not authenticated.'}))
+            return
+        else:
+            user = session.query(User).filter(User.username==username).first()
+
+        return fn(self, user=user, *args, **kw)
+
+    return authenticated_fn

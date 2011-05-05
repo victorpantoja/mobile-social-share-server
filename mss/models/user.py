@@ -19,3 +19,4 @@ class User(Model, UserRepository):
     created = Column('criate_dt', DateTime)
     last_login = Column('lastlogin_dt', DateTime)
     password = Column('password_txt', String)
+    auth = Column('auth_txt', String)

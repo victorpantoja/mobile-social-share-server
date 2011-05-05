@@ -3,7 +3,7 @@
 
 import logging, smtplib, re
 
-from monitor.core.exception import ValidarEmailException
+from mss.core.exception import ValidarEmailException
 from tornado.options import options
 from email.MIMEMultipart import MIMEMultipart
 from email.MIMEText import MIMEText
@@ -42,8 +42,13 @@ class EmailHelper:
         #suporta varios destinararios
         receivers.append(destinatario)
 
-        server = smtplib.SMTP(options.EMAIL['server'],options.EMAIL['port'])
-        server.sendmail(sender, receivers, mensagem)
+        mailServer = smtplib.SMTP(options.EMAIL['server'],options.EMAIL['port'])
+        mailServer.ehlo()
+        mailServer.starttls()
+        mailServer.ehlo()
+        mailServer.login("victor.pantoja@gmail.com", "Famili@mano32")
+        mailServer.sendmail("victor.pantoja@gmail.com", "victor.pantoja@gmail.com", "teste")
+        mailServer.close()
         
     @staticmethod
     def validateEmail(email):

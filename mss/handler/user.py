@@ -1,17 +1,43 @@
 # coding: utf-8
 #!/usr/bin/env python
 
+from mss.core import meta
+from mss.core.cache import get_cache
 from mss.handler.base import BaseHandler
 from mss.models.user import User
+from mss.utils.emailhelper import EmailHelper
 
 from datetime import datetime
-from random import choice
-
-import string
-import simplejson
+from random import choice, getrandbits
+from smtplib import SMTPException
+import logging, hashlib, string, simplejson
 
 class LoginHandler(BaseHandler):
-    pass
+    def get(self, **kw):
+        self.post(**kw)
+        
+    def post(self, **kw):
+        username = self.get_argument('username')
+        password = self.get_argument('password')
+        
+        session = meta.get_session()        
+        user = session.query(User).filter(User.username==username).first()
+                
+        if user and (user.password == password):
+            
+            auth = hashlib.md5()
+            auth.update('%s' % getrandbits(32))
+            
+            cache = get_cache()
+            cache.set(auth.hexdigest(), '%s_auth' % user.username)
+            
+            self.set_header("Content-Type", "application/json; charset=UTF-8")
+            self.write(simplejson.dumps({'status':'ok', 'msg':auth.hexdigest()}))   
+            
+        else:
+            self.set_header("Content-Type", "application/json; charset=UTF-8")
+            self.write(simplejson.dumps({'status':'error', 'msg':'Wrong username or password.'}))
+            return
 
 class RescueLoginHandler(BaseHandler):
     def get(self, **kw):
@@ -40,7 +66,11 @@ class CreateLoginHandler(BaseHandler):
         
         user.first_name = self.get_argument('firstName')
         user.last_name = self.get_argument('lastName')
-        user.password = self.create_random_passord()
+        
+        m = hashlib.md5()
+        m.update(self.create_random_passord())
+        
+        user.password = m.hexdigest()
         user.created = datetime.now()
         user.last_login = datetime.now()
 
@@ -51,20 +81,12 @@ class CreateLoginHandler(BaseHandler):
             self.write(simplejson.dumps({'status':'error', 'msg':'Username already exists.'}))
             return
         
-#        mail.send_mail(sender="Example.com Support <victor.pantoja@gmail.com>",
-#              to="%s %s <%s>" % (user.firstName, user.lastName, user.username),
-#              subject="Your account has been created",
-#              body="""
-#                    Dear User:
-#                    
-#                    Your has been created. You can now start using Mobile Social Share.
-#                    
-#                    You temporary password is %s. We strongly recommend you change as soon as possible.
-#                    
-#                    Please let us know if you have any questions.
-#                    
-#                    The MSS Team
-#                    """ % user.password)
+        try:
+            mensagem=EmailHelper.mensagem(destinatario='victor.pantoja@gmail.com',corpo='teste',strFrom='MSS Team <victor.pantoja@gmail.com>')
+            EmailHelper.enviar(mensagem=mensagem,destinatario='victor.pantoja@gmail.com')
+
+        except SMTPException, e:
+            logging.exception(str(e))
         
         self.set_header("Content-Type", "application/json; charset=UTF-8")
         self.write(simplejson.dumps({'status':'ok', 'msg':'Account Created! Verify you email account'}))
