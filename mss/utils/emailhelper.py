@@ -35,8 +35,6 @@ class EmailHelper:
 
     @staticmethod
     def enviar(mensagem=None,destinatario=None):
-
-        sender = 'noreply@globo.com'
         receivers = []
 
         #suporta varios destinararios
@@ -46,8 +44,8 @@ class EmailHelper:
         mailServer.ehlo()
         mailServer.starttls()
         mailServer.ehlo()
-        mailServer.login("victor.pantoja@gmail.com", "Famili@mano32")
-        mailServer.sendmail("victor.pantoja@gmail.com", "victor.pantoja@gmail.com", "teste")
+        mailServer.login("mobile.social.share@gmail.com", "mss_29/11/1983")
+        mailServer.sendmail("victor.pantoja@gmail.com", destinatario, mensagem)
         mailServer.close()
         
     @staticmethod

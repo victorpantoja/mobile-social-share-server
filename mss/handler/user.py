@@ -67,12 +67,28 @@ class CreateLoginHandler(BaseHandler):
         user.first_name = self.get_argument('firstName')
         user.last_name = self.get_argument('lastName')
         
+        password = self.create_random_passord()
+        
         m = hashlib.md5()
-        m.update(self.create_random_passord())
+        m.update(password)
         
         user.password = m.hexdigest()
         user.created = datetime.now()
         user.last_login = datetime.now()
+        
+
+        body="""
+              Dear %s: <br />
+               <br />
+              Your account has been created. You can now start using Mobile Social Share. <br />
+               <br />
+              You temporary password is %s. We strongly recommend you change as soon as possible. <br />
+               <br />
+              Please let us know if you have any questions. <br />
+               <br />
+              The MSS Team
+              """ % (user.first_name, password)
+        
 
         try:
             user.save()
@@ -82,8 +98,8 @@ class CreateLoginHandler(BaseHandler):
             return
         
         try:
-            mensagem=EmailHelper.mensagem(destinatario='victor.pantoja@gmail.com',corpo='teste',strFrom='MSS Team <victor.pantoja@gmail.com>')
-            EmailHelper.enviar(mensagem=mensagem,destinatario='victor.pantoja@gmail.com')
+            mensagem=EmailHelper.mensagem(destinatario=user.username,corpo=body,strFrom='Mobile Social Share Team <mobile.social.share@gmail.com>',subject="Your account has been created")
+            EmailHelper.enviar(mensagem=mensagem,destinatario=user.username)
 
         except SMTPException, e:
             logging.exception(str(e))
