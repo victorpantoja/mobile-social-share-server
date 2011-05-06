@@ -27,11 +27,15 @@ class UserHandlerTestCase(AsyncHTTPTestCase):
         self.http_client.fetch(self.get_url('/login/create')+'?username=should-be-username&firstName=test_create_user&lastName=should-be-last-name' , self.stop)
                 
         response = self.wait()
-        self.failIf(response.error)
-        self.assertEqual(response.body, '{"status": "ok", "msg": "Account Created! Verify you email account"}')
         
-        user_db = self.session.query(User).filter(User.username=='should-be-username').first()
-        user_db.delete()
+        try:
+            self.failIf(response.error)
+            self.assertEqual(response.body, '{"status": "ok", "msg": "Account Created! Verify you email account"}')
+        except Exception, e:
+            raise e
+        finally:
+            user_db = self.session.query(User).filter(User.username=='should-be-username').first()
+            user_db.delete()
 
 
     def test_create_existent_user(self):
@@ -50,8 +54,12 @@ class UserHandlerTestCase(AsyncHTTPTestCase):
         self.http_client.fetch(self.get_url('/login/create')+'?username=should-be-username&firstName=test_create_user&lastName=should-be-last-name' , self.stop)
                 
         response = self.wait()
-        self.failIf(response.error)
-        self.assertEqual(response.body, '{"status": "error", "msg": "Username already exists."}')
         
-        user_db = self.session.query(User).filter(User.username=='should-be-username').first()
-        user_db.delete()
+        try:
+            self.failIf(response.error)
+            self.assertEqual(response.body, '{"status": "error", "msg": "Username already exists."}')
+        except Exception, e:
+            raise e
+        finally:
+            user_db = self.session.query(User).filter(User.username=='should-be-username').first()
+            user_db.delete()

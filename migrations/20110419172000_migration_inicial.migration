@@ -12,9 +12,20 @@ CREATE TABLE `users` (
   UNIQUE KEY `uk_username` (`username_txt`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+CREATE TABLE `social_network` (
+  `network_id` integer unsigned NOT NULL AUTO_INCREMENT,
+  `name_txt` varchar(200) NOT NULL,
+  `icon_txt` varchar(200) NOT NULL,
+  `available_bln` tinyint(1) DEFAULT '0',
+  PRIMARY KEY (`network_id`),
+  UNIQUE KEY `uk_username` (`name_txt`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
 """
 SQL_DOWN = u"""
 
 drop table users;
+drop table social_network;
 
 """

@@ -45,14 +45,45 @@ class RescueLoginHandler(BaseHandler):
         
     def post(self, **kw):
         
-        user = User()
-        user.first_name = "teste"
-        user.last_name = "teste"
-        
         username = self.request.GET[u'username']
+        session = meta.get_session()        
+        user = session.query(User).filter(User.username==username).first()
+        
+        if user:
+            password = self.create_random_passord()
+            
+            m = hashlib.md5()
+            m.update(password)
+            
+            user.password = m.hexdigest()
+            user.save()
+
+        else:
+            self.response.headers['Content-Type'] = 'application/json'
+            self.response.out.write(simplejson.dumps({'status':'ok', 'msg':'Password re-created! Verify you email account'})) 
+            
+    
+        body="""
+              Dear %s: <br />
+               <br />
+              Your new password is %s. We strongly recommend you change as soon as possible. <br />
+               <br />
+              Please let us know if you have any questions. <br />
+               <br />
+              The MSS Team
+              """ % (user.first_name, password)
+        
+        try:
+            mensagem=EmailHelper.mensagem(destinatario=user.username,corpo=body,strFrom='Mobile Social Share Team <mobile.social.share@gmail.com>',subject="Your account has been created")
+            EmailHelper.enviar(mensagem=mensagem,destinatario=user.username)
+
+        except SMTPException, e:
+            logging.exception(str(e))
         
         self.response.headers['Content-Type'] = 'application/json'
-        self.response.out.write(simplejson.dumps({'status':'ok', 'msg':'Password re-created! Verify you email account'}))    
+        self.response.out.write(simplejson.dumps({'status':'error', 'msg':'Inexistent username'}))
+        
+        return    
         
 class CreateLoginHandler(BaseHandler):
     
