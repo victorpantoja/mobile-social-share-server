@@ -29,7 +29,7 @@ class LoginHandler(BaseHandler):
             auth.update('%s' % getrandbits(32))
             
             cache = get_cache()
-            cache.set(auth.hexdigest(), '%s_auth' % user.username)
+            cache.set(auth.hexdigest(), '%s' % user.username)
             
             self.set_header("Content-Type", "application/json; charset=UTF-8")
             self.write(simplejson.dumps({'status':'ok', 'msg':auth.hexdigest()}))   

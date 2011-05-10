@@ -2,10 +2,10 @@
 #!/usr/bin/env python
 
 from mss.core.daemon import Daemon
-from mss.handler.facebook import CanvasHandler
 from mss.handler.context import ContextHandler
+from mss.handler.facebook import CanvasHandler
+from mss.handler.friendship import CreateFriendshipHandler, GetFriendshipsHandler, RemoveFriendshipsHandler
 from mss.handler.user import LoginHandler, CreateLoginHandler
-
 
 from tornado.options import options
 
@@ -31,7 +31,10 @@ class MSSServer(Daemon):
             (r"/canvas/", CanvasHandler),
             (r"/context", ContextHandler),
             (r"/login", LoginHandler),
-            (r"/login/create", CreateLoginHandler)
+            (r"/login/create", CreateLoginHandler),
+            (r"/friendship/create", CreateFriendshipHandler),
+            (r"/friendship/get.json", GetFriendshipsHandler),
+            (r"/friendship/remove", RemoveFriendshipsHandler)
         ]
     
         application = Application(routes, cookie_secret=COOKIE_SECRET)

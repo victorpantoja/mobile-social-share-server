@@ -53,7 +53,7 @@ def authenticated(fn):
         cache = get_cache()
 
         username = cache.get(self.get_argument('auth'))
-            
+                    
         if not username:
             self.set_header("Content-Type", "application/json; charset=UTF-8")
             self.write(simplejson.dumps({'status':'error', 'msg':'User not authenticated.'}))

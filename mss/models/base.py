@@ -21,7 +21,7 @@ class Repository(object):
     def as_dict(self):
         items = {}
         for attrname in dir(self):
-            if attrname.startswith("_"):
+            if attrname.startswith("_") or attrname == ("password"):
                 continue
 
             attr = getattr(self, attrname)
