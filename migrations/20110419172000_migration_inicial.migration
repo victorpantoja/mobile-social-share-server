@@ -42,18 +42,47 @@ CREATE TABLE `friendship` (
   `created_dt` datetime NOT NULL,
   PRIMARY KEY (`friendship_id`),
   UNIQUE KEY `uk_friendship` (`user_id`,`friend_id`),
-  KEY `fk_context_user1` (`user_id`),
-  KEY `fk_context_user2` (`friend_id`),
-  CONSTRAINT `fk_context_user1` FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `fk_context_user2` FOREIGN KEY (`friend_id`) REFERENCES `users` (`user_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  KEY `fk_friendship_user1` (`user_id`),
+  KEY `fk_friendship_user2` (`friend_id`),
+  CONSTRAINT `fk_friendship_user1` FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_friendship_user2` FOREIGN KEY (`friend_id`) REFERENCES `users` (`user_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+CREATE TABLE `invite` (
+  `invite_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `user_id` int(10) unsigned NOT NULL,
+  `friend_id` int(10) unsigned NOT NULL,
+  `invite_dt` datetime NOT NULL,
+  PRIMARY KEY (`invite_id`),
+  UNIQUE KEY `uk_invite` (`user_id`,`friend_id`),
+  KEY `fk_invite_user1` (`user_id`),
+  KEY `fk_invite_user2` (`friend_id`),
+  CONSTRAINT `fk_invite_user1` FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_invite_user2` FOREIGN KEY (`friend_id`) REFERENCES `users` (`user_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+CREATE TABLE `invite_email` (
+  `invite_email_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `user_id` int(10) unsigned NOT NULL,
+  `code_txt` varchar(32) NOT NULL,
+  `invite_dt` datetime NOT NULL,
+  PRIMARY KEY (`invite_email_id`),
+  UNIQUE KEY `uk_invite_email1` (`code_txt`),
+  KEY `fk_invite_email_user1` (`user_id`),
+  CONSTRAINT `fk_invite_email_user1` FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
 """
 SQL_DOWN = u"""
 
-drop table users;
-drop table social_network;
+drop table invite_email;
+drop table invite;
 drop table context;
+drop table friendship;
+drop table social_network;
+drop table users;
 
 """

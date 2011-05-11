@@ -5,6 +5,7 @@ from mss.core.daemon import Daemon
 from mss.handler.context import ContextHandler
 from mss.handler.facebook import CanvasHandler
 from mss.handler.friendship import CreateFriendshipHandler, GetFriendshipsHandler, RemoveFriendshipsHandler
+from mss.handler.invite import SendInviteHandler, GetInviteHandler, SendEmailInviteHandler, AcceptInviteHandler, AcceptEmailInviteHandler
 from mss.handler.user import LoginHandler, CreateLoginHandler
 
 from tornado.options import options
@@ -34,7 +35,12 @@ class MSSServer(Daemon):
             (r"/login/create", CreateLoginHandler),
             (r"/friendship/create", CreateFriendshipHandler),
             (r"/friendship/get.json", GetFriendshipsHandler),
-            (r"/friendship/remove", RemoveFriendshipsHandler)
+            (r"/friendship/remove", RemoveFriendshipsHandler),
+            (r"/invite/send", SendInviteHandler),
+            (r"/invite/accept", AcceptInviteHandler),
+            (r"/invite/get.json", GetInviteHandler),
+            (r"/invite/email/send", SendEmailInviteHandler),
+            (r"/invite/email/accept", AcceptEmailInviteHandler),
         ]
     
         application = Application(routes, cookie_secret=COOKIE_SECRET)
