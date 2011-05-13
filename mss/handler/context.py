@@ -25,6 +25,7 @@ class ContextHandler(BaseHandler):
         
         api = twitter.Api(consumer_key, consumer_secret, access_token_key, access_token_secret)
         
+        #http://maps.google.com/maps?z=16&q=-22.959506,-43.202353%28qqcoisa%29
         map_url = 'http://maps.google.com/?ie=UTF8&q=%(location)s&ll=%(location)s&z=18' % {'location':self.get_argument('location')}
         
         shortened = ShortenURL().Shorten(map_url)

@@ -95,5 +95,5 @@ class RemoveFriendshipsHandler(BaseHandler):
         friendship.delete()
 
         self.set_header("Content-Type", "application/json; charset=UTF-8")
-        self.write(simplejson.dumps({"status": "error", "msg": "Your friendship has been removed!"}))
+        self.write(simplejson.dumps({"status": "ok", "msg": "Your friendship has been removed!"}))
         return
