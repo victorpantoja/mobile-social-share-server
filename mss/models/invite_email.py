@@ -14,8 +14,8 @@ class InviteEmail(Model, InviteEmailRepository):
     __tablename__ = 'invite_email'
   
     id = Column('invite_email_id', Integer, primary_key=True)   
-    user_id = Column('user_id', Integer, ForeignKey("user.user_id"))
-    code = Column('code', String)
+    user_id = Column('user_id', Integer, ForeignKey("users.user_id"))
+    code = Column('code_txt', String)
     date = Column('invite_dt', DateTime)
 
     user = relation(User)

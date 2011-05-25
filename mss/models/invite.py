@@ -14,8 +14,8 @@ class Invite(Model, InviteRepository):
     __tablename__ = 'invite'
     
     id = Column('invite_id', Integer, primary_key=True)   
-    user_id = Column('user_id', Integer, ForeignKey("user.user_id"))
-    friend_id = Column('friend_id', Integer, ForeignKey("user.user_id"))
+    user_id = Column('user_id', Integer, ForeignKey("users.user_id"))
+    friend_id = Column('friend_id', Integer, ForeignKey("users.user_id"))
     date = Column('invite_dt', DateTime)
 
-    user = relation(User, primaryjoin=user_id == User.id)
+    friend = relation(User, primaryjoin=friend_id == User.id)

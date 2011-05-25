@@ -4,6 +4,7 @@ from mss.models.user import User
 from datetime import datetime
 from mss.core.cache.util import get_cache
 from mss.models.friendship import Friendship
+from mss.models.invite import Invite
 
 def create_logged_user(last_name = 'should-be-last-name-1', first_name = 'test_create_friendship-1',  username = 'should-be-username-1'):
 
@@ -42,3 +43,12 @@ def create_friendship(user, friend):
     friendship.save()
     
     return friendship
+
+def create_invite(user, friend):
+    invite = Invite()
+    invite.user_id = user.id
+    invite.friend_id = friend.id
+    invite.date = datetime.now()
+    invite.save()
+    
+    return invite

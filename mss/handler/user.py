@@ -6,6 +6,7 @@ from mss.core.cache import get_cache
 from mss.handler.base import BaseHandler
 from mss.models.user import User
 from mss.utils.emailhelper import EmailHelper
+from mss.utils.encoding import smart_unicode
 
 from datetime import datetime
 from random import choice, getrandbits
@@ -22,7 +23,12 @@ class LoginHandler(BaseHandler):
         
         session = meta.get_session()        
         user = session.query(User).filter(User.username==username).first()
-                
+        
+        m = hashlib.md5()
+        m.update(password)
+        
+        password = m.hexdigest()
+                        
         if user and (user.password == password):
             
             auth = hashlib.md5()
