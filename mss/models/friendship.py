@@ -19,4 +19,4 @@ class Friendship(Model, FriendshipRepository):
     friend_id = Column('friend_id', Integer, ForeignKey("users.user_id"))
     created_dt = Column('created_dt', DateTime)
 
-    user = relation(User, primaryjoin=user_id == User.id)
+    friend = relation(User, primaryjoin=friend_id == User.id)

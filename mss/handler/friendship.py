@@ -53,15 +53,15 @@ class CreateFriendshipHandler(BaseHandler):
 class GetFriendshipsHandler(BaseHandler):
     
     @authenticated
-    def get(self, **kw):
-        self.post(**kw)
+    def get(self, user, **kw):
+        self.post(user, **kw)
 
-    def post(self, **kw):
+    def post(self, user, **kw):
         session = meta.get_session()
-        
-        friends = session.query(Friendship).all()
+
+        friends = session.query(Friendship).filter(Friendship.user_id==user.id).all()
                 
-        friends_lst = [friend.user.as_dict() for friend in friends]
+        friends_lst = [friend.friend.as_dict() for friend in friends]
         
         dict = {'friend':friends_lst}
 

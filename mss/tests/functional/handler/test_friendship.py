@@ -101,7 +101,7 @@ class FriendshipHandlerTestCase(AsyncHTTPTestCase):
         response = self.wait()
         
         self.failIf(response.error)
-        self.assertEqual(response.body, '{"friend": [{"username": "should-be-username-1", "first_name": "test_create_friendship-1", "last_name": "should-be-last-name-1"}, {"username": "should-be-username-1", "first_name": "test_create_friendship-1", "last_name": "should-be-last-name-1"}]}')
+        self.assertEqual(response.body, '{"friend": [{"username": "should-be-username-2", "first_name": "test_create_friendship-2", "last_name": "should-be-last-name-2"}, {"username": "should-be-username-3", "first_name": "test_create_friendship-3", "last_name": "should-be-last-name-3"}]}')
 
         friendship.delete()
         friendship2.delete()

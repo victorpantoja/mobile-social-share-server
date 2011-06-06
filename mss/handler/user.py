@@ -3,7 +3,7 @@
 
 from mss.core import meta
 from mss.core.cache import get_cache
-from mss.handler.base import BaseHandler
+from mss.handler.base import BaseHandler, authenticated
 from mss.models.user import User
 from mss.utils.emailhelper import EmailHelper
 from mss.utils.encoding import smart_unicode
@@ -12,6 +12,38 @@ from datetime import datetime
 from random import choice, getrandbits
 from smtplib import SMTPException
 import logging, hashlib, string, simplejson
+
+class UserHandler(BaseHandler):
+    
+    @authenticated
+    def get(self, user, **kw):
+        self.post(user,**kw)
+        
+    def post(self, user, **kw):
+        self.set_header("Content-Type", "application/json; charset=UTF-8")
+        self.write(simplejson.dumps({'user':user.as_dict()}))
+        return
+    
+class UserSearchHandler(BaseHandler):
+    
+    @authenticated
+    def get(self, user, **kw):
+        self.post(user, **kw)
+        
+    def post(self, user, **kw):
+        
+        username = self.get_argument('username')
+        
+        session = meta.get_session()  
+        users = session.query(User).filter(User.username.like("%"+username+"%")).order_by(User.first_name).all()
+                
+        users_lst = [user.as_dict() for user in users]
+        
+        dict = {'users':users_lst}
+        
+        self.set_header("Content-Type", "application/json; charset=UTF-8")
+        self.write(simplejson.dumps(dict))
+        return
 
 class LoginHandler(BaseHandler):
     def get(self, **kw):
@@ -129,7 +161,8 @@ class CreateLoginHandler(BaseHandler):
 
         try:
             user.save()
-        except:
+        except Exception, e:
+            logging.exception(e);
             self.set_header("Content-Type", "application/json; charset=UTF-8")
             self.write(simplejson.dumps({'status':'error', 'msg':'Username already exists.'}))
             return
