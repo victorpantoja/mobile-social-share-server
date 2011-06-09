@@ -21,7 +21,23 @@ class UserHandler(BaseHandler):
         
     def post(self, user, **kw):
         self.set_header("Content-Type", "application/json; charset=UTF-8")
-        self.write(simplejson.dumps({'user':user.as_dict()}))
+                
+        if self.get_arguments('username'):
+            username = self.get_argument('username')
+            
+            session = meta.get_session()  
+            user_db = session.query(User).filter(User.username==username).first()
+            
+            if not user_db:
+                self.set_header("Content-Type", "application/json; charset=UTF-8")
+                self.write(simplejson.dumps({"status": "error", "msg": "User not found."})) 
+                return
+            
+            self.write(simplejson.dumps({'user':user_db.as_dict()}))
+            
+        else:
+            self.write(simplejson.dumps({'user':user.as_dict()}))
+        
         return
     
 class UserSearchHandler(BaseHandler):
