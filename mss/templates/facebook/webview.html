@@ -1,0 +1,51 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:fb="http://www.facebook.com/2008/fbml">
+<head>
+  <title>Mobile Social Share</title>
+
+<script type="text/javascript"
+    src="http://maps.google.com/maps/api/js?sensor=false">
+</script>
+<script type="text/javascript">
+  function initialize() {
+      var map = new google.maps.Map(document.getElementById("map_canvas"), {scaleControl: true});
+      map.setCenter(new google.maps.LatLng(${locale}));
+      map.setZoom(15);
+      map.setMapTypeId(google.maps.MapTypeId.ROADMAP);
+      
+      var image = new google.maps.MarkerImage(
+    		  '/media/img/image.png',
+    		  new google.maps.Size(48,48),
+    		  new google.maps.Point(0,0),
+    		  new google.maps.Point(24,48)
+    		);
+
+ 		var shadow = new google.maps.MarkerImage(
+ 		  '/media/img/shadow.png',
+ 		  new google.maps.Size(76,48),
+ 		  new google.maps.Point(0,0),
+ 		  new google.maps.Point(24,48)
+ 		);
+ 		
+	var shape = {
+			  coord: [24,5,25,6,24,7,25,8,35,9,27,10,42,11,43,12,42,13,44,14,45,15,47,16,47,17,47,18,47,19,46,20,47,21,47,22,46,23,46,24,46,25,46,26,46,27,47,28,47,29,47,30,47,31,47,32,46,33,47,34,47,35,46,36,45,37,44,38,43,39,42,40,40,41,38,42,35,43,31,44,17,44,12,43,9,42,7,41,5,40,4,39,3,38,2,37,1,36,0,35,0,34,1,33,0,32,0,31,0,30,0,29,0,28,1,27,0,26,0,25,0,24,0,23,1,22,2,21,2,20,1,19,1,18,1,17,1,16,2,15,3,14,9,13,3,12,11,11,18,10,11,9,19,8,20,7,21,6,23,5,24,5],
+			  type: 'poly'
+			};
+ 
+      var marker = new google.maps.Marker({map: map, position: map.getCenter(), icon:image, shadow:shadow, shape:shape});
+
+      var infowindow = new google.maps.InfoWindow();
+      infowindow.setContent("${content}");
+      google.maps.event.addListener(marker, 'click', function() {
+        infowindow.open(map, marker);
+      });
+    }
+
+</script>
+
+</head>
+<body onload="initialize()">
+
+<div id="map_canvas" style="width:100%; height:100%"></div>
+
+</body>
+</html>

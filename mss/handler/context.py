@@ -6,6 +6,19 @@ from mss.core.cache import get_cache
 import simplejson, twitter
 from mss.utils.shorten_url import ShortenURL
 
+class WebViewHandler(BaseHandler):
+    
+    def get(self, **kw):
+        self.post(**kw)
+
+    def post(self, **kw):
+
+        cache = get_cache()
+        locale = cache.get("locale")
+        content = cache.get("content")
+
+        self.render_template("facebook/webview.html",locale=locale, content=content)
+
 class ContextHandler(BaseHandler):
     
     @authenticated
@@ -26,7 +39,7 @@ class ContextHandler(BaseHandler):
         api = twitter.Api(consumer_key, consumer_secret, access_token_key, access_token_secret)
         
         #http://maps.google.com/maps?z=16&q=-22.959506,-43.202353%28qqcoisa%29
-        map_url = 'http://maps.google.com/?ie=UTF8&q=%(location)s&ll=%(location)s&z=18' % {'location':self.get_argument('location')}
+        map_url = 'http://maps.google.com/maps?z=18&q=%(location)s(%(text)s)' % {'location':self.get_argument('location'),'text':self.get_argument('text')}
         
         shortened = ShortenURL().Shorten(map_url)
         
