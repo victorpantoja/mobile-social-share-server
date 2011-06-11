@@ -1,0 +1,172 @@
+
+<!DOCTYPE HTML>
+
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="CACHE-CONTROL" content="NO-CACHE" />
+    <meta http-equiv="PRAGMA" content="NO-CACHE" />
+    <meta http-equiv="EXPIRES" content="Mon, 22 Jul 2002 11:12:01 GMT" />
+    
+    <title>Instalação &mdash; mobile social share v1.0.0 documentation</title>
+    <link rel="stylesheet" href="_static/main.css" type="text/css" />
+    <link rel="stylesheet" href="_static/redmond/jquery-ui-1.8.13.custom.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '',
+        VERSION:     '1.0.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/jquery-ui-1.8.13.custom.min.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/jquery-ui-1.8.13.custom.min.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/jquery-ui-1.8.13.custom.min.js"></script>
+    <link rel="top" title="mobile social share v1.0.0 documentation" href="index.html" /> 
+  </head>
+  <body>
+
+    <div class="container_12">
+        <div class="grid_3 logo menu">
+            <a href="index.html" class="logo"><img src="_static/mss.png"></a>
+            <ul class="version">
+                <li>v1.0.0 (02-06-2011)</li>
+            </ul>
+
+            <div class="menu-accordion">
+                <h3><a href="#">Instalação &amp; Uso</a></h3>
+                <div>
+                    <ul>
+                        <li>
+                            <a href="#">Instalação</a>
+                        </li>
+                        <li>
+                            <a href="tests.html">Plataforma de testes</a>
+                        </li>
+                        <li>
+                            <a href="contributing.html">Aplicação Demo</a>
+                        </li>
+                    </ul>
+                </div>
+
+                <h3><a href="#">Arquitetura</a></h3>
+                <div>
+                    <ul class="componentes">
+                        <li>
+                            <a href="arquitetura/redes_sociais.html">Integração com as Redes Sociais</a>
+                        </li>
+                        <li>
+                            <a href="arquitetura/redes_sociais.html">Infraestrutura de Cache</a>
+                        </li>
+                        <li>
+                            <a href="arquitetura/redes_sociais.html">Infraestrutura de Cache</a>
+                        </li>
+                    </ul>
+                </div>
+                <h3><a href="#">API</a></h3>
+                <div>
+                    <ul class="componentes">
+                        <li>
+                            <a href="arquitetura/redes_sociais.html">Autenticação</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="grid_9 contents">
+            
+  <div class="section" id="instalacao">
+<h1>Instalação<a class="headerlink" href="#instalacao" title="Permalink to this headline">¶</a></h1>
+<p>A instalação do libby é feita usando o pip e o mirror de pypi da globo.com.</p>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">É necessária a utilização do pip versão 0.8.1 ou superior</p>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Para saber a versão do seu pip execute: <strong>pip &#8211;version</strong></p>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Para atualizar seu pip execute: <strong>pip install -U pip</strong></p>
+</div>
+<p>Agora instale o libby usando o pip:</p>
+<div class="highlight-bash"><div class="highlight"><pre>pip install globo-libby --use-mirrors --mirrors<span class="o">=</span><span class="s2">&quot;http://pypi.glb.com&quot;</span>
+</pre></div>
+</div>
+<p>Verifique que a instalação funcionou utilizando o interpretador python (a versão que será exibida depende de qual você instalou):</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">libby</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span> <span class="n">libby</span><span class="o">.</span><span class="n">__version__</span>
+<span class="go">0.6.10</span>
+</pre></div>
+</div>
+<div class="section" id="continuous-integration">
+<h2>Continuous Integration<a class="headerlink" href="#continuous-integration" title="Permalink to this headline">¶</a></h2>
+<p>O CI do libby pode ser visto através da URL <a class="reference external" href="http://pp.glb.com/">http://pp.glb.com/</a>.</p>
+</div>
+<div class="section" id="instalacao-de-urls">
+<h2>Instalação de URLS<a class="headerlink" href="#instalacao-de-urls" title="Permalink to this headline">¶</a></h2>
+<p>Além disso, é necessário incluir nas urls do projeto as urls do libby.</p>
+<p>Caso você utilize a <a class="reference external" href="aplicacoes/publicacao_multi_dispositivos.html">aplicação de publicação em múltiplos dispositivos</a>,
+é necessária a inclusão, ainda, das urls de dispositivos, como se segue:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">urlpatterns</span> <span class="o">=</span> <span class="n">patterns</span><span class="p">(</span><span class="s">&#39;&#39;</span><span class="p">,</span>
+    <span class="c">#...</span>
+
+    <span class="n">url</span><span class="p">(</span><span class="s">&#39;^libby/&#39;</span><span class="p">,</span> <span class="n">include</span><span class="p">(</span><span class="s">&#39;libby.urls&#39;</span><span class="p">)),</span>
+
+    <span class="c">#esta url abaixo é opcional. é necessária se a aplicação</span>
+    <span class="c">#de publicação multi-dispositivos estiver em uso</span>
+    <span class="n">url</span><span class="p">(</span><span class="s">&#39;^/&#39;</span><span class="p">,</span> <span class="n">include</span><span class="p">(</span><span class="s">&#39;libby.device_urls&#39;</span><span class="p">)),</span>
+
+    <span class="c">#...</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">O libby PRECISA ser incluído antes do globocore nas urls, pois o globocore
+possui uma regra inclusiva que mapeia TUDO que não for /admin.</p>
+</div>
+</div>
+<div class="section" id="instalacao-de-tamanhos-de-foto">
+<h2>Instalação de Tamanhos de Foto<a class="headerlink" href="#instalacao-de-tamanhos-de-foto" title="Permalink to this headline">¶</a></h2>
+<p>Para garantir que os tamanhos de foto requeridos pelos destaques, agrupadores
+e componentes do Libby funcionem automaticamente, basta executar o extensor de
+tamanhos de foto do libby, conforme abaixo:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="c">#início do settings</span>
+<span class="kn">from</span> <span class="nn">libby.photo</span> <span class="kn">import</span> <span class="n">extend_photo_sizes</span>
+
+<span class="c">#Última coisa do Settings - precisa estar após INSTALLED_APPS e</span>
+<span class="c">#DESKTOP_PHOTO_SIZES.</span>
+<span class="n">extend_photo_sizes</span><span class="p">(</span><span class="n">INSTALLED_APPS</span><span class="p">,</span> <span class="n">DESKTOP_PHOTO_SIZES</span><span class="p">)</span>
+
+<span class="c">#onde INSTALLED_APPS é a lista de apps instaladas do Django</span>
+<span class="c">#e DESKTOP_PHOTO_SIZES é a coleção de tamanhos de foto da plataforma.</span>
+</pre></div>
+</div>
+</div>
+</div>
+
+
+        </div>
+            <div class="clear"></div>
+            <div class="grid_12 footer">
+                &copy; <a href="index.html">Copyright</a> Mobile Social Share v1.0.0 - 02-06-2011.
+              Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0b2.
+            </div>
+    </div>
+    <script type="text/javascript" charset="utf-8">
+        $(function() {
+            $('.menu-accordion').accordion({
+                autoHeight: false,
+                collapsible: true
+            });
+        });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,168 @@
+
+<!DOCTYPE HTML>
+
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="CACHE-CONTROL" content="NO-CACHE" />
+    <meta http-equiv="PRAGMA" content="NO-CACHE" />
+    <meta http-equiv="EXPIRES" content="Mon, 22 Jul 2002 11:12:01 GMT" />
+    
+    <title>Widget base &mdash; mobile social share v1.0.0 documentation</title>
+    <link rel="stylesheet" href="../_static/main.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/redmond/jquery-ui-1.8.13.custom.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '1.0.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/jquery-ui-1.8.13.custom.min.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/jquery-ui-1.8.13.custom.min.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/jquery-ui-1.8.13.custom.min.js"></script>
+    <link rel="top" title="mobile social share v1.0.0 documentation" href="../index.html" /> 
+  </head>
+  <body>
+
+    <div class="container_12">
+        <div class="grid_3 logo menu">
+            <a href="../index.html" class="logo"><img src="../_static/mss.png"></a>
+            <ul class="version">
+                <li>v1.0.0 (02-06-2011)</li>
+            </ul>
+
+            <div class="menu-accordion">
+                <h3><a href="#">Instalação &amp; Uso</a></h3>
+                <div>
+                    <ul>
+                        <li>
+                            <a href="../install.html">Instalação</a>
+                        </li>
+                        <li>
+                            <a href="../convencoes.html">Convenções</a>
+                        </li>
+                        <li>
+                            <a href="../tests.html">Plataforma de testes</a>
+                        </li>
+                        <li>
+                            <a href="../contributing.html">Aplicação Demo</a>
+                        </li>
+                    </ul>
+                </div>
+
+                <h3><a href="#">Arquitetura</a></h3>
+                <div>
+                    <ul class="componentes">
+                        <li>
+                            <a href="../arquitetura/carrossel.html">Integração com as Redes Sociais</a>
+                        </li>
+                        <li>
+                            <a href="../arquitetura/carrossel.html">Infraestrutura de Cache</a>
+                        </li>
+                        <li>
+                            <a href="../arquitetura/carrossel.html">Infraestrutura de Cache</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="grid_9 contents">
+            
+  <div class="section" id="widget-base">
+<h1>Widget base<a class="headerlink" href="#widget-base" title="Permalink to this headline">¶</a></h1>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p>Mantido pela equipe portal padrões</p>
+<p class="last"><a class="reference external" href="mailto:timehome&#37;&#52;&#48;corp&#46;globo&#46;com">timehome<span>&#64;</span>corp<span>&#46;</span>globo<span>&#46;</span>com</a></p>
+</div>
+<div class="section" id="descricao">
+<h2>Descrição<a class="headerlink" href="#descricao" title="Permalink to this headline">¶</a></h2>
+<p>Este componente estende do widget do jQuery.UI e define alguns comportamentos comuns de
+widgets. O widgetBase define um consistente gerenciamento de eventos, container de
+referências a elementos DOM, uma factory de classes contextualizadas e uma forma padrão
+para gerencia de estados dos widgets.</p>
+</div>
+<div class="section" id="dependencias">
+<h2>Dependências<a class="headerlink" href="#dependencias" title="Permalink to this headline">¶</a></h2>
+<p>Para utilizar este componente é necessário a versão 1.4.4 do jQuery ou superior. Também
+é necessário a versão 1.8 do jQuery.ui com o widget factory.</p>
+</div>
+<div class="section" id="instalacao">
+<h2>Instalação<a class="headerlink" href="#instalacao" title="Permalink to this headline">¶</a></h2>
+<p>Os endereços para utilização do widget são:</p>
+<blockquote>
+<ul class="simple">
+<li>Dev - <a class="reference external" href="http://api.dev.globoi.com/js/libbyjs">http://api.dev.globoi.com/js/libbyjs</a>.&lt;versao&gt;.min.js</li>
+<li>QA01 - <a class="reference external" href="http://api.qa01.globoi.com/js/libbyjs">http://api.qa01.globoi.com/js/libbyjs</a>.&lt;versao&gt;.min.js</li>
+<li>Prod - <a class="reference external" href="http://api.globo.com/js/libbyjs">http://api.globo.com/js/libbyjs</a>.&lt;versao&gt;.min.js</li>
+</ul>
+</blockquote>
+<p>&lt;versao&gt; corresponde a versão do libbyjs que você deseja utilizar.</p>
+<dl class="docutils">
+<dt>Exemplos: <a class="reference external" href="http://api.dev.globoi.com/js/libbyjs.0.1.0.min.js">http://api.dev.globoi.com/js/libbyjs.0.1.0.min.js</a>,</dt>
+<dd><a class="reference external" href="http://api.globo.com/js/libbyjs.0.1.0.min.js">http://api.globo.com/js/libbyjs.0.1.0.min.js</a>, etc.</dd>
+</dl>
+</div>
+<div class="section" id="exemplo-de-uso">
+<h2>Exemplo de uso<a class="headerlink" href="#exemplo-de-uso" title="Permalink to this headline">¶</a></h2>
+<p>Para desenvolver um novo componente que irá utilizar o widgetBase, o protótipo básico para iniciar o desenvolvimento segue abaixo:</p>
+<div class="highlight-javascript"><div class="highlight"><pre><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">$</span><span class="p">)</span> <span class="p">{</span>
+
+    <span class="nx">$</span><span class="p">.</span><span class="nx">widget</span><span class="p">(</span><span class="s2">&quot;nicecleannamespace.MyGreatWidget&quot;</span><span class="p">,</span> <span class="nx">$</span><span class="p">.</span><span class="nx">libby</span><span class="p">.</span><span class="nx">widgetBase</span><span class="p">,</span> <span class="p">{</span>
+
+        <span class="nx">_create</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+            <span class="k">this</span><span class="p">.</span><span class="nx">_super</span><span class="p">(</span><span class="s2">&quot;_create&quot;</span><span class="p">);</span>
+
+            <span class="c1">// ...</span>
+        <span class="p">}</span>
+
+        <span class="c1">// ...</span>
+
+    <span class="p">});</span>
+
+<span class="p">})(</span><span class="nx">jQuery</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>O widgetBase já está sendo usado por alguns componentes que podem ser usados como referência.
+Alguns exemplos:</p>
+<blockquote>
+<ul class="simple">
+<li><a class="reference external" href="../components/box_previsao_tempo.html">Box de previsão do tempo</a></li>
+</ul>
+</blockquote>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p>Por se tratar de um componente para reutilização e padronização de código o libby não possui
+app para este serviço.</p>
+<p class="last">Ao invés disso, basta a inclusão dos scripts necessários conforme acima.
+O script do serviço é minificado utilizando o YUI compressor do Yahoo!,
+o que o torna <strong>BEM</strong> pequeno.</p>
+</div>
+</div>
+</div>
+
+
+        </div>
+            <div class="clear"></div>
+            <div class="grid_12 footer">
+                &copy; <a href="../index.html">Copyright</a> Mobile Social Share v1.0.0 - 02-06-2011.
+              Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0b2.
+            </div>
+    </div>
+    <script type="text/javascript" charset="utf-8">
+        $(function() {
+            $('.menu-accordion').accordion({
+                autoHeight: false,
+                collapsible: true
+            });
+        });
+    </script>
+  </body>
+</html>

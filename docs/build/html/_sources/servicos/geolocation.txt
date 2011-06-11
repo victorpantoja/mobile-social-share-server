@@ -1,0 +1,127 @@
+Geo Localização
+===============
+
+.. include:: ../times/portalpadroes.rst
+
+Descrição
+---------
+
+O serviço de geo-localização permite identificar onde o usuário está. O banco de dados de geo-localização é o da `MaxMind <http://www.maxmind.com/app/ip-location>`_.
+
+.. warning::
+
+    A geo-localização é realizada através do IP do usuário, e não é 100% segura.
+
+Instalação
+----------
+
+Para utilizar esta funcionalidade do libby, é necessária a inclusão do script do globo-api na sua
+página, conforme abaixo.
+
+A inclusão do script fará uma chamada assíncrona para a api de geo-localização.
+
+Para utilizar os dados que retornam da api, registre um callback usando o método `onSuccess`.
+Para o caso do endereço ip do usuário não ser encontrado na base de geo-localização, utilize o método `onNotFound`.
+
+Abaixo um exemplo de utilização:
+
+.. code-block:: html
+
+    <script type="text/javascript"
+            src="http://api.globo.com/js/globo-api-latest-min.js">
+    </script>
+    <script type="text/javascript">
+
+        // no código dos seus componentes, chame o onSuccess para o caso da
+        // geolocalização ocorrer com sucesso.
+        globoapi.geo.onSuccess(function(geolocation){
+            console.log(geolocation.ip,
+                        geolocation.latitude,
+                        geolocation.longitude,
+                        geolocation.country.code,
+                        geolocation.country.name,
+                        geolocation.state.code,
+                        geolocation.state.name,
+                        geolocation.city.code,
+                        geolocation.city.name);
+        });
+
+        // Para o caso do endereço IP do usuário não ser encontrado
+        // no banco de geo-localização, você pode utilizar o método
+        // onNotFound. Ele não possui argumentos.
+        globoapi.geo.onNotFound(function() {
+            console.log('GEOLOCATION NOT FOUND!');
+        });
+
+    </script>
+
+.. note::
+
+    Todos os callbacks registrados (tanto `onSuccess` quanto `onNotFound`) serão chamados em ordem
+    quando a api retornar com os dados de geolocalização.
+    Caso a api já tenha retornado no momento do registro do callback, este é executado ao ser registrado.
+
+Por se tratar de um serviço que requer configurações, o libby não possui app para este
+serviço.
+
+Ao invés disso, basta a inclusão dos scripts necessários conforme acima.
+O script do serviço é minificado utilizando o closure compiler do google,
+o que o torna **BEM** pequeno.
+
+Endereços dos Scripts
+---------------------
+
+Os endereços para utilização do serviço de geo-localização são:
+
+* Dev - http://api.dev.globoi.com/geo
+* QA01 - http://api.qa01.globoi.com/geo
+* Prod - http://api.globo.com/geo
+
+Endereços dos scripts do globo-api (requerimento para uso do serviço):
+
+* Dev - http://api.dev.globoi.com/js/globo-api-<versao>-min.js
+* QA01 - http://api.qa01.api.globoi.com/js/globo-api-<versao>-min.js
+* Prod - http://api.globo.com/js/globo-api-<versao>-min.js
+
+<versao> corresponde a versão do globo-api que você deseja utilizar. Utilize
+"latest" para a última versão estável.
+
+Exemplos: http://api.globo.com/js/globo-api-latest-min.js,
+http://api.globo.com/js/globo-api-0.6.0-min.js, etc.
+
+Os arquivos dos diferentes ambientes já estão configurados com as URLs correspondentes.
+Então, ao incluir o script do ambiente de dev, a api de dev será chamada e o mesmo vale
+para os outros ambientes (qa01 e prod).
+
+Utilização do Serviço sem o SDK
+-------------------------------
+
+Apesar de os scripts do globo-api facilitarem o uso do serviço de
+geo-localização, a utilização do mesmo por HTTP GET é suportada, conforme
+demonstrado no script abaixo, utilizando JQuery:
+
+.. code-block:: html
+
+    <script type="text/javascript">
+        $.ajax({
+            dataType: 'jsonp',
+            jsonpCallback: 'globoapi_geo_callback',
+            jsonp: false,
+            url: 'http://api.globo.com/geo',
+            success: function(geolocation){
+                if (geolocation) {
+                    console.log(geolocation.ip,
+                                geolocation.latitude,
+                                geolocation.longitude,
+                                geolocation.country.code,
+                                geolocation.country.name,
+                                geolocation.state.code,
+                                geolocation.state.name,
+                                geolocation.city.code,
+                                geolocation.city.name);
+                } else {
+                    console.log("GEOLOCATION NOT FOUND");
+                }
+            }
+        });
+    </script>

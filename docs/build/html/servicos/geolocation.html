@@ -1,0 +1,214 @@
+
+<!DOCTYPE HTML>
+
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="CACHE-CONTROL" content="NO-CACHE" />
+    <meta http-equiv="PRAGMA" content="NO-CACHE" />
+    <meta http-equiv="EXPIRES" content="Mon, 22 Jul 2002 11:12:01 GMT" />
+    
+    <title>Geo Localização &mdash; mobile social share v1.0.0 documentation</title>
+    <link rel="stylesheet" href="../_static/main.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/redmond/jquery-ui-1.8.13.custom.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '1.0.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/jquery-ui-1.8.13.custom.min.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/jquery-ui-1.8.13.custom.min.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/jquery-ui-1.8.13.custom.min.js"></script>
+    <link rel="top" title="mobile social share v1.0.0 documentation" href="../index.html" /> 
+  </head>
+  <body>
+
+    <div class="container_12">
+        <div class="grid_3 logo menu">
+            <a href="../index.html" class="logo"><img src="../_static/mss.png"></a>
+            <ul class="version">
+                <li>v1.0.0 (02-06-2011)</li>
+            </ul>
+
+            <div class="menu-accordion">
+                <h3><a href="#">Instalação &amp; Uso</a></h3>
+                <div>
+                    <ul>
+                        <li>
+                            <a href="../install.html">Instalação</a>
+                        </li>
+                        <li>
+                            <a href="../convencoes.html">Convenções</a>
+                        </li>
+                        <li>
+                            <a href="../tests.html">Plataforma de testes</a>
+                        </li>
+                        <li>
+                            <a href="../contributing.html">Aplicação Demo</a>
+                        </li>
+                    </ul>
+                </div>
+
+                <h3><a href="#">Arquitetura</a></h3>
+                <div>
+                    <ul class="componentes">
+                        <li>
+                            <a href="../arquitetura/carrossel.html">Integração com as Redes Sociais</a>
+                        </li>
+                        <li>
+                            <a href="../arquitetura/carrossel.html">Infraestrutura de Cache</a>
+                        </li>
+                        <li>
+                            <a href="../arquitetura/carrossel.html">Infraestrutura de Cache</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="grid_9 contents">
+            
+  <div class="section" id="geo-localizacao">
+<h1>Geo Localização<a class="headerlink" href="#geo-localizacao" title="Permalink to this headline">¶</a></h1>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p>Mantido pela equipe portal padrões</p>
+<p class="last"><a class="reference external" href="mailto:timehome&#37;&#52;&#48;corp&#46;globo&#46;com">timehome<span>&#64;</span>corp<span>&#46;</span>globo<span>&#46;</span>com</a></p>
+</div>
+<div class="section" id="descricao">
+<h2>Descrição<a class="headerlink" href="#descricao" title="Permalink to this headline">¶</a></h2>
+<p>O serviço de geo-localização permite identificar onde o usuário está. O banco de dados de geo-localização é o da <a class="reference external" href="http://www.maxmind.com/app/ip-location">MaxMind</a>.</p>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">A geo-localização é realizada através do IP do usuário, e não é 100% segura.</p>
+</div>
+</div>
+<div class="section" id="instalacao">
+<h2>Instalação<a class="headerlink" href="#instalacao" title="Permalink to this headline">¶</a></h2>
+<p>Para utilizar esta funcionalidade do libby, é necessária a inclusão do script do globo-api na sua
+página, conforme abaixo.</p>
+<p>A inclusão do script fará uma chamada assíncrona para a api de geo-localização.</p>
+<p>Para utilizar os dados que retornam da api, registre um callback usando o método <cite>onSuccess</cite>.
+Para o caso do endereço ip do usuário não ser encontrado na base de geo-localização, utilize o método <cite>onNotFound</cite>.</p>
+<p>Abaixo um exemplo de utilização:</p>
+<div class="highlight-html"><div class="highlight"><pre><span class="nt">&lt;script </span><span class="na">type=</span><span class="s">&quot;text/javascript&quot;</span>
+        <span class="na">src=</span><span class="s">&quot;http://api.globo.com/js/globo-api-latest-min.js&quot;</span><span class="nt">&gt;</span>
+<span class="nt">&lt;/script&gt;</span>
+<span class="nt">&lt;script </span><span class="na">type=</span><span class="s">&quot;text/javascript&quot;</span><span class="nt">&gt;</span>
+
+    <span class="c1">// no código dos seus componentes, chame o onSuccess para o caso da</span>
+    <span class="c1">// geolocalização ocorrer com sucesso.</span>
+    <span class="nx">globoapi</span><span class="p">.</span><span class="nx">geo</span><span class="p">.</span><span class="nx">onSuccess</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">geolocation</span><span class="p">){</span>
+        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">geolocation</span><span class="p">.</span><span class="nx">ip</span><span class="p">,</span>
+                    <span class="nx">geolocation</span><span class="p">.</span><span class="nx">latitude</span><span class="p">,</span>
+                    <span class="nx">geolocation</span><span class="p">.</span><span class="nx">longitude</span><span class="p">,</span>
+                    <span class="nx">geolocation</span><span class="p">.</span><span class="nx">country</span><span class="p">.</span><span class="nx">code</span><span class="p">,</span>
+                    <span class="nx">geolocation</span><span class="p">.</span><span class="nx">country</span><span class="p">.</span><span class="nx">name</span><span class="p">,</span>
+                    <span class="nx">geolocation</span><span class="p">.</span><span class="nx">state</span><span class="p">.</span><span class="nx">code</span><span class="p">,</span>
+                    <span class="nx">geolocation</span><span class="p">.</span><span class="nx">state</span><span class="p">.</span><span class="nx">name</span><span class="p">,</span>
+                    <span class="nx">geolocation</span><span class="p">.</span><span class="nx">city</span><span class="p">.</span><span class="nx">code</span><span class="p">,</span>
+                    <span class="nx">geolocation</span><span class="p">.</span><span class="nx">city</span><span class="p">.</span><span class="nx">name</span><span class="p">);</span>
+    <span class="p">});</span>
+
+    <span class="c1">// Para o caso do endereço IP do usuário não ser encontrado</span>
+    <span class="c1">// no banco de geo-localização, você pode utilizar o método</span>
+    <span class="c1">// onNotFound. Ele não possui argumentos.</span>
+    <span class="nx">globoapi</span><span class="p">.</span><span class="nx">geo</span><span class="p">.</span><span class="nx">onNotFound</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;GEOLOCATION NOT FOUND!&#39;</span><span class="p">);</span>
+    <span class="p">});</span>
+
+<span class="nt">&lt;/script&gt;</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Todos os callbacks registrados (tanto <cite>onSuccess</cite> quanto <cite>onNotFound</cite>) serão chamados em ordem
+quando a api retornar com os dados de geolocalização.
+Caso a api já tenha retornado no momento do registro do callback, este é executado ao ser registrado.</p>
+</div>
+<p>Por se tratar de um serviço que requer configurações, o libby não possui app para este
+serviço.</p>
+<p>Ao invés disso, basta a inclusão dos scripts necessários conforme acima.
+O script do serviço é minificado utilizando o closure compiler do google,
+o que o torna <strong>BEM</strong> pequeno.</p>
+</div>
+<div class="section" id="enderecos-dos-scripts">
+<h2>Endereços dos Scripts<a class="headerlink" href="#enderecos-dos-scripts" title="Permalink to this headline">¶</a></h2>
+<p>Os endereços para utilização do serviço de geo-localização são:</p>
+<ul class="simple">
+<li>Dev - <a class="reference external" href="http://api.dev.globoi.com/geo">http://api.dev.globoi.com/geo</a></li>
+<li>QA01 - <a class="reference external" href="http://api.qa01.globoi.com/geo">http://api.qa01.globoi.com/geo</a></li>
+<li>Prod - <a class="reference external" href="http://api.globo.com/geo">http://api.globo.com/geo</a></li>
+</ul>
+<p>Endereços dos scripts do globo-api (requerimento para uso do serviço):</p>
+<ul class="simple">
+<li>Dev - <a class="reference external" href="http://api.dev.globoi.com/js/globo-api">http://api.dev.globoi.com/js/globo-api</a>-&lt;versao&gt;-min.js</li>
+<li>QA01 - <a class="reference external" href="http://api.qa01.api.globoi.com/js/globo-api">http://api.qa01.api.globoi.com/js/globo-api</a>-&lt;versao&gt;-min.js</li>
+<li>Prod - <a class="reference external" href="http://api.globo.com/js/globo-api">http://api.globo.com/js/globo-api</a>-&lt;versao&gt;-min.js</li>
+</ul>
+<p>&lt;versao&gt; corresponde a versão do globo-api que você deseja utilizar. Utilize
+&#8220;latest&#8221; para a última versão estável.</p>
+<p>Exemplos: <a class="reference external" href="http://api.globo.com/js/globo-api-latest-min.js">http://api.globo.com/js/globo-api-latest-min.js</a>,
+<a class="reference external" href="http://api.globo.com/js/globo-api-0.6.0-min.js">http://api.globo.com/js/globo-api-0.6.0-min.js</a>, etc.</p>
+<p>Os arquivos dos diferentes ambientes já estão configurados com as URLs correspondentes.
+Então, ao incluir o script do ambiente de dev, a api de dev será chamada e o mesmo vale
+para os outros ambientes (qa01 e prod).</p>
+</div>
+<div class="section" id="utilizacao-do-servico-sem-o-sdk">
+<h2>Utilização do Serviço sem o SDK<a class="headerlink" href="#utilizacao-do-servico-sem-o-sdk" title="Permalink to this headline">¶</a></h2>
+<p>Apesar de os scripts do globo-api facilitarem o uso do serviço de
+geo-localização, a utilização do mesmo por HTTP GET é suportada, conforme
+demonstrado no script abaixo, utilizando JQuery:</p>
+<div class="highlight-html"><div class="highlight"><pre><span class="nt">&lt;script </span><span class="na">type=</span><span class="s">&quot;text/javascript&quot;</span><span class="nt">&gt;</span>
+    <span class="nx">$</span><span class="p">.</span><span class="nx">ajax</span><span class="p">({</span>
+        <span class="nx">dataType</span><span class="o">:</span> <span class="s1">&#39;jsonp&#39;</span><span class="p">,</span>
+        <span class="nx">jsonpCallback</span><span class="o">:</span> <span class="s1">&#39;globoapi_geo_callback&#39;</span><span class="p">,</span>
+        <span class="nx">jsonp</span><span class="o">:</span> <span class="kc">false</span><span class="p">,</span>
+        <span class="nx">url</span><span class="o">:</span> <span class="s1">&#39;http://api.globo.com/geo&#39;</span><span class="p">,</span>
+        <span class="nx">success</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">geolocation</span><span class="p">){</span>
+            <span class="k">if</span> <span class="p">(</span><span class="nx">geolocation</span><span class="p">)</span> <span class="p">{</span>
+                <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">geolocation</span><span class="p">.</span><span class="nx">ip</span><span class="p">,</span>
+                            <span class="nx">geolocation</span><span class="p">.</span><span class="nx">latitude</span><span class="p">,</span>
+                            <span class="nx">geolocation</span><span class="p">.</span><span class="nx">longitude</span><span class="p">,</span>
+                            <span class="nx">geolocation</span><span class="p">.</span><span class="nx">country</span><span class="p">.</span><span class="nx">code</span><span class="p">,</span>
+                            <span class="nx">geolocation</span><span class="p">.</span><span class="nx">country</span><span class="p">.</span><span class="nx">name</span><span class="p">,</span>
+                            <span class="nx">geolocation</span><span class="p">.</span><span class="nx">state</span><span class="p">.</span><span class="nx">code</span><span class="p">,</span>
+                            <span class="nx">geolocation</span><span class="p">.</span><span class="nx">state</span><span class="p">.</span><span class="nx">name</span><span class="p">,</span>
+                            <span class="nx">geolocation</span><span class="p">.</span><span class="nx">city</span><span class="p">.</span><span class="nx">code</span><span class="p">,</span>
+                            <span class="nx">geolocation</span><span class="p">.</span><span class="nx">city</span><span class="p">.</span><span class="nx">name</span><span class="p">);</span>
+            <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+                <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;GEOLOCATION NOT FOUND&quot;</span><span class="p">);</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+    <span class="p">});</span>
+<span class="nt">&lt;/script&gt;</span>
+</pre></div>
+</div>
+</div>
+</div>
+
+
+        </div>
+            <div class="clear"></div>
+            <div class="grid_12 footer">
+                &copy; <a href="../index.html">Copyright</a> Mobile Social Share v1.0.0 - 02-06-2011.
+              Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0b2.
+            </div>
+    </div>
+    <script type="text/javascript" charset="utf-8">
+        $(function() {
+            $('.menu-accordion').accordion({
+                autoHeight: false,
+                collapsible: true
+            });
+        });
+    </script>
+  </body>
+</html>

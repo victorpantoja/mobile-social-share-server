@@ -1,0 +1,5 @@
+.. note::
+
+    Mantido pela equipe portal padrões
+    
+    timehome@corp.globo.com

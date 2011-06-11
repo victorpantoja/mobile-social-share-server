@@ -1,0 +1,180 @@
+
+<!DOCTYPE HTML>
+
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="CACHE-CONTROL" content="NO-CACHE" />
+    <meta http-equiv="PRAGMA" content="NO-CACHE" />
+    <meta http-equiv="EXPIRES" content="Mon, 22 Jul 2002 11:12:01 GMT" />
+    
+    <title>Associacão de Box Template a Área Template &mdash; mobile social share v1.0.0 documentation</title>
+    <link rel="stylesheet" href="../_static/main.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/redmond/jquery-ui-1.8.13.custom.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '1.0.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/jquery-ui-1.8.13.custom.min.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/jquery-ui-1.8.13.custom.min.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/jquery-ui-1.8.13.custom.min.js"></script>
+    <link rel="top" title="mobile social share v1.0.0 documentation" href="../index.html" /> 
+  </head>
+  <body>
+
+    <div class="container_12">
+        <div class="grid_3 logo menu">
+            <a href="../index.html" class="logo"><img src="../_static/mss.png"></a>
+            <ul class="version">
+                <li>v1.0.0 (02-06-2011)</li>
+            </ul>
+
+            <div class="menu-accordion">
+                <h3><a href="#">Instalação &amp; Uso</a></h3>
+                <div>
+                    <ul>
+                        <li>
+                            <a href="../install.html">Instalação</a>
+                        </li>
+                        <li>
+                            <a href="../convencoes.html">Convenções</a>
+                        </li>
+                        <li>
+                            <a href="../tests.html">Plataforma de testes</a>
+                        </li>
+                        <li>
+                            <a href="../contributing.html">Aplicação Demo</a>
+                        </li>
+                    </ul>
+                </div>
+
+                <h3><a href="#">Arquitetura</a></h3>
+                <div>
+                    <ul class="componentes">
+                        <li>
+                            <a href="../components/carrossel.html">Carrossel</a>
+                        </li>
+                    </ul>
+                </div>
+
+                <h3><a href="#">Aplicações</a></h3>
+                <div>
+                    <ul>
+                        <li>
+                            <a href="#">Associacão box-área</a>
+                        </li>
+                        <li>
+                            <a href="foto.html">Foto</a>
+                        </li>
+                         <li>
+                            <a href="publicacao_multi_dispositivos.html">Publicação Multi-Dispositivos</a>
+                        </li>
+                        <li>
+                            <a href="analytics_link.html">Analytics Links</a>
+                        </li>
+                         <li>
+                            <a href="periodicos.html">Periódicos</a>
+                        </li>
+                        <li>
+                            <a href="componentes_fixos.html">Componentes Fixos</a>
+                        </li>
+                    </ul>
+                </div>
+                
+                <h3><a href="#">JS</a></h3>
+                <div>
+                    <ul>
+                        <li>
+                            <a href="../js/widget_base.html">Widget Base</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="grid_9 contents">
+            
+  <div class="section" id="associacao-de-box-template-a-area-template">
+<h1>Associacão de Box Template a Área Template<a class="headerlink" href="#associacao-de-box-template-a-area-template" title="Permalink to this headline">¶</a></h1>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p>Mantido pela equipe portal padrões</p>
+<p class="last"><a class="reference external" href="mailto:timehome&#37;&#52;&#48;corp&#46;globo&#46;com">timehome<span>&#64;</span>corp<span>&#46;</span>globo<span>&#46;</span>com</a></p>
+</div>
+<div class="section" id="instalacao">
+<h2>Instalação<a class="headerlink" href="#instalacao" title="Permalink to this headline">¶</a></h2>
+<p>Para utilizar esta funcionalidade do libby, inclua a seguinte app como INSTALLED_APPS:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">INSTALLED_APPS</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="c">#...</span>
+    <span class="s">&#39;libby.aplicacoes.associacao_box&#39;</span><span class="p">,</span>
+    <span class="c">#...</span>
+<span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="descricao">
+<h2>Descrição<a class="headerlink" href="#descricao" title="Permalink to this headline">¶</a></h2>
+<p>Esta aplicacão inclui uma nova tela de administração de box templates associados a área templates no item estrutura, conforme visto abaixo:</p>
+<img alt="../_images/associacao_box_area.png" src="../_images/associacao_box_area.png" />
+<div class="admonition-migration admonition ">
+<p class="first admonition-title">migration</p>
+<p class="last">Não se esqueça de rodar as migrations após instalar a app.
+Estas migrations criam as permissões no banco.</p>
+</div>
+</div>
+<div class="section" id="permissoes-desta-app">
+<h2>Permissões desta App<a class="headerlink" href="#permissoes-desta-app" title="Permalink to this headline">¶</a></h2>
+<blockquote>
+<ul class="simple">
+<li>Can add areatemplateboxtemplate</li>
+<li>Can edit areatemplateboxtemplate</li>
+<li>Can change areatemplateboxtemplate</li>
+<li>Can delete areatemplateboxtemplate</li>
+</ul>
+</blockquote>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">Caso o usuário logado não possua as permissões desta app, ele não verá
+o item de associação de box templates no dashboard.</p>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p>O nome Gerenciamento de Boxes por Área é o label dado a app de estrutura e depende do parâmetro APP_LABELS do settings.py.</p>
+<p>Para obter o mesmo nome, utilize a seguinte chave:</p>
+<div class="last highlight-python"><pre>u'estrutura': u'Gerenciamento de Boxes por Área'</pre>
+</div>
+</div>
+</div>
+<div class="section" id="utilizacao">
+<h2>Utilização<a class="headerlink" href="#utilizacao" title="Permalink to this headline">¶</a></h2>
+<p>Para associar um novo box a uma área, basta clicar em adicionar. Selecione então a área desejada e o box desejado e clique em Salvar, conforme indicado abaixo:</p>
+<img alt="../_images/associando_box_area.png" src="../_images/associando_box_area.png" />
+</div>
+</div>
+
+
+        </div>
+            <div class="clear"></div>
+            <div class="grid_12 footer">
+                &copy; <a href="../index.html">Copyright</a> Mobile Social Share v1.0.0 - 02-06-2011.
+              Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0b2.
+            </div>
+    </div>
+    <script type="text/javascript" charset="utf-8">
+        $(function() {
+            $('.menu-accordion').accordion({
+                autoHeight: false,
+                collapsible: true
+            });
+        });
+    </script>
+  </body>
+</html>

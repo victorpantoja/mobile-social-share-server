@@ -1,0 +1,52 @@
+Box carrossel destaques editoriais
+==================================
+
+.. note::
+
+    Box mantido pela equipe do globoesporte.com
+    
+    esportes1@corp.globo.com
+
+.. admonition:: grid
+
+    Este box ocupa 4 colunas do grid, devendo assim estar incluído em uma 
+    área que possua 300px. 
+    
+    
+Instalação
+----------
+
+Para utilizar esta funcionalidade do libby, inclua a seguinte app como INSTALLED_APPS::
+
+    INSTALLED_APPS = [
+        #...
+        'libby.componentes.box_carrosel_destaques_editorais',
+        #...
+    ]
+    
+    
+.. admonition:: migration
+
+    Não se esqueça de rodar as migrations após instalar a app. Estas migrations criam o box template e os highlight templates no banco.
+
+
+Associação
+----------
+
+O box carrossel destaques editorais é um box e como tal, precisa ser associado a uma área qualquer do
+template da página em que se deseja usá-lo.
+
+Essa associação pode ser feita manualmente (via migrations ou banco de dados),
+ou usando o `admin de associação de área a box provido pelo libby <../aplicacoes/associacao_box.html>`_.
+
+
+Utilização
+----------
+
+    Dado que este box está associado a alguma área, 
+    para utilizá-lo, basta adicioná-lo a área em questão.
+    
+    
+    .. image:: img/box_carrossel_destaques_editoriais/box_carrossel_destaques_editorial.png
+    
+    

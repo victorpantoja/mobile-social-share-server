@@ -1,3 +1,5 @@
+
+
 clean:
 	@echo "Cleaning up build, *.pyc files..."
 	@find . -name '*.pyc' -exec rm -rf {} \;
@@ -80,3 +82,6 @@ functional: clean start-memcached
 	@export PYTHONPATH=$PYTHONPATH:`pwd`:`pwd`/mss  &&  \
 		cd mss && \
 	    nosetests -s --verbose --with-coverage --cover-package=mss tests/functional/*
+	    
+doc: 
+	cd docs && make html && open build/html/index.html

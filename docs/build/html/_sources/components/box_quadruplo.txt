@@ -1,0 +1,69 @@
+Box quadruplo
+========================
+
+.. note::
+
+    Box mantido pela equipe do globoesporte.com
+    
+    esportes1@corp.globo.com
+
+.. admonition:: grid
+
+    Este box ocupa 12 colunas do grid, devendo assim estar incluído em uma 
+    área que possua 940px. 
+    
+    
+Instalação
+----------
+
+Para utilizar esta funcionalidade do libby, inclua a seguinte app como INSTALLED_APPS::
+
+    INSTALLED_APPS = [
+        #...
+        'libby.componentes.box_quadruplo',
+        #...
+    ]
+    
+    
+.. admonition:: migration
+
+    Não se esqueça de rodar as migrations após instalar a app. Estas migrations criam o box template e os highlight templates no banco.
+
+
+Associação
+----------
+
+O box horizontal quadruplo é um box e como tal, precisa ser associado a uma área qualquer do
+template da página em que se deseja usá-lo.
+
+Essa associação pode ser feita manualmente (via migrations ou banco de dados),
+ou usando o `admin de associação de área a box provido pelo libby <../aplicacoes/associacao_box.html>`_.
+
+
+Utilização
+----------
+
+    Dado que este box está associado a alguma área, 
+    para utilizá-lo, basta adicioná-lo a área em questão.
+    
+    Este box possui 3 comportamentos distintos de acordo com as configurações escolhidas, estruralmente o box possui 2 highlights no topo 
+    apenas com texto(título) e 4 highlights principais, com título e chápeu. 
+    
+    1º Caso :
+    	
+    	Se somente o hightlight 1 do topo for preenchido:
+    
+    .. image:: img/box_quadruplo/box_quadruplo.png
+    
+    2º Caso :
+    	
+    	Se os dois highlights do topo forem preenchidos o box terá o seguinte comportamento:
+    
+    .. image:: img/box_quadruplo/box_quadruplo2.png
+
+    3º Caso :
+    	
+    	Se nenhum dos highlights do topo forem preenchidos ou apenas o highlight 2 for preenchido o box será renderizado sem a borda 
+    	do topo:
+    
+    .. image:: img/box_quadruplo/box_quadruplo3.png

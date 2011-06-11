@@ -1,0 +1,223 @@
+
+<!DOCTYPE HTML>
+
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="CACHE-CONTROL" content="NO-CACHE" />
+    <meta http-equiv="PRAGMA" content="NO-CACHE" />
+    <meta http-equiv="EXPIRES" content="Mon, 22 Jul 2002 11:12:01 GMT" />
+    
+    <title>Carrossel &mdash; mobile social share v1.0.0 documentation</title>
+    <link rel="stylesheet" href="../_static/main.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/redmond/jquery-ui-1.8.13.custom.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '1.0.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/jquery-ui-1.8.13.custom.min.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/jquery-ui-1.8.13.custom.min.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/jquery-ui-1.8.13.custom.min.js"></script>
+    <link rel="top" title="mobile social share v1.0.0 documentation" href="../index.html" /> 
+  </head>
+  <body>
+
+    <div class="container_12">
+        <div class="grid_3 logo menu">
+            <a href="../index.html" class="logo"><img src="../_static/mss.png"></a>
+            <ul class="version">
+                <li>v1.0.0 (02-06-2011)</li>
+            </ul>
+
+            <div class="menu-accordion">
+                <h3><a href="#">Instalação &amp; Uso</a></h3>
+                <div>
+                    <ul>
+                        <li>
+                            <a href="../install.html">Instalação</a>
+                        </li>
+                        <li>
+                            <a href="../tests.html">Plataforma de testes</a>
+                        </li>
+                        <li>
+                            <a href="../contributing.html">Aplicação Demo</a>
+                        </li>
+                    </ul>
+                </div>
+
+                <h3><a href="#">Arquitetura</a></h3>
+                <div>
+                    <ul class="componentes">
+                        <li>
+                            <a href="#">Integração com as Redes Sociais</a>
+                        </li>
+                        <li>
+                            <a href="#">Infraestrutura de Cache</a>
+                        </li>
+                        <li>
+                            <a href="#">Infraestrutura de Cache</a>
+                        </li>
+                    </ul>
+                </div>
+                <h3><a href="#">API</a></h3>
+                <div>
+                    <ul class="componentes">
+                        <li>
+                            <a href="#">Autenticação</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="grid_9 contents">
+            
+  <div class="section" id="carrossel">
+<h1>Carrossel<a class="headerlink" href="#carrossel" title="Permalink to this headline">¶</a></h1>
+<div class="admonition-grid admonition ">
+<p class="first admonition-title">grid</p>
+<p class="last">O box carrossel ocupa 8 colunas do grid, devendo assim estar incluído em uma
+área que possua 620px.</p>
+</div>
+<div class="section" id="dependencias">
+<h2>Dependências<a class="headerlink" href="#dependencias" title="Permalink to this headline">¶</a></h2>
+<p>É necessária a inclusão de algumas bibliotecas/componentes para sua utilização
+correta:</p>
+<ul>
+<li><dl class="first docutils">
+<dt>CMA</dt>
+<dd><ul class="first last simple">
+<li>jQuery v1.4.4</li>
+<li>jQuery.UI v1.8.6 - core, widget, sortable, dialog</li>
+<li><a class="reference external" href="modalbox.html">libby.modalbox</a></li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt>CDA</dt>
+<dd><ul class="first last simple">
+<li>jQuery v.1.4.4</li>
+<li>jQuery.UI v1.8.6 - core, widget</li>
+</ul>
+</dd>
+</dl>
+</li>
+</ul>
+</div>
+<div class="section" id="instalacao">
+<h2>Instalação<a class="headerlink" href="#instalacao" title="Permalink to this headline">¶</a></h2>
+<p>Para utilizar esta funcionalidade do libby, inclua a seguinte app como INSTALLED_APPS:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">INSTALLED_APPS</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="c">#...</span>
+    <span class="s">&#39;libby.componentes.carrossel&#39;</span><span class="p">,</span>
+    <span class="c">#...</span>
+<span class="p">]</span>
+</pre></div>
+</div>
+<div class="admonition-migration admonition ">
+<p class="first admonition-title">migration</p>
+<p class="last">Não se esqueça de rodar as migrations após instalar a app. Estas migrations criam o box template e os highlight templates no banco.</p>
+</div>
+<div class="admonition-photo admonition ">
+<p class="first admonition-title">photo</p>
+<p>Este componente utiliza dois tamanhos de foto: 125x85 e 620x349.</p>
+<p class="last">Siga as instruções da <a class="reference external" href="../install.html">página de instalação</a> para que
+estes tamanhos estejam disponíveis para seleção.</p>
+</div>
+</div>
+<div class="section" id="associacao">
+<h2>Associação<a class="headerlink" href="#associacao" title="Permalink to this headline">¶</a></h2>
+<p>O carrossel é um box e como tal, precisa ser associado a uma área qualquer do
+template da página em que se deseja usá-lo.</p>
+<div class="admonition-css admonition ">
+<p class="first admonition-title">css</p>
+<p>As cores do carrossel devem ser sobrescritas com as
+cores do produto, como pode ser visto na <a class="reference external" href="http://ngit.globoi.com/libby/libby/blobs/master/libby/componentes/carrossel/media/libby/carrossel/css/libby.carrossel.cores.css">lista de estilos padrão, com cor de exemplo(azul)</a>.</p>
+<p class="last">Para que a folha de estilo padrão não seja incluída automaticamente, inclua
+a configuração LIBBY_INCLUDE_CSS_COLORS como False no arquivo de
+configuração (settings.py).</p>
+</div>
+</div>
+<div class="section" id="utilizacao">
+<h2>Utilização<a class="headerlink" href="#utilizacao" title="Permalink to this headline">¶</a></h2>
+<p>Dado que o carrossel está associado a alguma área, para utilizá-lo, basta
+adicioná-lo a área em questão.</p>
+<p>O carrossel será apresentado conforme abaixo:</p>
+<img alt="../_images/carrossel.1.cma1.png" src="../_images/carrossel.1.cma1.png" />
+<p>Um carrossel pode ser composto de 1 a 6 passos, sendo o primeiro obrigatório
+e os outros 5 opcionais.</p>
+<p>Cada passo é composto por:</p>
+<ul class="simple">
+<li>Imagem que descreve o passo (Obrigatório)</li>
+<li>Título da Imagem (Opcional)</li>
+<li>Texto do Thumbnail (Obrigatório)</li>
+<li>Destaques Adicionais (Opcional, máximo de 2)</li>
+</ul>
+<p>Um passo minimamente preenchido corresponde a imagem abaixo:</p>
+<img alt="../_images/carrossel.2.cma1.png" src="../_images/carrossel.2.cma1.png" />
+<p>Um passo completamente preenchido corresponde a imagem abaixo:</p>
+<img alt="../_images/carrossel.3.cma1.png" src="../_images/carrossel.3.cma1.png" />
+<p>Um carrossel com dois passos preenchidos e um inválido (falta alguma
+informação):</p>
+<img alt="../_images/carrossel.4.cma1.png" src="../_images/carrossel.4.cma1.png" />
+<p>Após o preenchimento correto do carrossel, quando ele é publicado, ele aparece
+conforme a imagem abaixo:</p>
+<img alt="../_images/carrossel.1.cda1.png" src="../_images/carrossel.1.cda1.png" />
+<p>E com as cores sobrescritas:</p>
+<img alt="../_images/carrossel.2.cda1.png" src="../_images/carrossel.2.cda1.png" />
+</div>
+<div class="section" id="urls-rest">
+<h2>URLs REST<a class="headerlink" href="#urls-rest" title="Permalink to this headline">¶</a></h2>
+<p>O componente de carrossel disponibiliza algumas URLs Rest que são usadas pelo
+plugin, mas que podem ser usadas por terceiros.</p>
+<p>Exclusão de Passo:</p>
+<div class="highlight-python"><pre>Um passo pode ser excluído com a url:
+
+/libby/componentes/carrossel/erasestep/{{box.uuid}}/{{numero_passo}}
+
+onde box.uuid é o uuid do box carrossel que o passo deve ser excluído
+e numero_passo é o passo a ser excluído.
+
+Ex: /libby/.../erasestep/e89328ff-5b92-40c0-a47d-7a7b7def1df8/1</pre>
+</div>
+<p>Reordenação de Passo:</p>
+<div class="highlight-python"><pre>Um passo pode ser reordenado com a url:
+
+/libby/componentes/carrossel/reorder/{{box.uuid}}/{{ordem_atual}}/{{ordem_destino}}
+
+onde box.uuid é o uuid do box carrossel para o passo reordenado,
+ordem_atual é a ordem original do passo
+e ordem_destino é a nova ordem do passo.
+
+Ex: /libby/.../reorder/e89328ff-5b92-40c0-a47d-7a7b7def1df8/1/2</pre>
+</div>
+</div>
+</div>
+
+
+        </div>
+            <div class="clear"></div>
+            <div class="grid_12 footer">
+                &copy; <a href="../index.html">Copyright</a> Mobile Social Share v1.0.0 - 02-06-2011.
+              Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0b2.
+            </div>
+    </div>
+    <script type="text/javascript" charset="utf-8">
+        $(function() {
+            $('.menu-accordion').accordion({
+                autoHeight: false,
+                collapsible: true
+            });
+        });
+    </script>
+  </body>
+</html>

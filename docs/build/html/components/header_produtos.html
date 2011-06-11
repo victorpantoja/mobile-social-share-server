@@ -1,0 +1,213 @@
+
+<!DOCTYPE HTML>
+
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="CACHE-CONTROL" content="NO-CACHE" />
+    <meta http-equiv="PRAGMA" content="NO-CACHE" />
+    <meta http-equiv="EXPIRES" content="Mon, 22 Jul 2002 11:12:01 GMT" />
+    
+    <title>Header de Produtos &mdash; mobile social share v1.0.0 documentation</title>
+    <link rel="stylesheet" href="../_static/main.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/redmond/jquery-ui-1.8.13.custom.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '1.0.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/jquery-ui-1.8.13.custom.min.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/jquery-ui-1.8.13.custom.min.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/jquery-ui-1.8.13.custom.min.js"></script>
+    <link rel="top" title="mobile social share v1.0.0 documentation" href="../index.html" /> 
+  </head>
+  <body>
+
+    <div class="container_12">
+        <div class="grid_3 logo menu">
+            <a href="../index.html" class="logo"><img src="../_static/mss.png"></a>
+            <ul class="version">
+                <li>v1.0.0 (02-06-2011)</li>
+            </ul>
+
+            <div class="menu-accordion">
+                <h3><a href="#">Instalação &amp; Uso</a></h3>
+                <div>
+                    <ul>
+                        <li>
+                            <a href="../install.html">Instalação</a>
+                        </li>
+                        <li>
+                            <a href="../convencoes.html">Convenções</a>
+                        </li>
+                        <li>
+                            <a href="../tests.html">Plataforma de testes</a>
+                        </li>
+                        <li>
+                            <a href="../contributing.html">Aplicação Demo</a>
+                        </li>
+                    </ul>
+                </div>
+
+                <h3><a href="#">Arquitetura</a></h3>
+                <div>
+                    <ul class="componentes">
+                        <li>
+                            <a href="carrossel.html">Carrossel</a>
+                        </li>
+                    </ul>
+                </div>
+
+                <h3><a href="#">Aplicações</a></h3>
+                <div>
+                    <ul>
+                        <li>
+                            <a href="../aplicacoes/associacao_box.html">Associacão box-área</a>
+                        </li>
+                        <li>
+                            <a href="../aplicacoes/foto.html">Foto</a>
+                        </li>
+                         <li>
+                            <a href="../aplicacoes/publicacao_multi_dispositivos.html">Publicação Multi-Dispositivos</a>
+                        </li>
+                        <li>
+                            <a href="../aplicacoes/analytics_link.html">Analytics Links</a>
+                        </li>
+                         <li>
+                            <a href="../aplicacoes/periodicos.html">Periódicos</a>
+                        </li>
+                        <li>
+                            <a href="../aplicacoes/componentes_fixos.html">Componentes Fixos</a>
+                        </li>
+                    </ul>
+                </div>
+                
+                <h3><a href="#">JS</a></h3>
+                <div>
+                    <ul>
+                        <li>
+                            <a href="../js/widget_base.html">Widget Base</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="grid_9 contents">
+            
+  <div class="section" id="header-de-produtos">
+<h1>Header de Produtos<a class="headerlink" href="#header-de-produtos" title="Permalink to this headline">¶</a></h1>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p>Mantido pela equipe portal padrões</p>
+<p class="last"><a class="reference external" href="mailto:timehome&#37;&#52;&#48;corp&#46;globo&#46;com">timehome<span>&#64;</span>corp<span>&#46;</span>globo<span>&#46;</span>com</a></p>
+</div>
+<div class="section" id="dependencias">
+<h2>Dependências<a class="headerlink" href="#dependencias" title="Permalink to this headline">¶</a></h2>
+<p>É necessária a inclusão de algumas bibliotecas/componentes para sua utilização
+correta:</p>
+<ul>
+<li><dl class="first docutils">
+<dt>CDA</dt>
+<dd><ul class="first last simple">
+<li>jQuery v.1.4.x</li>
+</ul>
+</dd>
+</dl>
+</li>
+</ul>
+</div>
+<div class="section" id="instalacao">
+<h2>Instalação<a class="headerlink" href="#instalacao" title="Permalink to this headline">¶</a></h2>
+<p>Para utilizar esta funcionalidade do libby, inclua a seguinte app como INSTALLED_APPS:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">INSTALLED_APPS</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="c">#...</span>
+    <span class="s">&#39;libby.componentes.header_produtos&#39;</span><span class="p">,</span>
+    <span class="c">#...</span>
+<span class="p">]</span>
+</pre></div>
+</div>
+<p>Para que o novo menu seja renderizado deve-se sobrescrever o template de menu no caminho /common/menu.html.
+Isto é necessário para sobrescrever o template de menu do globocore.</p>
+<p>Caso a sua app seja &#8220;main&#8221;, o template menu.html ficaria em /main/templates/common/menu.html.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Também é possível usar o novo menu com outro tipo de menu.
+Para usar o tipo &#8220;menu abas&#8221;, por exemplo, crie o template /common/menu_aba.html.</p>
+</div>
+<p>Este template precisa extender o template menu_base.html do libby, conforme abaixo:</p>
+<div class="highlight-python"><pre>{% extends "libby/header_produtos/menu_base.html" %}</pre>
+</div>
+<p>O template menu_base possui os blocos &#8216;pre_menu&#8217; e &#8216;pos_menu&#8217;, que podem ser usados para adicionar markup antes ou depois do menu.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Deve-se republicar todos os menus horizontais.</p>
+</div>
+</div>
+<div class="section" id="customizacoes">
+<h2>Customizações<a class="headerlink" href="#customizacoes" title="Permalink to this headline">¶</a></h2>
+<p>Para customizar o menu com as cores do produto, deve-se primeiramente editar a imagem da aba do
+menu (libby/media/header_produtos/img/sprite_menu_item.psd).</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Salve a imagem como png24 e depois use a ferramenta
+<a class="reference external" href="http://pornel.net/pngquant">pngquant</a> para criar
+um png8 que trará um bom resultado cross-browser para
+a transparência da imagem.</p>
+</div>
+<div class="admonition-css admonition ">
+<p class="first admonition-title">css</p>
+<p>As cores do header do produto devem ser sobrescritas com as
+cores do produto, como pode ser visto na
+<a class="reference external" href="http://ngit.globoi.com/libby/libby/trees/master/libby/componentes/header_produtos/media/libby/header_produtos/css/libby.menu.cores.css">lista de estilos padrão, com cor de exemplo(azul)</a>.</p>
+<p class="last">Para que a folha de estilo padrão não seja incluída automaticamente, inclua
+a configuração LIBBY_INCLUDE_CSS_COLORS como False no arquivo de
+configuração (settings.py).</p>
+</div>
+</div>
+<div class="section" id="solucao-de-problemas">
+<h2>Solução de problemas<a class="headerlink" href="#solucao-de-problemas" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="se-o-html-renderizado-for-igual-ao-do-globocore">
+<h3>Se o HTML renderizado for igual ao do globocore<a class="headerlink" href="#se-o-html-renderizado-for-igual-ao-do-globocore" title="Permalink to this headline">¶</a></h3>
+<p>É possível que a pasta de templates do globocore esteja precedendo a pasta de template do seu projeto
+e o template renderizado continua sendo o /common/menu.html que está dentro do globocore.
+Para que a aplicação renderize o HTML do novo menu é necessário modificar a setting
+<a class="reference external" href="http://docs.djangoproject.com/en/1.2/ref/settings/#template-dirs">TEMPLATE_DIRS</a>. Para isso,
+Adicione o seguinte código no settings do projeto:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">TEMPLATE_DIRS</span> <span class="o">=</span> <span class="p">(</span>
+
+    <span class="n">LOCAL_FILE</span><span class="p">(</span><span class="s">&#39;nome_da_app&#39;</span><span class="p">,</span> <span class="s">&#39;templates&#39;</span><span class="p">),</span>
+    <span class="n">LOCAL_FILE</span><span class="p">(</span><span class="s">&#39;globocom&#39;</span><span class="p">,</span> <span class="s">&#39;templates&#39;</span><span class="p">),</span>
+
+<span class="p">)</span> <span class="o">+</span> <span class="n">TEMPLATE_DIRS</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+
+
+        </div>
+            <div class="clear"></div>
+            <div class="grid_12 footer">
+                &copy; <a href="../index.html">Copyright</a> Mobile Social Share v1.0.0 - 02-06-2011.
+              Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0b2.
+            </div>
+    </div>
+    <script type="text/javascript" charset="utf-8">
+        $(function() {
+            $('.menu-accordion').accordion({
+                autoHeight: false,
+                collapsible: true
+            });
+        });
+    </script>
+  </body>
+</html>

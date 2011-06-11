@@ -1,0 +1,61 @@
+Convenções
+==========
+
+Apps
+----
+
+Todos os componentes e aplicações do libby são distribuídos como `apps <http://docs.djangoproject.com/en/dev/intro/tutorial01/>`_ auto-contidas.
+
+Para utilizar qualquer um destes componentes, basta incluir a app do mesmo nas INSTALLED_APPS. Configurações adicionais estarão documentadas na documentação de cada componente ou aplicação.
+
+Mídias (Imagens, Js e CSS)
+--------------------------
+
+As mídias de cada app estarão inclusas no caminho /media/libby/<nome_da_app>, como por exemplo::
+
+    /media/libby/carrossel/
+
+Os arquivos javascript que suportam os plugins serão nomeados segundo a seguinte norma::
+
+    libby.<nome do componente>(.<funcao>)(.cma).js
+
+Isso quer dizer que tanto função quanto cma são opcionais. Alguns exemplos de
+nomenclatura::
+
+    libby.carrossel.js
+    libby.carrossel.timers.js
+    libby.carrossel.cma.js
+    libby.carrossel.extras.cma.js
+
+As mídias de CSS seguem a mesma regra. Alguns exemplos::
+
+    libby.carrossel.css
+    libby.carrossel.cores.css
+    libby.carrossel.cma.css
+
+.. warning::
+
+    Vale lembrar que estas regras de nomenclatura *SOMENTE* se aplicam aos
+    arquivos produzidos para o libby, sendo livres em arquivos de terceiros
+    (JQuery, Plugins de Terceiros, etc). 
+
+Templates
+---------
+
+Os templates de cada app estarão no caminho /templates/libby/<nome_da_app>, como por exemplo::
+
+    /templates/libby/carrossel/
+
+Todos os templates do libby são escritos no formato::
+
+    nome_template.html
+    base_nome_template.html
+
+O template fica implementado no base_nome_template.html. Isto permite a extensão simples dos templates do libby pelos usuários. Para fazer a sobrescrita do template acima, por exemplo, basta utilizar::
+
+    {% extends 'libby/base_nome_template.html' %}
+    //código de template
+
+.. note ::
+
+    O objetivo desta nomenclatura é permitir a sobrescrita simplificada tanto de mídias como templates.

@@ -1,0 +1,155 @@
+
+<!DOCTYPE HTML>
+
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="CACHE-CONTROL" content="NO-CACHE" />
+    <meta http-equiv="PRAGMA" content="NO-CACHE" />
+    <meta http-equiv="EXPIRES" content="Mon, 22 Jul 2002 11:12:01 GMT" />
+    
+    <title>Widget Globoesporte Mosaico &mdash; mobile social share v1.0.0 documentation</title>
+    <link rel="stylesheet" href="../_static/main.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/redmond/jquery-ui-1.8.13.custom.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '1.0.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/jquery-ui-1.8.13.custom.min.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/jquery-ui-1.8.13.custom.min.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/jquery-ui-1.8.13.custom.min.js"></script>
+    <link rel="top" title="mobile social share v1.0.0 documentation" href="../index.html" /> 
+  </head>
+  <body>
+
+    <div class="container_12">
+        <div class="grid_3 logo menu">
+            <a href="../index.html" class="logo"><img src="../_static/mss.png"></a>
+            <ul class="version">
+                <li>v1.0.0 (02-06-2011)</li>
+            </ul>
+
+            <div class="menu-accordion">
+                <h3><a href="#">Instalação &amp; Uso</a></h3>
+                <div>
+                    <ul>
+                        <li>
+                            <a href="../install.html">Instalação</a>
+                        </li>
+                        <li>
+                            <a href="../convencoes.html">Convenções</a>
+                        </li>
+                        <li>
+                            <a href="../tests.html">Plataforma de testes</a>
+                        </li>
+                        <li>
+                            <a href="../contributing.html">Aplicação Demo</a>
+                        </li>
+                    </ul>
+                </div>
+
+                <h3><a href="#">Arquitetura</a></h3>
+                <div>
+                    <ul class="componentes">
+                        <li>
+                            <a href="../arquitetura/carrossel.html">Integração com as Redes Sociais</a>
+                        </li>
+                        <li>
+                            <a href="../arquitetura/carrossel.html">Infraestrutura de Cache</a>
+                        </li>
+                        <li>
+                            <a href="../arquitetura/carrossel.html">Infraestrutura de Cache</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="grid_9 contents">
+            
+  <div class="section" id="widget-globoesporte-mosaico">
+<h1>Widget Globoesporte Mosaico<a class="headerlink" href="#widget-globoesporte-mosaico" title="Permalink to this headline">¶</a></h1>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p>Widget mantido pela equipe do globoesporte.com</p>
+<p class="last"><a class="reference external" href="mailto:esportes1&#37;&#52;&#48;corp&#46;globo&#46;com">esportes1<span>&#64;</span>corp<span>&#46;</span>globo<span>&#46;</span>com</a></p>
+</div>
+<div class="admonition-grid admonition ">
+<p class="first admonition-title">grid</p>
+<p class="last">Este widget ocupa 4 colunas do grid, devendo assim estar incluído em uma
+área que possua 300px. A altura deste widget é fixa em 256px.</p>
+</div>
+<div class="section" id="descricao">
+<h2>Descrição<a class="headerlink" href="#descricao" title="Permalink to this headline">¶</a></h2>
+<blockquote>
+Mostra os escudos da série A e série B com os links para cada time no globoesporte.com.</blockquote>
+</div>
+<div class="section" id="instalacao">
+<h2>Instalação<a class="headerlink" href="#instalacao" title="Permalink to this headline">¶</a></h2>
+<p>Este destaque depende da <a class="reference external" href="../aplicacoes/periodicos.html">aplicação de periódicos</a> que precisa estar instalada
+antes do mesmo.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">INSTALLED_APPS</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="c">#...</span>
+    <span class="s">&#39;libby.aplicacoes.periodicos&#39;</span><span class="p">,</span>
+    <span class="c">#...</span>
+<span class="p">]</span>
+</pre></div>
+</div>
+<p>Para utilizar este destaque, inclua a seguinte app como INSTALLED_APPS:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">INSTALLED_APPS</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="c">#...</span>
+    <span class="s">&#39;libby.widgets.widget_globoesporte_mosaico&#39;</span><span class="p">,</span>
+    <span class="c">#...</span>
+<span class="p">]</span>
+</pre></div>
+</div>
+<div class="admonition-migration admonition ">
+<p class="first admonition-title">migration</p>
+<p class="last">Não se esqueça de rodar as migrations após instalar a app. Estas migrations criam o widget no banco.</p>
+</div>
+</div>
+<div class="section" id="associacao">
+<h2>Associação<a class="headerlink" href="#associacao" title="Permalink to this headline">¶</a></h2>
+<blockquote>
+<p>Este destaque precisa ser associado a uma área qualquer do
+template da página em que se deseja usá-lo.</p>
+<p>Essa associação pode ser feita manualmente (via migrations ou banco de dados),
+ou usando o <a class="reference external" href="../aplicacoes/associacao_box.html">admin de associação de área a box provido pelo libby</a>.</p>
+</blockquote>
+</div>
+<div class="section" id="utilizacao">
+<h2>Utilização<a class="headerlink" href="#utilizacao" title="Permalink to this headline">¶</a></h2>
+<blockquote>
+<p>Dado que este widget está associado a alguma área,
+para utilizá-lo, basta adicioná-lo a área em questão.</p>
+<img alt="../_images/widget_globoesporte_mosaico.png" src="../_images/widget_globoesporte_mosaico.png" />
+</blockquote>
+</div>
+</div>
+
+
+        </div>
+            <div class="clear"></div>
+            <div class="grid_12 footer">
+                &copy; <a href="../index.html">Copyright</a> Mobile Social Share v1.0.0 - 02-06-2011.
+              Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0b2.
+            </div>
+    </div>
+    <script type="text/javascript" charset="utf-8">
+        $(function() {
+            $('.menu-accordion').accordion({
+                autoHeight: false,
+                collapsible: true
+            });
+        });
+    </script>
+  </body>
+</html>

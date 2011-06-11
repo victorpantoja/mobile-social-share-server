@@ -1,0 +1,139 @@
+Barra da Globo.com
+==================
+
+.. include:: ../times/portalpadroes.rst
+
+Instalação
+----------
+
+Para utilizar esta funcionalidade do libby, inclua a seguinte app como INSTALLED_APPS:
+
+.. code-block:: python
+
+    INSTALLED_APPS = [
+        #...
+        'libby.componentes.barra',
+        #...
+    ]
+
+Ao incluir a app da barra, automaticamente serão incluídos o script da barra
+e a sua folha de estilos.
+
+O libby necessita, no entanto, da url base da barra. Cada ambiente possui uma
+url diferente. Para maiores detalhes, veja a seção Ambientes abaixo.
+
+.. warning::
+
+    Para a barra funcionar com templates que herdem do common/grid do
+    globocore, é necessário sobrescrever o block barra com vazio
+    e o barrascript também, para que a barra anterior não seja chamada.
+
+Ambientes
+---------
+
+Em cada ambiente a url base da barra é diferente. Atualmente são as seguintes:
+
+dev - http://barra.dev.globoi.com/nova
+
+qa1 - http://barra.qa01.globoi.com/nova
+
+produção - http://barra.globo.com/nova
+
+Esta url deve ser incluída no settings.py, na configuração BARRA_SCRIPT_PATH,
+conforme abaixo:
+
+.. code-block:: python
+
+    BARRA_SCRIPT_PATH = "http://barra.globo.com/nova"
+
+Configurações
+=============
+
+Além do caminho dos scripts, a barra da globo.com suporta outras configurações
+no settings.py.
+
+Exibir Central de Serviços
+--------------------------
+
+Esta configuração permite que o item da central de serviços seja ou não
+exibido:
+
+.. image:: img/barra/central-globo-com.png
+
+Para utilizá-la, inclua a configuração no settings.py conforme abaixo:
+
+.. code-block:: python
+
+    BARRA_EXIBE_CENTRAL = False
+
+Exibir Assine Já
+----------------
+
+Esta configuração permite que o item de assinaturas seja ou não exibido:
+
+.. image:: img/barra/assine-ja.png
+
+Para utilizá-la, inclua a configuração no settings.py conforme abaixo:
+
+.. code-block:: python
+
+    BARRA_EXIBE_ASSINE_JA = False
+
+Item de Barra Customizado
+-------------------------
+
+Esta configuração permite que um item adicional seja incluído na barra:
+
+.. image:: img/barra/item-customizado.png
+
+Para utilizar o item adicional, algumas configurações são obrigatórias:
+
+.. code-block:: python
+
+    #URL do item customizado
+    BARRA_ITEM_CUSTOMIZADO_URL = "http://redeglobo.globo.com"
+
+    #Texto que irá aparecer no item customizado
+    BARRA_ITEM_CUSTOMIZADO_TEXTO = "rede globo"
+
+    #Cor do link do item customizado
+    BARRA_ITEM_CUSTOMIZADO_COR = "#5C6BAC"
+
+Além destas configurações obrigatórias, pode ainda ser especificada uma imagem
+para o item adicional, usando a configuração abaixo:
+
+.. code-block:: python
+
+    #URL da imagem
+    BARRA_ITEM_CUSTOMIZADO_IMAGEM = "http://redeglobo.globo.com/media/redeglobo.gif"
+
+.. admonition:: photo
+
+    A imagem do item customizado não tem largura fixa, porém a altura PRECISA
+    ser de 20px, ou a imagem ficará distorcida.
+
+Exemplos
+========
+
+* `Barra com opções padrão <../_static/barra_default.html>`_.
+* `Barra com item customizado <../_static/barra_item_customizado.html>`_.
+* `Barra sem o link "assine já" <../_static/barra_sem_assineja.html>`_.
+* `Barra sem o link "central globo.com" <../_static/barra_sem_central.html>`_.
+* `Barra sem os links "assine já" e "central globo.com" <../_static/barra_sem_central_sem_assineja.html>`_.
+
+Utilizando a barra sem a App do Libby
+=====================================
+
+É perfeitamente viável o uso da barra sem utilização da app do libby.
+
+Devem ser incluídos os arquivos de CSS e Javascript corretos, precedidos da declaração das opções necessárias. 
+
+Com o intuito de tornar esta tarefa mais simples, está inclusa na documentação uma página que gera o código que deve ser incluído no <HEAD> da página utilizando a barra.
+
+.. warning::
+
+    Lembramos que não é um problema a inclusão do script da barra no head **SE E SOMENTE SE** o script for utilizado conforme gerado nesta página, pois 
+    o script gerado tem carregamento assíncrono.
+
+Para gerar uma configuração para a barra acesse a `Página de configuração de Barra <../_static/monta_script.html>`_.
+

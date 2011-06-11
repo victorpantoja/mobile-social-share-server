@@ -1,0 +1,66 @@
+Widget TechTudo dinâmico
+===================================
+
+.. note::
+
+    Widget mantido pelo time Alfa.
+    
+    alfa@corp.globo.com
+
+.. admonition:: grid
+
+    Este widget ocupa 4 colunas do grid, devendo assim estar incluído em uma 
+    área que possua 300px. A altura deste widget é fixa em 256px, incluindo bordas.
+    
+Descrição
+----------
+
+    Exibe 3 destaques com foto escolhidos editorialmente
+
+Instalação
+----------
+Para utilizar este destaque, inclua a seguinte app como INSTALLED_APPS:
+
+.. code-block:: python
+
+    INSTALLED_APPS = [
+        #...
+        'libby.widgets.widget_techtudo_dinamico',
+        #...
+    ]
+
+.. admonition:: migration
+
+    Não se esqueça de rodar as migrations após instalar a app. Estas migrations criam o widget no banco.
+
+Gravação do Estático
+--------------------
+
+O conteúdo a ser servido neste widget é obtido através da url http://techtudo.be.globoi.com/widgets/widget_dinamico_techtudo.
+
+Este conteúdo deve ser estatizado no filer do produto em questão. O path deverá ser */libby/widgets/widget_dinamico_techtudo/index.html*.
+
+.. warning::
+
+	Importante observar que por regra, a resposta só pode ser salva neste path se seu status-code for 200.
+
+Para teste local, o snapshot *libby/widget_dinamico_techtudo/widget_dinamico_techtudo.html* será utilizado.
+
+Na home da globo.com, este procedimento foi feito através de um shell script rodando no cron.
+
+Associação
+----------
+
+Este destaque precisa ser associado a uma área qualquer do
+template da página em que se deseja usá-lo.
+
+Essa associação pode ser feita manualmente (via migrations ou banco de dados),
+ou usando o `admin de associação de área a box provido pelo libby <../aplicacoes/associacao_box.html>`_.
+
+Utilização
+----------
+
+Dado que este widget está associado a alguma área, 
+para utilizá-lo, basta adicioná-lo a área em questão.
+
+.. image:: img/widget_dinamico_techtudo.jpg

@@ -1,0 +1,105 @@
+Equipe responsável pelo Libby
+=============================
+
+Beta
+----
+
+.. image:: img/equipe/beta.jpg
+
+* Ana Bel Campos `<anabel@corp.globo.com>`_
+* Bruno Azisaka `<bruno.azisaka@corp.globo.com>`_
+* Cainã Nunes `<caina@corp.globo.com>`_
+* Everton Carpes `<everton@corp.globo.com>`_
+* Fabricio Lopes `<fabricio.lopes@corp.globo.com>`_
+* Guilherme Cirne `<guilherme.cirne@corp.globo.com>`_
+* Pedro Putz `<pedro.putz@corp.globo.com>`_
+* Raphael Simoens `<raphael.dias@corp.globo.com>`_
+
+**Contribuições**: Widget de receitas.
+
+Entretenimento 4
+-----------------
+
+.. image:: img/equipe/ent4.jpg
+
+* Andrews Patrick Medina `<andrews@corp.globo.com>`_
+* Carol Janovik `<caroljanovik@corp.globo.com>`_
+* Eslinie Fiaes Santos `<eslinie@corp.globo.com>`_
+* Luiz Lemos `<luiz.lemos@corp.globo.com>`_
+* Victor de Oliveira Areas `<victor.areas@corp.globo.com>`_
+* Tarsis Azevedo `<tarsis@corp.globo.com>`_
+
+**Contribuições**: Beta testing.
+
+Esportes 1
+-----------
+
+.. image:: img/equipe/esportes1.jpg
+
+* Kenji Yamamoto `<kenji@corp.globo.com>`_
+* Leonardo Navarro de Araújo do Nascimento `<leonardo.navarro@corp.globo.com>`_
+* Romulo de Barros Correia Jales `<romulo.jales@corp.globo.com>`_
+* Victor Pantoja `<victor.pantoja@corp.globo.com>`_
+
+**Contribuições**: Box quadruplo, Box sextuplo, Box carrossel destaques editoriais, Widget ge mosaico, Widget ge classificação, Widget interatividade foto e vídeo, Widget blogs, Widget programação, Box header programa e Widget ticker de notícia.
+
+Jornalismo 2
+-------------
+
+.. image:: img/equipe/j2.jpg
+
+* Benitez Moretti `<benitez@corp.globo.com>`_
+* Diego Fleury `<diego.fleury@corp.globo.com>`_
+* Igor Giusti `<igor.giusti@corp.globo.com>`_
+* Lilian Moura `<lilian@corp.globo.com>`_
+* Marília Ceccon `<marilia@corp.globo.com>`_
+* Rafael Marin (Mirim) `<rafaelm@corp.globo.com>`_
+* Bruno Pinheiro `<bruno.pinheiro@corp.globo.com>`_
+* Raquel Santos `<raquel.santos@corp.globo.com>`_
+* Vinícius Mendes `<vinicius.mendes@corp.globo.com>`_
+* Willian Braga `<willian@corp.globo.com>`_
+
+**Contribuições**: Widget indicadores mercado financeiro.
+
+Portal Padrões
+--------------
+
+.. image:: img/equipe/portalpadroes.jpg
+
+* Bernardo Heynemann `<heynemann@corp.globo.com>`_
+* Evandro Gonçalves `<evandro.goncalves@corp.globo.com>`_
+* Fábio Miranda Costa `<fabio.costa@corp.globo.com>`_
+* Luciano Pouzada `<lpouzada@corp.globo.com>`_
+* Luciana Albuquerque `<luciana.albuquerque@corp.globo.com>`_
+* Luiz Crespo `<crespo@corp.globo.com>`_
+* Marcela Abbade `<marcela.abbade@corp.globo.com>`_
+* Moisés Ribeiro `<moises.ribeiro@corp.globo.com>`_
+* Rafael Jacinto Carício `<rafael.caricio@corp.globo.com>`_
+
+**Contribuições**: Carrossel, Barra, Box vídeo e vídeo triplo, Header de produtos, Modal box, Top globocom, Box de eventos, Destaque secundário médio foto lado e foto topo, Destaque terciário médio foto lado, Agrupadores superwide quadruplo e quintuplo, Associação de box a área, publicação multi-dispositivos, Analytics nos links, Periódicos e Componentes Fixos.
+
+RealTime
+--------
+
+.. image:: img/equipe/realtime.jpg
+
+* Hendrigo Cunha `<hendrix@corp.globo.com>`_
+* Lucas Rosa Galego `<lucas.galego@corp.globo.com>`_
+* Moisés Sava `<msava@corp.globo.com>`_
+
+**Contribuições**: Widget realtime mais lidas.
+
+Techtudo
+---------
+
+.. image:: img/equipe/techtudo.jpg
+
+* Christian `<christian@corp.globo.com>`_
+* Demetrius `<demetrius@corp.globo.com>`_
+* Everton `<everton.fraga@corp.globo.com>`_
+* Marco Maia `<marcomaia@corp.globo.com>`_
+* Vinícius `<vinicius.leitao@corp.globo.com>`_
+* Tiago `<tiago.motta@corp.globo.com>`_
+
+**Contribuições**: Widget techtudo e Widget techtudo dinâmico.
+

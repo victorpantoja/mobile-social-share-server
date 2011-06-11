@@ -1,0 +1,181 @@
+
+<!DOCTYPE HTML>
+
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="CACHE-CONTROL" content="NO-CACHE" />
+    <meta http-equiv="PRAGMA" content="NO-CACHE" />
+    <meta http-equiv="EXPIRES" content="Mon, 22 Jul 2002 11:12:01 GMT" />
+    
+    <title>Pesquisa de Cidades &mdash; mobile social share v1.0.0 documentation</title>
+    <link rel="stylesheet" href="../_static/main.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/redmond/jquery-ui-1.8.13.custom.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '1.0.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/jquery-ui-1.8.13.custom.min.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/jquery-ui-1.8.13.custom.min.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/jquery-ui-1.8.13.custom.min.js"></script>
+    <link rel="top" title="mobile social share v1.0.0 documentation" href="../index.html" /> 
+  </head>
+  <body>
+
+    <div class="container_12">
+        <div class="grid_3 logo menu">
+            <a href="../index.html" class="logo"><img src="../_static/mss.png"></a>
+            <ul class="version">
+                <li>v1.0.0 (02-06-2011)</li>
+            </ul>
+
+            <div class="menu-accordion">
+                <h3><a href="#">Instalação &amp; Uso</a></h3>
+                <div>
+                    <ul>
+                        <li>
+                            <a href="../install.html">Instalação</a>
+                        </li>
+                        <li>
+                            <a href="../convencoes.html">Convenções</a>
+                        </li>
+                        <li>
+                            <a href="../tests.html">Plataforma de testes</a>
+                        </li>
+                        <li>
+                            <a href="../contributing.html">Aplicação Demo</a>
+                        </li>
+                    </ul>
+                </div>
+
+                <h3><a href="#">Arquitetura</a></h3>
+                <div>
+                    <ul class="componentes">
+                        <li>
+                            <a href="../arquitetura/carrossel.html">Integração com as Redes Sociais</a>
+                        </li>
+                        <li>
+                            <a href="../arquitetura/carrossel.html">Infraestrutura de Cache</a>
+                        </li>
+                        <li>
+                            <a href="../arquitetura/carrossel.html">Infraestrutura de Cache</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="grid_9 contents">
+            
+  <div class="section" id="pesquisa-de-cidades">
+<h1>Pesquisa de Cidades<a class="headerlink" href="#pesquisa-de-cidades" title="Permalink to this headline">¶</a></h1>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p>Mantido pela equipe portal padrões</p>
+<p class="last"><a class="reference external" href="mailto:timehome&#37;&#52;&#48;corp&#46;globo&#46;com">timehome<span>&#64;</span>corp<span>&#46;</span>globo<span>&#46;</span>com</a></p>
+</div>
+<p>O serviço de pesquisa de cidades permite buscar uma lista de cidades do Brasil (e de algumas capitais do mundo). A lista de cidades é filtrada a partir do começo do nome da cidade.</p>
+<div class="section" id="instalacao">
+<h2>Instalação<a class="headerlink" href="#instalacao" title="Permalink to this headline">¶</a></h2>
+<p>Para utilizar esta funcionalidade do libby, é necessária a inclusão do script do globo-api na sua
+página, conforme abaixo.</p>
+<div class="highlight-html"><div class="highlight"><pre><span class="nt">&lt;script </span><span class="na">type=</span><span class="s">&quot;text/javascript&quot;</span>
+        <span class="na">src=</span><span class="s">&quot;http://api.globo.com/js/globo-api-latest-min.js&quot;</span><span class="nt">&gt;</span>
+<span class="nt">&lt;/script&gt;</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="utilizacao">
+<h1>Utilização<a class="headerlink" href="#utilizacao" title="Permalink to this headline">¶</a></h1>
+<p>Para utilizar o serviço de busca de cidade, basta invocar a função search conforme abaixo,
+informando o callback que deseja ser executado quando houver resposta:</p>
+<div class="highlight-html"><div class="highlight"><pre><span class="nt">&lt;script </span><span class="na">type=</span><span class="s">&quot;text/javascript&quot;</span><span class="nt">&gt;</span>
+    <span class="nx">globoapi</span><span class="p">.</span><span class="nx">citySearch</span><span class="p">.</span><span class="nx">search</span><span class="p">(</span><span class="s1">&#39;termo de busca&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">results</span><span class="p">,</span> <span class="nx">term</span><span class="p">){</span>
+        <span class="c1">// [ {</span>
+        <span class="c1">//      &quot;city&quot;: &quot;São Paulo&quot;,</span>
+        <span class="c1">//      &quot;state&quot;: &quot;SP&quot;,</span>
+        <span class="c1">//      &quot;translated_city&quot;: &quot;sao paulo&quot;,</span>
+        <span class="c1">//      &quot;slug&quot;: &quot;sp/sao-paulo&quot;</span>
+        <span class="c1">// } ]</span>
+    <span class="p">});</span>
+<span class="nt">&lt;/script&gt;</span>
+</pre></div>
+</div>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">Se o termo informado for menor que 3 caracteres o serviço retorna status 404. A aplicação deve tratar esse caso e não
+fazer nenhuma chamada com termos menores que 3.</p>
+</div>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">No caso de múltiplas chamadas sucessivas, o serviço de busca de cidades não
+garante a ordem de chamada do callback. Uma alternativa para garantir que somente a
+última requisição seja utilizada é verificar o termo no retorno do callback.</p>
+</div>
+<div class="section" id="enderecos-dos-scripts">
+<h2>Endereços dos Scripts<a class="headerlink" href="#enderecos-dos-scripts" title="Permalink to this headline">¶</a></h2>
+<p>Os endereços para utilização do serviço de pesquisa de cidades são:</p>
+<ul class="simple">
+<li>Dev - <a class="reference external" href="http://api.dev.globoi.com/citysearch">http://api.dev.globoi.com/citysearch</a></li>
+<li>QA01 - <a class="reference external" href="http://api.qa01.globoi.com/citysearch">http://api.qa01.globoi.com/citysearch</a></li>
+<li>Prod - <a class="reference external" href="http://api.globo.com/citysearch">http://api.globo.com/citysearch</a></li>
+</ul>
+<p>Endereços dos scripts do globo-api (requerimento para uso do serviço):</p>
+<ul class="simple">
+<li>Dev - <a class="reference external" href="http://api.dev.globoi.com/js/globo-api">http://api.dev.globoi.com/js/globo-api</a>-&lt;versao&gt;-min.js</li>
+<li>QA01 - <a class="reference external" href="http://api.qa01.globoi.com/js/globo-api">http://api.qa01.globoi.com/js/globo-api</a>-&lt;versao&gt;-min.js</li>
+<li>Prod - <a class="reference external" href="http://api.globo.com/js/globo-api">http://api.globo.com/js/globo-api</a>-&lt;versao&gt;-min.js</li>
+</ul>
+<p>&lt;versao&gt; corresponde a versão do globo-api que você deseja utilizar. Utilize
+&#8220;latest&#8221; para a última versão estável.</p>
+<p>Exemplos: <a class="reference external" href="http://api.globo.com/js/globo-api-latest-min.js">http://api.globo.com/js/globo-api-latest-min.js</a>,
+<a class="reference external" href="http://api.globo.com/js/globo-api-0.6.0-min.js">http://api.globo.com/js/globo-api-0.6.0-min.js</a>, etc.</p>
+</div>
+<div class="section" id="utilizacao-sem-o-sdk">
+<h2>Utilização sem o SDK<a class="headerlink" href="#utilizacao-sem-o-sdk" title="Permalink to this headline">¶</a></h2>
+<p>Apesar de os scripts do globo-api facilitarem o uso do serviço de
+pesquisa de cidades, a utilização do mesmo por HTTP GET é suportada, conforme
+demonstrado no script abaixo, utilizando JQuery:</p>
+<div class="highlight-html"><div class="highlight"><pre><span class="nt">&lt;script </span><span class="na">type=</span><span class="s">&quot;text/javascript&quot;</span><span class="nt">&gt;</span>
+    <span class="nx">$</span><span class="p">.</span><span class="nx">ajax</span><span class="p">({</span>
+        <span class="nx">dataType</span><span class="o">:</span> <span class="s1">&#39;jsonp&#39;</span><span class="p">,</span>
+        <span class="nx">jsonpCallback</span><span class="o">:</span> <span class="s1">&#39;globoapi_citySearch_callback&#39;</span><span class="p">,</span>
+        <span class="nx">jsonp</span><span class="o">:</span> <span class="kc">false</span><span class="p">,</span>
+        <span class="nx">url</span><span class="o">:</span> <span class="s1">&#39;http://api.globo.com/citysearch/rio&#39;</span><span class="p">,</span>
+        <span class="nx">success</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">term</span><span class="p">,</span> <span class="nx">results</span><span class="p">){</span>
+            <span class="c1">// Do something with results</span>
+        <span class="p">}</span>
+    <span class="p">});</span>
+<span class="nt">&lt;/script&gt;</span>
+</pre></div>
+</div>
+</div>
+</div>
+
+
+        </div>
+            <div class="clear"></div>
+            <div class="grid_12 footer">
+                &copy; <a href="../index.html">Copyright</a> Mobile Social Share v1.0.0 - 02-06-2011.
+              Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0b2.
+            </div>
+    </div>
+    <script type="text/javascript" charset="utf-8">
+        $(function() {
+            $('.menu-accordion').accordion({
+                autoHeight: false,
+                collapsible: true
+            });
+        });
+    </script>
+  </body>
+</html>

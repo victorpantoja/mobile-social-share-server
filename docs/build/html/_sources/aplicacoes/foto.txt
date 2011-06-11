@@ -1,0 +1,89 @@
+Foto
+====
+
+.. include:: ../times/portalpadroes.rst
+
+A aplicação de fotos é composta por 3 partes:
+
+* Serviço de Fotos Thumbor
+* Componente de Pop-in de Fotos
+* Biblioteca de Apoio libby.js
+
+Instalação
+----------
+
+Para utilizar esta funcionalidade do libby, inclua a seguinte app como INSTALLED_APPS:
+
+.. code-block:: python
+
+    INSTALLED_APPS = [
+        #...
+        'libby.aplicacoes.foto',
+        #...
+    ]
+
+O serviço de fotos requer o uso de uma chave de segurança -
+**_THUMBOR_SECURITY_KEY_** - bem como a especificação da URL em que o serviço
+está respondendo - **_THUMBOR_SERVER_**.
+
+.. code-block:: python
+
+    THUMBOR_SECURITY_KEY = 'MY_SECURE_KEY'
+    THUMBOR_SERVER = 'http://localhost:8888/'
+
+.. warning::
+
+    Esta chave é compartilhada entre todos os usuários do serviço de fotos
+    e será trocada eventualmente. A responsabilidade de trocar a chave de
+    segurança após a notificação de troca é de cada time.
+
+Além disso, o pop-in requer que sejam especificadas altura e largura máximas
+para as imagens enviadas. Estas configurações são usadas no caso de imagens
+muito grandes para tornar o uso do serviço viável, pois as operações que
+o serviço faz são muito custosas para serem realizadas em imagens muito
+grandes. Abaixo estão os valores recomendados:
+
+.. code-block:: python
+
+    MAX_IMAGE_WIDTH = 2000
+    MAX_IMAGE_HEIGHT = 2000
+
+Além disso, o serviço de foto requer o uso de uma biblioteca chamada libthumbor
+(https://github.com/heynemann/libthumbor). A instalação desta pode ser feita
+usando o pip ou easy_intall::
+
+    pip install -U libthumbor
+    # ou
+    easy_install libthumbor
+
+Como último passo é necessária a inclusão do `libby.js <../js/widget_base.html>`_
+
+Utilização
+----------
+
+Para utilizar a aplicação de fotos, tudo que é necessário é adicionar a app os
+listeners dos signals correspondentes, conforme abaixo::
+
+    from libby.aplicacoes.periodicos.signals import periodico_signal
+
+    def handle_periodico_5(sender, request, **kwargs):
+        #faz alguma coisa
+    
+    periodico_signal.connect(handle_periodico_5, sender=5)
+
+    # o sender do signal é o número de minutos do período do mesmo
+
+.. warning::
+
+    É necessária a inclusão no cron do server do projeto que utiliza esta app
+    de um HTTP GET (wget, curl, etc) das seguintes urls:
+
+    /libby/aplicacoes/periodicos/periodico/1.html
+
+    /libby/aplicacoes/periodicos/periodico/3.html
+
+    /libby/aplicacoes/periodicos/periodico/5.html
+
+    /libby/aplicacoes/periodicos/periodico/10.html
+
+    /libby/aplicacoes/periodicos/periodico/20.html

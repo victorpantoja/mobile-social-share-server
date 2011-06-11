@@ -1,0 +1,67 @@
+Agrupador Super Wide Quíntuplo
+==============================
+
+.. include:: ../times/portalpadroes.rst
+
+.. admonition:: grid
+
+    O agrupador super wide quíntuplo ocupa 12 colunas do grid, devendo assim estar incluído em uma 
+    área que possua 940px. A altura deste agrupador é variável.
+
+Instalação
+----------
+
+Para utilizar este agrupador, inclua a seguinte app como INSTALLED_APPS:
+
+.. code-block:: python
+
+    INSTALLED_APPS = [
+        #...
+        'libby.agrupadores.agrupador_super_wide_quintuplo',
+        #...
+    ]
+
+.. admonition:: migration
+
+    Não se esqueça de rodar as migrations após instalar a app. Estas migrations criam o box template e os highlight templates no banco.
+
+.. admonition:: photo
+    
+    Este agrupador utiliza um tamanho de foto: 171x96.
+
+    Siga as instruções da `página de instalação <../install.html>`_ para que
+    este tamanho esteja disponível para seleção.
+
+Associação do Agrupador Super Wide Quíntuplo
+--------------------------------------------
+
+O agrupador super wide quíntuplo é um destaque e como tal,
+precisa ser associado a uma área qualquer do
+template da página em que se deseja usá-lo.
+
+Essa associação pode ser feita manualmente (via migrations ou banco de dados),
+ou usando o `admin de associação de área a box provido pelo libby <../aplicacoes/associacao_box.html>`_.
+
+.. admonition:: css
+
+    As cores do agrupador super wide quíntuplo devem ser sobrescritas com as
+    cores do produto, como pode ser visto na `lista de estilos padrão, com cor de exemplo(azul) <http://ngit.globoi.com/libby/libby/blobs/master/libby/agrupadores/agrupador_super_wide_quintuplo/media/libby/agrupador_super_wide_quintuplo/css/libby.agrupador_super_wide_quintuplo.cores.css>`_.
+
+    Para que a folha de estilo padrão não seja incluída automaticamente, inclua
+    a configuração LIBBY_INCLUDE_CSS_COLORS como False no arquivo de
+    configuração (settings.py).
+
+Utilização do Agrupador Super Wide Quíntuplo
+--------------------------------------------
+
+Dado que o agrupador super wide quíntuplo está associado a alguma área, 
+para utilizá-lo, basta adicioná-lo a área em questão.
+
+O agrupador será apresentado conforme abaixo:
+
+.. image:: img/agrupador.super.wide.quintuplo.cma.1.png
+
+Após o preenchimento correto do agrupador, quando ele é publicado, ele aparece
+conforme a imagem abaixo:
+
+.. image:: img/agrupador.super.wide.quintuplo.cda.1.png

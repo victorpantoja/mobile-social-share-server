@@ -1,0 +1,61 @@
+Widget Interatividade Múltiplo
+=====================================
+
+.. note::
+
+    Widget mantido pela equipe do globoesporte.com
+    
+    esportes1@corp.globo.com
+
+.. admonition:: grid
+
+   	Este widget ocupa 8 colunas do grid, devendo assim estar incluído em uma
+    área que possua 620px.
+    
+Descrição
+----------
+
+Widget para exibição de múltiplas interatividades. 
+
+
+Instalação
+----------
+Este destaque depende da versão >= 3.5.1 do globocore, pois utiliza o modelo novo para criação de widgets
+
+Para utilizar este widget, inclua a seguinte app como INSTALLED_APPS:
+
+.. code-block:: python
+
+    INSTALLED_APPS = [
+        #...
+        'libby.widgets.widget_interatividade_multiplo',
+        #...
+    ]
+
+
+Em seguida, ele deverá ser associado à área correspondente, conforme exemplificado abaixo:
+
+.. code-block:: python
+
+	WIDGETS={"AREATEMPLATE_BASE_WIDE_HOME_SPORTV":[
+	'libby.widgets.widget_interatividade_multiplo.widgets.InteratividadeMultiplo',]}
+
+.. admonition:: migration
+
+    Não é necessária a execução de migrations.
+
+
+Utilização
+----------
+
+    Dado que este widget está associado a alguma área, para utilizá-lo, basta adicioná-lo a área em questão, 
+    e relacionar as enquetes que deseja exibir através do popin de configuração do widget no CMA.
+    
+    Obs: Este widget não pode ser instanciado com menos de uma enquete.
+    
+    .. image:: img/widget_interatividade_multiplo.png
+    
+    
+
+    
+    

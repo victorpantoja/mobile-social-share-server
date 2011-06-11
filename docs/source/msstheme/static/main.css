@@ -1,0 +1,614 @@
+/*
+    Variable Grid System.
+    Learn more ~ http://www.spry-soft.com/grids/
+    Based on 960 Grid System - http://960.gs/
+
+    Licensed under GPL and MIT.
+*/
+
+
+/* Containers
+----------------------------------------------------------------------------------------------------*/
+.container_12 {
+    margin-left: auto;
+    margin-right: auto;
+    width: 960px;
+}
+
+/* Grid >> Global
+----------------------------------------------------------------------------------------------------*/
+
+.grid_1,
+.grid_2,
+.grid_3,
+.grid_4,
+.grid_5,
+.grid_6,
+.grid_7,
+.grid_8,
+.grid_9,
+.grid_10,
+.grid_11,
+.grid_12 {
+    display:inline;
+    float: left;
+    position: relative;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+/* Grid >> Children (Alpha ~ First, Omega ~ Last)
+----------------------------------------------------------------------------------------------------*/
+
+.alpha {
+    margin-left: 0;
+}
+
+.omega {
+    margin-right: 0;
+}
+
+/* Grid >> 12 Columns
+----------------------------------------------------------------------------------------------------*/
+
+.container_12 .grid_1 {
+    width:60px;
+}
+
+.container_12 .grid_2 {
+    width:140px;
+}
+
+.container_12 .grid_3 {
+    width:220px;
+}
+
+.container_12 .grid_4 {
+    width:300px;
+}
+
+.container_12 .grid_5 {
+    width:380px;
+}
+
+.container_12 .grid_6 {
+    width:460px;
+}
+
+.container_12 .grid_7 {
+    width:540px;
+}
+
+.container_12 .grid_8 {
+    width:620px;
+}
+
+.container_12 .grid_9 {
+    width:700px;
+}
+
+.container_12 .grid_10 {
+    width:780px;
+}
+
+.container_12 .grid_11 {
+    width:860px;
+}
+
+.container_12 .grid_12 {
+    width:940px;
+}
+
+
+
+/* Prefix Extra Space >> 12 Columns
+----------------------------------------------------------------------------------------------------*/
+
+.container_12 .prefix_1 {
+    padding-left:80px;
+}
+
+.container_12 .prefix_2 {
+    padding-left:160px;
+}
+
+.container_12 .prefix_3 {
+    padding-left:240px;
+}
+
+.container_12 .prefix_4 {
+    padding-left:320px;
+}
+
+.container_12 .prefix_5 {
+    padding-left:400px;
+}
+
+.container_12 .prefix_6 {
+    padding-left:480px;
+}
+
+.container_12 .prefix_7 {
+    padding-left:560px;
+}
+
+.container_12 .prefix_8 {
+    padding-left:640px;
+}
+
+.container_12 .prefix_9 {
+    padding-left:720px;
+}
+
+.container_12 .prefix_10 {
+    padding-left:800px;
+}
+
+.container_12 .prefix_11 {
+    padding-left:880px;
+}
+
+
+
+/* Suffix Extra Space >> 12 Columns
+----------------------------------------------------------------------------------------------------*/
+
+.container_12 .suffix_1 {
+    padding-right:80px;
+}
+
+.container_12 .suffix_2 {
+    padding-right:160px;
+}
+
+.container_12 .suffix_3 {
+    padding-right:240px;
+}
+
+.container_12 .suffix_4 {
+    padding-right:320px;
+}
+
+.container_12 .suffix_5 {
+    padding-right:400px;
+}
+
+.container_12 .suffix_6 {
+    padding-right:480px;
+}
+
+.container_12 .suffix_7 {
+    padding-right:560px;
+}
+
+.container_12 .suffix_8 {
+    padding-right:640px;
+}
+
+.container_12 .suffix_9 {
+    padding-right:720px;
+}
+
+.container_12 .suffix_10 {
+    padding-right:800px;
+}
+
+.container_12 .suffix_11 {
+    padding-right:880px;
+}
+
+
+
+/* Push Space >> 12 Columns
+----------------------------------------------------------------------------------------------------*/
+
+.container_12 .push_1 {
+    left:80px;
+}
+
+.container_12 .push_2 {
+    left:160px;
+}
+
+.container_12 .push_3 {
+    left:240px;
+}
+
+.container_12 .push_4 {
+    left:320px;
+}
+
+.container_12 .push_5 {
+    left:400px;
+}
+
+.container_12 .push_6 {
+    left:480px;
+}
+
+.container_12 .push_7 {
+    left:560px;
+}
+
+.container_12 .push_8 {
+    left:640px;
+}
+
+.container_12 .push_9 {
+    left:720px;
+}
+
+.container_12 .push_10 {
+    left:800px;
+}
+
+.container_12 .push_11 {
+    left:880px;
+}
+
+
+
+/* Pull Space >> 12 Columns
+----------------------------------------------------------------------------------------------------*/
+
+.container_12 .pull_1 {
+    left:-80px;
+}
+
+.container_12 .pull_2 {
+    left:-160px;
+}
+
+.container_12 .pull_3 {
+    left:-240px;
+}
+
+.container_12 .pull_4 {
+    left:-320px;
+}
+
+.container_12 .pull_5 {
+    left:-400px;
+}
+
+.container_12 .pull_6 {
+    left:-480px;
+}
+
+.container_12 .pull_7 {
+    left:-560px;
+}
+
+.container_12 .pull_8 {
+    left:-640px;
+}
+
+.container_12 .pull_9 {
+    left:-720px;
+}
+
+.container_12 .pull_10 {
+    left:-800px;
+}
+
+.container_12 .pull_11 {
+    left:-880px;
+}
+
+
+
+
+/* Clear Floated Elements
+----------------------------------------------------------------------------------------------------*/
+
+/* http://sonspring.com/journal/clearing-floats */
+
+.clear {
+    clear: both;
+    display: block;
+    overflow: hidden;
+    visibility: hidden;
+    width: 0;
+    height: 0;
+}
+
+/* http://perishablepress.com/press/2008/02/05/lessons-learned-concerning-the-clearfix-css-hack */
+
+.clearfix:after {
+    clear: both;
+    content: ' ';
+    display: block;
+    font-size: 0;
+    line-height: 0;
+    visibility: hidden;
+    width: 0;
+    height: 0;
+}
+
+.clearfix {
+    display: inline-block;
+}
+
+* html .clearfix {
+    height: 1%;
+}
+
+.clearfix {
+    display: block;
+}
+
+body {
+    font-family: arial;
+    font-size:100%;
+    line-height:1.25;
+}
+
+h1, h2, h3, h4, h5, h6{
+    line-height: 1;
+    margin: 30px 0 5px 0;
+}
+
+h1 {
+    font-size: 1.475em;
+}
+
+h2 {
+    font-size: 1.325em;
+}
+
+h3 {
+    font-size: 1.125em;
+}
+
+h4 {
+    font-size: 1.025em;
+}
+
+p, li{
+    font-size: 1em;
+}
+
+p{
+    margin: 0.6em 0 0.8em 0;
+}
+
+ul, ol{
+    padding-left: 20px;
+}
+
+dd{
+    margin-left: 0;
+}
+
+a.logo img {
+    border: none;
+    /*background: url('libby.png') no-repeat 0 0;*/
+}
+
+.menu {
+    margin-top: 15px;
+}
+
+.menu h2 {
+    margin-bottom: -6px;
+    font-size: 1.175em;
+}
+
+.menu ul {
+    list-style: none;
+    padding-left: 0px;
+}
+
+.menu ul li {
+    line-height: 20px;
+    margin: 8px 0px 0px 0px;
+}
+
+.menu ul li a {
+    /*font-size: 0.975em;*/
+    text-decoration: none;
+    color: #5493cd;
+}
+
+.contents {
+    margin-top: 15px;
+}
+
+.contents img{
+    margin: 10px 0;
+    border: 2px solid #AFC5FF;
+    padding: 10px;
+}
+
+ul.version {
+    font-size: 11px;
+    margin-top: 3px;
+    margin-bottom: -2px;
+}
+
+ul.globocore-version {
+    font-size: 11px;
+    margin-bottom: 35px;
+    margin-top: 3px;
+}
+
+a.headerlink {
+    display: none;
+}
+
+.footer {
+    text-align: center;
+    font-size: 0.725em;
+    padding: 3em 0 1em 0;
+}
+
+.footer a {
+    text-decoration: none;
+    color: #5493cd;
+}
+
+a.reference {
+    text-decoration: none;
+    color: #5493cd;
+}
+
+a.reference:hover {
+    text-decoration: underline;
+}
+
+.highlight, 
+.highlight-python {
+    background: none !important;
+    margin-bottom: 10px;
+}
+
+pre, .admonition{
+    -moz-border-radius: 6px; -webkit-border-radius: 6px; border-radius: 6px;
+    border-width: 1px;
+    border-style: solid;
+    padding: 12px;
+    margin-bottom: 4px;
+}
+
+pre{
+    background: #F8F8F8 !important;
+    border-color: #EEEEEE;
+}
+
+.note {
+    background: #EFF9FF url('note.png') no-repeat 16px center;
+    border-color: #9BC1CF;
+    color: #314D4F;
+    margin-bottom: 10px;
+}
+
+.note .admonition-title {
+    display: none;
+}
+
+pre, .admonition p{
+    margin: 0;
+}
+
+.admonition .admonition-title{
+    float: left;
+    font-weight: 900;
+    border-right: 1px dotted #EEE;
+    margin-right: 10px;
+    padding-right: 10px;
+}
+
+.admonition-todo{
+    background: #FF6666;
+    border-color: #FFE4E4;
+    color: #222;
+}
+
+.warning {
+    background: #FFFFDF url('warning.png') no-repeat 16px center;
+    border-color: #EEEF4A;
+    color: #555;
+    margin-bottom: 10px;
+}
+
+.warning .admonition-title {
+    display: none;
+}
+
+.admonition-migration {
+    background: #FFFFDF url('migrations.png') no-repeat 16px center;
+    border-color: #EEEF4A;
+    color: #555;
+    margin-bottom: 10px;
+}
+
+.admonition-migration .admonition-title {
+    display: none;
+}
+
+.admonition-migration p {
+    padding-left: 48px;
+}
+
+.admonition-grid {
+    background: #EFF9FF url('grid.png') no-repeat 16px center;
+    border-color: #9BC1CF;
+    color: #314D4F;
+    margin-bottom: 10px;
+}
+
+.admonition-grid .admonition-title {
+    display: none;
+}
+
+.admonition-grid p {
+    padding-left: 48px;
+}
+
+.admonition-photo {
+    background: #FFFFDF url('photo.png') no-repeat 16px center;
+    border-color: #EEEF4A;
+    color: #555;
+    margin-bottom: 10px;
+}
+
+.admonition-photo .admonition-title {
+    display: none;
+}
+
+.admonition-photo p {
+    padding-left: 48px;
+}
+
+.admonition-css {
+    background: #EFF9FF url('css.png') no-repeat 16px center;
+    border-color: #9BC1CF;
+    color: #314D4F;
+    margin-bottom: 10px;
+}
+
+.admonition-css .admonition-title {
+    display: none;
+}
+
+.admonition p {
+    margin-bottom: 6px;
+    padding-left: 48px;
+}
+
+.admonition p.last {
+    margin-bottom: 0px;
+}
+
+@media print {
+    div.document,
+    div.documentwrapper,
+    div.bodywrapper {
+        margin: 0 !important;
+        width: 100%;
+    }
+
+    div.sphinxsidebar,
+    div.related,
+    div.footer,
+    #top-link {
+        display: none;
+    }
+}
+
+.menu-accordion .ui-accordion-header a {
+    font-size: 12px !important;
+}
+
+.menu-accordion .ui-accordion-content {
+    padding: 0px 10px 0px 20px !important;
+}
+
+.menu-accordion .ui-accordion-content li {
+    font-size: 14px !important;
+    padding: 4px 0 0 0 !important
+}
+
+.menu-accordion .ui-accordion-content li a {
+    font-size: 14px !important;
+}
