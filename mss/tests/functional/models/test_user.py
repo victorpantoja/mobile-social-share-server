@@ -17,6 +17,7 @@ def test_user_can_be_saved():
     user.created = datetime.now()
     user.last_login = datetime.now()
     user.password = 'should-be-last-name'
+    user.gender = 'M'
     
     user.save()
     

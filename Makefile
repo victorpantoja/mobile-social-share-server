@@ -19,6 +19,10 @@ stop-memcached:
 
 start-be:
 	@echo "Starting mobile-social-share server..."
+	@python mss/start.py > /dev/null 2>&1 &
+	
+start-local:
+	@echo "Starting mobile-social-share server..."
 	@python mss/start.py
 
 stop-be:

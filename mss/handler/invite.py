@@ -21,9 +21,31 @@ class SendInviteHandler(BaseHandler):
         
     def post(self, user, **kw):
 
+        username = self.get_argument('username')
+        
+        session = meta.get_session()  
+        friend = session.query(User).filter(User.username==username).first()
+        
+        friendship = session.query(Friendship).filter(Friendship.user_id==user.id).filter(Friendship.friend_id==friend.id).first()
+
+        if friendship:
+            self.set_header("Content-Type", "application/json; charset=UTF-8")
+            self.write(simplejson.dumps({"status": "error", "msg": "User is already your friend."})) 
+            return
+
+        if not friend:
+            self.set_header("Content-Type", "application/json; charset=UTF-8")
+            self.write(simplejson.dumps({"status": "error", "msg": "User not found."})) 
+            return
+        
+        if friend.id == user.id:
+            self.set_header("Content-Type", "application/json; charset=UTF-8")
+            self.write(simplejson.dumps({"status": "error", "msg": "You cannot be a friend of yourself!"})) 
+            return
+
         invite = Invite()
         invite.user_id = user.id
-        invite.friend_id = self.get_argument('friend_id')
+        invite.friend_id = friend.id
         invite.date = datetime.now()
         
         try:
@@ -49,6 +71,25 @@ class GetInviteHandler(BaseHandler):
         invites = session.query(Invite).filter(Invite.user_id==user.id).all()
                 
         invites_lst = [invite.friend.as_dict() for invite in invites]
+        
+        dict = {'invite':invites_lst}
+
+        self.set_header("Content-Type", "application/json; charset=UTF-8")
+        self.write(simplejson.dumps(dict))
+        return
+    
+class GetInvitationHandler(BaseHandler):
+    
+    @authenticated
+    def get(self, user, **kw):
+        self.post(user, **kw)
+        
+    def post(self, user, **kw):
+        session = meta.get_session()
+        
+        invites = session.query(Invite).filter(Invite.friend_id==user.id).all()
+                
+        invites_lst = [invite.user.as_dict() for invite in invites]
         
         dict = {'invite':invites_lst}
 
@@ -97,6 +138,8 @@ class AcceptInviteHandler(BaseHandler):
         
         invite = Invite.get(id=invite_id)
         
+        friend = User.get(id=invite.friend_id)
+        
         if not invite:
             self.set_header("Content-Type", "application/json; charset=UTF-8")
             self.write(simplejson.dumps({"status": "error", "msg": "Invite not found."}))  
@@ -107,12 +150,16 @@ class AcceptInviteHandler(BaseHandler):
             friendship.user_id = user.id
             friendship.friend_id = invite.friend_id
             friendship.created_dt = datetime.now()
-            friendship.save()
+            
+            try:  
+                friendship.save()
+            except IntegrityError:
+                self.set_header("Content-Type", "application/json; charset=UTF-8")
+                self.write(simplejson.dumps({"status": "error", "msg": "You and %s are already friend!" % friend.first_name}))
+                return
             
             invite.delete()
-
-        friend = User.get(id=invite.friend_id)
-
+            
         self.set_header("Content-Type", "application/json; charset=UTF-8")
         self.write(simplejson.dumps({"status": "ok", "msg": "User %s is now your friend!" % friend.first_name}))  
         return

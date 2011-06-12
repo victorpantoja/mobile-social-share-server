@@ -2,9 +2,10 @@ SQL_UP = u"""
 
 CREATE TABLE `users` (
   `user_id` integer unsigned NOT NULL AUTO_INCREMENT,
+  `username_txt` varchar(200) NOT NULL,
   `lastname_txt` varchar(100) NOT NULL,
   `firstname_txt` varchar(100) NOT NULL,
-  `username_txt` varchar(200) NOT NULL,
+  `gender_flg` set('F','M','O') NOT NULL,
   `password_txt` varchar(32) NOT NULL,
   `criate_dt` datetime NOT NULL,
   `lastlogin_dt` datetime NOT NULL,

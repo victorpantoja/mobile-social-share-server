@@ -29,14 +29,14 @@ class InviteHandlerTestCase(AsyncHTTPTestCase):
     
     def test_send_invite(self):
         user = create_logged_user()
-        user2 = create_user(last_name = 'should-be-last-name-2', first_name = 'test_create_friendship-2',  username = 'should-be-username-2')
+        user2 = create_user(last_name = 'test_send_invite', first_name = 'test_send_invite',  username = 'test_send_invite')
 
-        self.http_client.fetch(self.get_url('/invite/send?friend_id=%s&auth=should-be-user-auth' % user2.id), self.stop)
+        self.http_client.fetch(self.get_url('/invite/send?username=%s&auth=should-be-user-auth' % user2.username), self.stop)
                 
         response = self.wait()
         
         self.failIf(response.error)
-        self.assertEqual(response.body, '{"status": "ok", "msg": "Your invited has been sent!"}')
+        self.assertEqual(response.body, '{"status": "ok", "msg": "Your invite has been sent."}')
         
         invite = self.session.query(Invite).filter(Invite.user_id==user.id).first()
         
@@ -49,7 +49,7 @@ class InviteHandlerTestCase(AsyncHTTPTestCase):
     
     def test_accept_invite(self):
         user = create_logged_user()
-        friend = create_user(last_name = 'should-be-last-name-2', first_name = 'test_create_friendship-2',  username = 'should-be-username-2')
+        friend = create_user(last_name = 'test_accept_invite', first_name = 'test_accept_invite',  username = 'test_accept_invite')
 
         invite = create_invite(user, friend)
 
@@ -58,7 +58,7 @@ class InviteHandlerTestCase(AsyncHTTPTestCase):
         response = self.wait()
         
         self.failIf(response.error)
-        self.assertEqual(response.body, '{"status": "ok", "msg": "User test_create_friendship-2 is now your friend!"}')
+        self.assertEqual(response.body, '{"status": "ok", "msg": "User test_accept_invite is now your friend!"}')
     
         invite = self.session.query(Invite).filter(Invite.user_id==user.id).first()
         
@@ -70,12 +70,13 @@ class InviteHandlerTestCase(AsyncHTTPTestCase):
         assert friendship.friend_id == friend.id
         
         friendship.delete()
+        friend.delete()
         user.delete()
     
     def test_get_invites(self):
         user = create_logged_user()
-        friend1 = create_user(last_name = 'should-be-last-name-1', first_name = 'test_get_invites-1',  username = 'should-be-username-friend-1')
-        friend2 = create_user(last_name = 'should-be-last-name-2', first_name = 'test_get_invites-2',  username = 'should-be-username-friend-2')
+        friend1 = create_user(last_name = 'test_get_invites-1', first_name = 'test_get_invites-1',  username = 'test_get_invites-1')
+        friend2 = create_user(last_name = 'test_get_invites-2', first_name = 'test_get_invites-2',  username = 'test_get_invites-2')
 
         invite1 = create_invite(user, friend1)
         invite2 = create_invite(user, friend2)
@@ -85,7 +86,7 @@ class InviteHandlerTestCase(AsyncHTTPTestCase):
         response = self.wait()
         
         self.failIf(response.error)
-        self.assertEqual(response.body, '{"invite": [{"username": "should-be-username-friend-1", "first_name": "test_get_invites-1", "last_name": "should-be-last-name-1"}, {"username": "should-be-username-friend-2", "first_name": "test_get_invites-2", "last_name": "should-be-last-name-2"}]}')
+        self.assertEqual(response.body, '{"invite": [{"username": "test_get_invites-1", "gender": "M", "first_name": "test_get_invites-1", "last_name": "test_get_invites-1"}, {"username": "test_get_invites-2", "gender": "M", "first_name": "test_get_invites-2", "last_name": "test_get_invites-2"}]}')
         
         invite1.delete()
         invite2.delete()

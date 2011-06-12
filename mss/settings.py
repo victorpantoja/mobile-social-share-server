@@ -14,6 +14,12 @@ DATABASE_ENGINE = {
     "write":"mysql://root@localhost/mss?charset=utf8&use_unicode=0"
 }
 
+#DATABASE_ENGINE = {
+#    "read":"mysql://mss:mss@myalbumshare.com:3306/cartola?charset=utf8&use_unicode=0",
+#    "write":"mysql://mss:mss@myalbumshare.com:3306/cartola?charset=utf8&use_unicode=0"
+#}
+
+
 MSS_BOXES = [ "localhost" ]
 
 DATABASE_POOL_SIZE = 25

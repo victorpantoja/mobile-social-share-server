@@ -151,6 +151,7 @@ class CreateLoginHandler(BaseHandler):
         
         user.first_name = self.get_argument('firstName')
         user.last_name = self.get_argument('lastName')
+        user.gender = self.get_argument('gender')
         
         password = self.create_random_passord()
         

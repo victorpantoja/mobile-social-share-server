@@ -5,13 +5,15 @@ from datetime import datetime
 from mss.core.cache.util import get_cache
 from mss.models.friendship import Friendship
 from mss.models.invite import Invite
+from mss.models.network import Network
 
-def create_logged_user(last_name = 'should-be-last-name-1', first_name = 'test_create_friendship-1',  username = 'should-be-username-1'):
+def create_logged_user(last_name = 'should-be-last-name-1', first_name = 'test_create_user',  username = 'should-be-username-1'):
 
     user = User()
     user.last_name = last_name
     user.first_name = first_name
     user.username = username
+    user.gender = User._MALE
     user.created = datetime.now()
     user.last_login = datetime.now()
     user.password = 'should-be-password'
@@ -28,6 +30,7 @@ def create_user(last_name = 'should-be-last-name-1', first_name = 'test_create_u
     user.last_name = last_name
     user.first_name = first_name
     user.username = username
+    user.gender = User._MALE
     user.created = datetime.now()
     user.last_login = datetime.now()
     user.password = 'should-be-password'
@@ -52,3 +55,12 @@ def create_invite(user, friend):
     invite.save()
     
     return invite
+
+def create_network(name = 'should-be-network-name', icon = 'should-be-network-icon', available = True):
+    network = Network()
+    network.name = name
+    network.icon = icon
+    network.availabe = available
+    network.save()
+    
+    return network

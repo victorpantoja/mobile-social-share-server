@@ -4,12 +4,12 @@
 from mss.core.daemon import Daemon
 from mss.handler.context import ContextHandler, WebViewHandler
 from mss.handler.facebook import CanvasHandler
-from mss.handler.friendship import CreateFriendshipHandler, GetFriendshipsHandler, RemoveFriendshipsHandler
-from mss.handler.invite import SendInviteHandler, GetInviteHandler, SendEmailInviteHandler, AcceptInviteHandler, AcceptEmailInviteHandler
+from mss.handler.friendship import GetFriendshipsHandler, RemoveFriendshipsHandler
+from mss.handler.invite import SendInviteHandler, GetInviteHandler, SendEmailInviteHandler, AcceptInviteHandler, AcceptEmailInviteHandler, GetInvitationHandler
 from mss.handler.user import LoginHandler, CreateLoginHandler, UserHandler, UserSearchHandler
+from mss.handler.application import StatusHandler
 
 from tornado.options import options
-
 from tornado.httpserver import HTTPServer
 from tornado.web import Application, StaticFileHandler, RequestHandler, HTTPError
 from tornado.ioloop import IOLoop
@@ -34,7 +34,6 @@ class MSSServer(Daemon):
             (r"/context", ContextHandler),
             (r"/login", LoginHandler),
             (r"/login/create", CreateLoginHandler),
-            (r"/friendship/create", CreateFriendshipHandler),
             (r"/friendship/get.json", GetFriendshipsHandler),
             (r"/friendship/remove", RemoveFriendshipsHandler),
             (r"/invite/send", SendInviteHandler),
@@ -42,8 +41,10 @@ class MSSServer(Daemon):
             (r"/invite/get.json", GetInviteHandler),
             (r"/invite/email/send", SendEmailInviteHandler),
             (r"/invite/email/accept", AcceptEmailInviteHandler),
+            (r"/invitation/get.json", GetInvitationHandler),
             (r"/user.json", UserHandler),
             (r"/search/users.json", UserSearchHandler),
+            (r"/status", StatusHandler),
         ]
     
         application = Application(routes, cookie_secret=COOKIE_SECRET)

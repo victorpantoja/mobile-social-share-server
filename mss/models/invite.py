@@ -19,3 +19,4 @@ class Invite(Model, InviteRepository):
     date = Column('invite_dt', DateTime)
 
     friend = relation(User, primaryjoin=friend_id == User.id)
+    user = relation(User, primaryjoin=user_id == User.id)
