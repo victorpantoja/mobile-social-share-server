@@ -7,6 +7,9 @@ from mss.models.friendship import Friendship
 from mss.models.invite import Invite
 from mss.models.network import Network
 
+import hashlib
+from mss.models.invite_email import InviteEmail
+
 def create_logged_user(last_name = 'should-be-last-name-1', first_name = 'test_create_user',  username = 'should-be-username-1'):
 
     user = User()
@@ -16,7 +19,13 @@ def create_logged_user(last_name = 'should-be-last-name-1', first_name = 'test_c
     user.gender = User._MALE
     user.created = datetime.now()
     user.last_login = datetime.now()
-    user.password = 'should-be-password'
+    
+    password = 'should-be-password'
+    
+    m = hashlib.md5()
+    m.update(password)
+    
+    user.password = m.hexdigest()
     user.save()
     
     cache = get_cache()
@@ -33,7 +42,14 @@ def create_user(last_name = 'should-be-last-name-1', first_name = 'test_create_u
     user.gender = User._MALE
     user.created = datetime.now()
     user.last_login = datetime.now()
-    user.password = 'should-be-password'
+
+    password = 'should-be-password'
+    
+    m = hashlib.md5()
+    m.update(password)
+    
+    user.password = m.hexdigest()
+
     user.save()
 
     return user
@@ -64,3 +80,19 @@ def create_network(name = 'should-be-network-name', icon = 'should-be-network-ic
     network.save()
     
     return network
+
+def create_invite_email(user,email):
+    
+    invite_email = InviteEmail()
+    invite_email.user_id = user.id
+    
+    m = hashlib.md5()
+    m.update("%s%s" % (email,user.id))
+
+    code = m.hexdigest()
+    
+    invite_email.code = code
+    invite_email.date = datetime.now()
+    invite_email.save()
+    
+    return invite_email

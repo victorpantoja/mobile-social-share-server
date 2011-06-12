@@ -82,6 +82,21 @@ class FriendshipHandlerTestCase(AsyncHTTPTestCase):
     def test_remove_inexistent_friendship(self):
         
         user = create_logged_user()
+        user2 = create_user(last_name = 'test_remove_inexistent_friendship-2', first_name = 'test_remove_inexistent_friendship-2',  username = 'test_remove_inexistent_friendship-2')
+        
+        self.http_client.fetch(self.get_url('/friendship/remove?username=%s&auth=should-be-user-auth' % user2.username), self.stop)
+                
+        response = self.wait()
+        
+        self.failIf(response.error)
+        self.assertEqual(response.body, '{"status": "error", "msg": "This user are not your friend!"}')
+
+        user.delete()
+        user2.delete()
+        
+    def test_remove_inexistent_friendship_with_inexistent_user(self):
+        
+        user = create_logged_user()
         
         self.http_client.fetch(self.get_url('/friendship/remove?username=0&auth=should-be-user-auth'), self.stop)
                 

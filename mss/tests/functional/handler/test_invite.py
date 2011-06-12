@@ -6,10 +6,10 @@ from mss.handler.invite import SendInviteHandler, AcceptInviteHandler, GetInvite
 from mss.models.invite import Invite
 from mss.models.invite_email import InviteEmail
 from mss.models.friendship import Friendship
-from mss.tests.functional.utils import create_logged_user, create_user, create_invite
+from mss.tests.functional.utils import create_logged_user, create_user, create_invite, create_invite_email, create_friendship
 from tornado.testing import AsyncHTTPTestCase
 
-import tornado, hashlib
+import tornado, hashlib, simplejson
 
 class InviteHandlerTestCase(AsyncHTTPTestCase):
     
@@ -72,6 +72,37 @@ class InviteHandlerTestCase(AsyncHTTPTestCase):
         friendship.delete()
         friend.delete()
         user.delete()
+        
+    def test_accept_inexistent_invite(self):
+        user = create_logged_user()
+        
+        self.http_client.fetch(self.get_url('/invite/accept?invite_id=0&auth=should-be-user-auth'), self.stop)
+                
+        response = self.wait()
+        
+        self.failIf(response.error)
+        self.assertEqual(response.body, '{"status": "error", "msg": "Invite not found."}')
+        
+        user.delete()
+        
+    def test_accept_duplicated_invite(self):
+        user = create_logged_user()
+        friend = create_user(last_name = 'test_accept_invite', first_name = 'test_accept_invite',  username = 'test_accept_invite')
+        
+        friendship = create_friendship(user,friend)
+        invite = create_invite(user, friend)
+        
+        self.http_client.fetch(self.get_url('/invite/accept?invite_id=%s&auth=should-be-user-auth' % invite.id), self.stop)
+                
+        response = self.wait()
+        
+        self.failIf(response.error)
+        self.assertEqual(response.body, simplejson.dumps({"status": "error", "msg": "You and %s are already friend!" % friend.first_name}))
+        
+        invite.delete()
+        friendship.delete()
+        user.delete()
+        friend.delete()
     
     def test_get_invites(self):
         user = create_logged_user()
@@ -97,7 +128,7 @@ class InviteHandlerTestCase(AsyncHTTPTestCase):
     def test_send_email_invite(self):
         user = create_logged_user()
         
-        email = "victor.pantoja@gmil.com"
+        email = "victor.pantoja@gmail.com"
         
         m = hashlib.md5()
         m.update("%s%s" % (email,user.id))
@@ -111,6 +142,23 @@ class InviteHandlerTestCase(AsyncHTTPTestCase):
         self.assertEqual(response.body, '{"status": "ok", "msg": "Your invite has been sent."}')
         
         invite_email = self.session.query(InviteEmail).filter(InviteEmail.code==code).first()
+
+        invite_email.delete()
+        user.delete()
+        
+    def test_send_duplicate_email_invite(self):
+        user = create_logged_user()
+        
+        email = "victor.pantoja@gmail.com"
+        
+        invite_email = create_invite_email(user=user, email=email)
+        
+        self.http_client.fetch(self.get_url('/invite/email/send?email=%s&auth=should-be-user-auth' % email), self.stop)
+                
+        response = self.wait()
+        
+        self.failIf(response.error)
+        self.assertEqual(response.body, '{"status": "error", "msg": "You have already invited this user. Just relax!"}')
 
         invite_email.delete()
         user.delete()

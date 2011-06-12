@@ -137,13 +137,13 @@ class AcceptInviteHandler(BaseHandler):
         invite_id = int(self.get_argument('invite_id'))
         
         invite = Invite.get(id=invite_id)
-        
-        friend = User.get(id=invite.friend_id)
-        
+
         if not invite:
             self.set_header("Content-Type", "application/json; charset=UTF-8")
             self.write(simplejson.dumps({"status": "error", "msg": "Invite not found."}))  
-            return 
+            return  
+        
+        friend = User.get(id=invite.friend_id)
         
         if invite.user_id == user.id:
             friendship = Friendship()
