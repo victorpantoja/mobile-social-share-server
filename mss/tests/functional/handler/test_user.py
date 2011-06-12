@@ -42,20 +42,20 @@ class UserHandlerTestCase(AsyncHTTPTestCase):
         user.delete()
     
     def test_create_user(self):
-        self.http_client.fetch(self.get_url('/login/create')+'?username=should-be-username&firstName=test_create_user&lastName=should-be-last-name&gender=M' , self.stop)
+        self.http_client.fetch(self.get_url('/login/create')+'?username=should-be-username@mss.com&firstName=test_create_user&lastName=should-be-last-name&gender=M' , self.stop)
                 
         response = self.wait()
 
         self.failIf(response.error)
         self.assertEqual(response.body, '{"status": "ok", "msg": "Account Created! Verify you email account"}')
 
-        user_db = self.session.query(User).filter(User.username=='should-be-username').first()
+        user_db = self.session.query(User).filter(User.username=='should-be-username@mss.com').first()
         user_db.delete()
 
 
     def test_create_existent_user(self):
         
-        user = create_user()
+        user = create_user(username="test_create_existent_user@mss.com")
                         
         self.http_client.fetch(self.get_url('/login/create')+'?username=%s&firstName=%s&lastName=%s&gender=M' %(user.username, user.first_name, user.last_name) , self.stop)
                 

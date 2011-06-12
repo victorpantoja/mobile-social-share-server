@@ -149,6 +149,14 @@ class CreateLoginHandler(BaseHandler):
         user = User()
         user.username = self.get_argument('username')
         
+        try:
+            EmailHelper.validateEmail(user.username)
+        except Exception, e:
+            logging.exception(e);
+            self.set_header("Content-Type", "application/json; charset=UTF-8")
+            self.write(simplejson.dumps({'status':'error', 'msg':'Invalid email.'}))
+            return
+        
         user.first_name = self.get_argument('firstName')
         user.last_name = self.get_argument('lastName')
         user.gender = self.get_argument('gender')
