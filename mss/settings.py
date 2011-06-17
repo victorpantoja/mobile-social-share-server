@@ -15,8 +15,8 @@ DATABASE_ENGINE = {
 }
 
 #DATABASE_ENGINE = {
-#    "read":"mysql://mss:mss@myalbumshare.com:3306/cartola?charset=utf8&use_unicode=0",
-#    "write":"mysql://mss:mss@myalbumshare.com:3306/cartola?charset=utf8&use_unicode=0"
+#    "read":"mysql://mss:mss@myalbumshare.com:3306/mss?charset=utf8&use_unicode=0",
+#    "write":"mysql://mss:mss@myalbumshare.com:3306/mss?charset=utf8&use_unicode=0"
 #}
 
 
