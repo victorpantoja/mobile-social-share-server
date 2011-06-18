@@ -35,6 +35,16 @@
     <link rel="stylesheet" href="{{ pathto('_static/' + style, 1) }}" type="text/css" />
     <link rel="stylesheet" href="{{ pathto('_static/redmond/jquery-ui-1.8.13.custom.css', 1) }}" type="text/css" />
     <link rel="stylesheet" href="{{ pathto('_static/pygments.css', 1) }}" type="text/css" />
+    <link rel="stylesheet" href="{{ pathto('_static/tecnologias_utilizadas.css', 1) }}" type="text/css" />
+
+
+	<link rel="shortcut icon" href="http://globoesporte.globo.com/media/sportv/img/favicon.png" />
+
+	<link type="text/css" rel="stylesheet" media="screen" href="http://globoesporte.globo.com/media/common/css/componentes/cabecalho.css" />
+	<link rel="stylesheet" type="text/css" media="screen" href="http://globoesporte.globo.com/media/libby/header_produtos/css/libby.header.css" />
+	<link type="text/css" rel="stylesheet" media="screen" href="http://globoesporte.globo.com/media/sportv/css/desktop/sportv.css" />
+	<link type="text/css" rel="stylesheet" media="screen" href="http://globoesporte.globo.com/media/common/css/componentes/diretorio.css" />
+
     {%- for cssfile in css_files %}
     <link rel="stylesheet" href="{{ pathto(cssfile, 1) }}" type="text/css" />
     {%- endfor %}
@@ -89,6 +99,20 @@
   </head>
   <body>
 {%- block header %}{% endblock %}
+
+<div id="glb-doc">
+	<div id="glb-topo">
+		<div class="cabecalho-sportv" id="glb-cabecalho">
+			<div class="glb-conteudo">
+				<div class="cabecalho-produto">
+					<a href="http://sportv.globo.com" class="marca-produto">
+						sportv.globo.com
+					</a>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
 
     <div class="container_12">
         <div class="grid_3 logo menu">
@@ -191,6 +215,37 @@
             </div>
         {%- endblock %}
     </div>
+
+<div id="glb-doc">	
+	<div id="tecnologias-usadas">
+	    <div class="glb-conteudo">
+	        <div class="glb-bloco">
+	            <div class="glb-grid-12">
+	                <h2>tecnologias usadas</h2>
+	                <ul>
+	                    <li class="tec-solr"><a href="http://lucene.apache.org/solr/">Solr</a></li>
+	                    <li class="tec-mysql"><a href="http://www.mysql.com/">MySQL</a></li>
+	                    <li class="tec-django"><a href="http://www.djangoproject.com/">Django</a></li>
+	                    <li class="tec-jquery"><a href="http://jquery.com/">Jquery</a></li>
+	                    <li class="tec-activemq"><a href="http://activemq.apache.org/">ActiveMQ</a></li>
+	                    <li class="tec-python"><a href="http://www.python.org/">Python</a></li>
+	                    <li class="tec-virtuoso"><a href="http://www.w3.org/2001/sw/">Web Semantica</a></li>
+	                </ul>
+	            </div>
+	        </div>
+	    </div>
+	</div>
+	<div id="glb-rodape">
+	    <div class="glb-conteudo">
+	        <div class="glb-bloco">
+	            <div class="glb-grid-12 glb-rodape-globocom">
+	                <a class="glb-link-globo" title="Globo.com" href="http://www.globo.com">Globo.com</a>
+	                <span class="copyright">&copy; 2000-2011. Todos os direitos reservados.</span>
+	            </div>
+	        </div>
+	    </div>
+	</div>
+</div>
     <script type="text/javascript" charset="utf-8">
         $(function() {
             $('.menu-accordion').accordion({
