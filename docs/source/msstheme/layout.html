@@ -98,21 +98,17 @@
             </ul>
 
             <div class="menu-accordion">
-                <h3><a href="#">Instalação &amp; Uso</a></h3>
+                <h3><a href="#">Especificação</a></h3>
                 <div>
                     <ul>
                         <li>
-                            <a href="{{ pathto('install.html', 1) }}">Instalação</a>
+                            <a href="{{ pathto('especificacao/objetivos.html', 1) }}">Objetivos</a>
                         </li>
                         <li>
-                            <a href="{{ pathto('tests.html', 1) }}">Plataforma de testes</a>
-                        </li>
-                        <li>
-                            <a href="{{ pathto('contributing.html', 1) }}">Aplicação Demo</a>
+                            <a href="{{ pathto('especificacao/casos_de_uso.html', 1) }}">Casos de Uso</a>
                         </li>
                     </ul>
                 </div>
-
                 <h3><a href="#">Arquitetura</a></h3>
                 <div>
                     <ul class="componentes">
@@ -120,10 +116,21 @@
                             <a href="{{ pathto('arquitetura/redes_sociais.html', 1) }}">Integração com as Redes Sociais</a>
                         </li>
                         <li>
-                            <a href="{{ pathto('arquitetura/redes_sociais.html', 1) }}">Infraestrutura de Cache</a>
+                            <a href="{{ pathto('arquitetura/cache.html', 1) }}">Infraestrutura de Cache</a>
                         </li>
                         <li>
-                            <a href="{{ pathto('arquitetura/redes_sociais.html', 1) }}">Infraestrutura de Cache</a>
+                            <a href="{{ pathto('arquitetura/classes.html', 1) }}">Diagrama de Classes</a>
+                        </li>
+                    </ul>
+                </div>
+                <h3><a href="#">Testes</a></h3>
+                <div>
+                    <ul class="componentes">
+	                    <li>
+                            <a href="{{ pathto('testes/casos_de_testes.html', 1) }}">Casos de Teste</a>
+                        </li>
+                        <li>
+                            <a href="{{ pathto('testes/tests.html', 1) }}">Plataforma de Testes Automatizados</a>
                         </li>
                     </ul>
                 </div>
@@ -131,7 +138,30 @@
                 <div>
                     <ul class="componentes">
                         <li>
-                            <a href="{{ pathto('arquitetura/redes_sociais.html', 1) }}">Autenticação</a>
+                            <a href="{{ pathto('api/autenticacao.html', 1) }}">Autenticação</a>
+                        </li>
+                        <li>
+                            <a href="{{ pathto('api/usuarios.html', 1) }}">Usuários</a>
+                        </li>
+                        <li>
+                            <a href="{{ pathto('api/amigos.html', 1) }}">Amigos</a>
+                        </li>
+                        <li>
+                            <a href="{{ pathto('api/convites.html', 1) }}">Convites</a>
+                        </li>
+                        <li>
+                            <a href="{{ pathto('api/contexto.html', 1) }}">Envio de Contexto</a>
+                        </li>
+                    </ul>
+                </div>
+                <h3><a href="#">Instalação &amp; Uso</a></h3>
+                <div>
+                    <ul>
+                        <li>
+                            <a href="{{ pathto('install.html', 1) }}">Instalação</a>
+                        </li>
+                        <li>
+                            <a href="{{ pathto('demo.html', 1) }}">Aplicação Demo</a>
                         </li>
                     </ul>
                 </div>

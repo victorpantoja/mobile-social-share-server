@@ -1,6 +1,8 @@
 Instalação
 ============
 
+pycountry
+
 A instalação do libby é feita usando o pip e o mirror de pypi da globo.com.
 
 .. warning::
