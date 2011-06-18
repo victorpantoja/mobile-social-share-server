@@ -6,10 +6,17 @@ from sqlalchemy import Column, String, DateTime, Integer
 
 
 class UserRepository(Repository):
+    """
+        Classe de Acesso ao Banco
+    """
+    #TODO - Usar o fetch_by
     pass
 
 class User(Model, UserRepository):
-    
+    """
+        Modelo de Usuário
+    """
+        
     _FEMALE = 'F'
     _MALE = 'M'
     _OTHER = 'O'

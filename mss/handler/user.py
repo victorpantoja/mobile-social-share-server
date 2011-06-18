@@ -14,9 +14,22 @@ from smtplib import SMTPException
 import logging, hashlib, string, simplejson
 
 class UserHandler(BaseHandler):
+    """
+        Controller de Obtenção das Informações de um Usuário
+    """
     
     @authenticated
     def get(self, user, **kw):
+        """
+        <h2><b>Obter as informações de um usuário</b></h2><br>
+        Serviço que retorna as informações disponíveis de um usuário.<br>
+        <br><h3><b>Parâmetros:</b></h3><br>
+        auth: string de autenticação do usuário no MSS <br />
+        username (opcional): username do usuário. Se não for passado, será utilizado o username do usuário autenticado.
+        <br><h3><b>Retorno:</b></h3><br>
+        JSON representando o usuário.
+        """
+        
         self.post(user,**kw)
         
     def post(self, user, **kw):
@@ -41,15 +54,29 @@ class UserHandler(BaseHandler):
         return
     
 class UserSearchHandler(BaseHandler):
-    
+    """
+        Controller de Busca de Usuários
+    """
+        
     @authenticated
     def get(self, user, **kw):
+        """
+        <h2><b>Buscar Usuários</b></h2><br>
+        Serviço que retorna os usuários que correspondem a busca realizada.<br>
+        <br><h3><b>Parâmetros:</b></h3><br>
+        auth: string de autenticação do usuário no MSS <br />
+        username: palavra de busca.
+        <br><h3><b>Retorno:</b></h3><br>
+        JSON representando o usuário.
+        """
+        
         self.post(user, **kw)
         
     def post(self, user, **kw):
         
         username = self.get_argument('username')
         
+        #TODO - Escape
         session = meta.get_session()  
         users = session.query(User).filter(User.username.like("%"+username+"%")).order_by(User.first_name).all()
                 
@@ -62,7 +89,20 @@ class UserSearchHandler(BaseHandler):
         return
 
 class LoginHandler(BaseHandler):
+    """
+        Controller de Autenticação de um Usuário
+    """
+    
     def get(self, **kw):
+        """
+        <h2><b>Autenticar Usuário</b></h2><br>
+        Serviço que autentica um usuário e retorna um token (auth).<br>
+        <br><h3><b>Parâmetros:</b></h3><br>
+        Nenhum
+        <br><h3><b>Retorno:</b></h3><br>
+        JSON com o status da ação e o token (auth) de autenticação do usuário.
+        """
+        
         self.post(**kw)
         
     def post(self, **kw):
@@ -94,7 +134,20 @@ class LoginHandler(BaseHandler):
             return
 
 class RescueLoginHandler(BaseHandler):
+    """
+        Controller de Recuperação de Senha de um Usuário
+    """
+    
     def get(self, **kw):
+        """
+        <h2><b>Recuperar Senha do Usuário</b></h2><br>
+        Serviço que regera a senha do usário e envia para o email cadastrado.<br>
+        <br><h3><b>Parâmetros:</b></h3><br>
+        username: username do usuário
+        <br><h3><b>Retorno:</b></h3><br>
+        JSON com o status da ação. O usuário receberá um email com a nova senha.
+        """
+        
         self.post(**kw)
         
     def post(self, **kw):
@@ -140,8 +193,23 @@ class RescueLoginHandler(BaseHandler):
         return    
         
 class CreateLoginHandler(BaseHandler):
-    
+    """
+        Controller de Criação de um Novo Usuário
+    """
+        
     def get(self, **kw):
+        """
+        <h2><b>Criação de Usuário</b></h2><br>
+        Serviço que cria um usuário no sistema.<br>
+        <br><h3><b>Parâmetros:</b></h3><br>
+        username: username do usuário
+        firstName: nome do usuário
+        lastName: sobrenome do usuário
+        gender: gênero do usuário F (Feminino), M (Masculino), O (Outro)
+        <br><h3><b>Retorno:</b></h3><br>
+        JSON com o status da ação. O usuário receberá um email com a senha gerada.
+        """
+        
         self.post(**kw)
 
     def post(self, **kw):

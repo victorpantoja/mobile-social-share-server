@@ -5,8 +5,20 @@ from mss.handler.base import BaseHandler
 from mss.core.cache import get_cache
 
 class CanvasHandler(BaseHandler):
+    """
+        Controller de Exibição das Informações de Contexto no Facebook
+    """
     
     def get(self, **kw):
+        """
+        <h2><b>Exibe as informações de Contexto Enviadas pelos Usuários de Forma Integrada ao Facebook</b></h2><br>
+        Serviço que retorna uma página com as informações de contexto enviadas pelos usuários<br>
+        <br><h3><b>Parâmetros:</b></h3><br>
+        Nenhum
+        <br><h3><b>Retorno:</b></h3><br>
+        Página HTML Integrada ao Google Maps exibindo as informações de contexto enviadas pelos usuários e sua posição.
+        """
+        
         self.post(**kw)
 
     def post(self, **kw):

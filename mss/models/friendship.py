@@ -2,16 +2,21 @@
 #!/usr/bin/env python
 
 from mss.models.base import Model, Repository
+from mss.models.user import User
 from sqlalchemy import Column, DateTime, Integer, ForeignKey
 from sqlalchemy.orm import relation
-from mss.models.user import User
-
 
 class FriendshipRepository(Repository):
+    """
+        Classe de Acesso ao Banco
+    """
     pass
 
 class Friendship(Model, FriendshipRepository):
-    
+    """
+        Modelo da Relação entre Usuários (Amizade)
+    """
+        
     __tablename__ = 'friendship'
         
     id = Column('friendship_id', Integer, primary_key=True)

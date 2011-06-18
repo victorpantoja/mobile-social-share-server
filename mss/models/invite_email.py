@@ -7,10 +7,16 @@ from sqlalchemy import Column, Integer, DateTime, ForeignKey, String
 from sqlalchemy.orm import relation
 
 class InviteEmailRepository(Repository):
+    """
+        Classe de Acesso ao Banco
+    """
     pass
 
 class InviteEmail(Model, InviteEmailRepository):
-    
+    """
+        Modelo do Convite por Email
+    """
+        
     __tablename__ = 'invite_email'
   
     id = Column('invite_email_id', Integer, primary_key=True)   

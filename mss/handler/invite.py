@@ -14,9 +14,22 @@ from mss.models import invite_email
 from mss.models.invite_email import InviteEmail
 
 class SendInviteHandler(BaseHandler):
+    """
+        Controller de Envio de Convite por Sistema
+    """
     
     @authenticated
     def get(self, user, **kw):
+        """
+        <h2><b>Enviar Convite para Um Usuário Cadastrado</b></h2><br>
+        Serviço que enviar um convite para um usuário cadastrado<br>
+        <br><h3><b>Parâmetros:</b></h3><br>
+        auth: string de autenticação do usuário no MSS <br />
+        username: username do amigo a ser convidado <br />
+        <br><h3><b>Retorno:</b></h3><br>
+        JSON com o status da ação.
+        """
+        
         self.post(user, **kw)
         
     def post(self, user, **kw):
@@ -60,9 +73,21 @@ class SendInviteHandler(BaseHandler):
         return
         
 class GetInviteHandler(BaseHandler):
-    
+    """
+        Controller de Obtenção de Todos os Convites que um Usuário Enviou
+    """
+        
     @authenticated
     def get(self, user, **kw):
+        """
+        <h2><b>Obtem os convites envidados por um usuário.</b></h2><br>
+        Serviço que obtem os convites envidados por um usuário.<br>
+        <br><h3><b>Parâmetros:</b></h3><br>
+        auth: string de autenticação do usuário no MSS <br />
+        <br><h3><b>Retorno:</b></h3><br>
+        JSON com todos os convites encontrados.
+        """
+        
         self.post(user, **kw)
         
     def post(self, user, **kw):
@@ -79,9 +104,21 @@ class GetInviteHandler(BaseHandler):
         return
     
 class GetInvitationHandler(BaseHandler):
-    
+    """
+        Controller de Obtenção de Todos os Convites que um Usuário Recebeu
+    """
+        
     @authenticated
     def get(self, user, **kw):
+        """
+        <h2><b>Obtem os convites pendentes de um usuário.</b></h2><br>
+        Serviço que obtem os convites pendentes de um usuário.<br>
+        <br><h3><b>Parâmetros:</b></h3><br>
+        auth: string de autenticação do usuário no MSS <br />
+        <br><h3><b>Retorno:</b></h3><br>
+        JSON com todos os convites encontrados.
+        """
+        
         self.post(user, **kw)
         
     def post(self, user, **kw):
@@ -98,9 +135,22 @@ class GetInvitationHandler(BaseHandler):
         return
     
 class SendEmailInviteHandler(BaseHandler):
+    """
+        Controller de Envio de Convite por Email
+    """    
     
     @authenticated
     def get(self, user, **kw):
+        """
+        <h2><b>Enviar Convite por Email para Um Usuário Não Cadastrado</b></h2><br>
+        Serviço que envia um convite por email para um usuário não cadastrado<br>
+        <br><h3><b>Parâmetros:</b></h3><br>
+        auth: string de autenticação do usuário no MSS <br />
+        email: email do amigo a ser convidado <br />
+        <br><h3><b>Retorno:</b></h3><br>
+        JSON com o status da ação.
+        """
+        
         self.post(user, **kw)
         
     def post(self, user, **kw):
@@ -127,9 +177,22 @@ class SendEmailInviteHandler(BaseHandler):
         return
     
 class AcceptInviteHandler(BaseHandler):
-    
+    """
+        Controller que Gerencia O Aceite de Convites de Sistema
+    """
+        
     @authenticated
     def get(self, user, **kw):
+        """
+        <h2><b>Aceita um determinado convite enviado por sistema.</b></h2><br>
+        Serviço que aceita um determinado convite enviado por sistema..<br>
+        <br><h3><b>Parâmetros:</b></h3><br>
+        auth: string de autenticação do usuário no MSS <br />
+        id: ID do convite <br />
+        <br><h3><b>Retorno:</b></h3><br>
+        JSON com o status da ação.
+        """
+        
         self.post(user, **kw)
         
     def post(self, user, **kw):
@@ -165,9 +228,20 @@ class AcceptInviteHandler(BaseHandler):
         return
     
 class AcceptEmailInviteHandler(BaseHandler):
-    
-    @authenticated
+    """
+        Controller que Gerencia o Aceite de Convites por Email
+    """
+        
     def get(self, user, **kw):
+        """
+        <h2><b>Aceita um determinado convite enviado por email.</b></h2><br>
+        Serviço que aceita um determinado convite enviado por email.<br>
+        <br><h3><b>Parâmetros:</b></h3><br>
+        id: ID do convite <br />
+        <br><h3><b>Retorno:</b></h3><br>
+        JSON com o status da ação.
+        """
+        
         self.post(user, **kw)
         
     def post(self, user, **kw):

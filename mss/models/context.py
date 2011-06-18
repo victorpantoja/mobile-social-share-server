@@ -2,16 +2,21 @@
 #!/usr/bin/env python
 
 from mss.models.base import Model, Repository
+from mss.models.user import User
 from sqlalchemy import Column, String, DateTime, Integer, ForeignKey
 from sqlalchemy.orm import relation
-from mss.models.user import User
-
 
 class ContextRepository(Repository):
+    """
+        Classe de Acesso ao Banco
+    """
     pass
 
 class Context(Model, ContextRepository):
-    
+    """
+        Modelo da Informação de Contexto
+    """
+        
     __tablename__ = 'context'
         
     id = Column('user_id', Integer, primary_key=True)
