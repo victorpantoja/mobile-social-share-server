@@ -61,3 +61,86 @@ class MemcachedClass():
             self._cache.flush_all()
         except Exception:
             logging.exception("memcache server desligado!")
+            
+class RedisClass():
+    def __init__(self, master, slave, timeout):
+        import redis
+    
+        host_master, port_master = master.split(':')
+        self._cache_master = redis.Redis(host=host_master, port=int(port_master), db=0)
+        
+        host_slave, port_slave = slave.split(':')
+        self._cache_slave = redis.Redis(host=host_slave, port=int(port_slave), db=0)
+        
+        self.default_timeout = int(timeout)
+        
+        logging.debug("Redis master start client %s" % master)
+        logging.debug("Redis slave start client %s" % slave)
+
+    def add(self, key, value, timeout=0):
+        try:
+            val = self._cache_master.getset(smart_str(key), pickle.dumps(value))
+            self._cache_master.expire(smart_str(key), timeout or self.default_timeout)
+            return val
+        except redis.ConnectionError, e:
+            logging.exception("ConnectionError %s" % e)
+    
+    def get(self, key, default=None):
+        try:
+            val = self._cache_slave.get(smart_str(key))
+            if val is None:
+                return default
+            else:
+                return pickle.loads(val)
+        except redis.ConnectionError, e:
+            logging.exception("ConnectionError %s" % e)
+    
+    def set(self, key, value, timeout=0):
+        try:
+            self._cache_master.set(smart_str(key), pickle.dumps(value))
+            self._cache_master.expire(smart_str(key), timeout or self.default_timeout)
+        except redis.ConnectionError, e:
+            logging.exception("ConnectionError %s" % e)
+
+    def delete(self, key):
+        try:
+            self._cache_master.delete(smart_str(key))
+        except redis.ConnectionError, e:
+            logging.exception("ConnectionError %s" % e)
+
+    def get_many(self, keys):
+        try:
+            return self._cache_slave.get_multi(map(smart_str, keys))
+        except redis.ConnectionError, e:
+            logging.exception("ConnectionError %s" % e)
+
+    def close(self, **kwargs):
+        try:
+            self._cache_master.disconnect_all()
+            self._cache_slave.disconnect_all()
+        except redis.ConnectionError, e:
+            logging.exception("ConnectionError %s" % e)
+
+    def stats(self, server='slave'):
+        try:
+            if server == 'master':
+                return self._cache_master.info()
+            else:
+                return self._cache_slave.info()
+        except redis.ConnectionError, e:
+            logging.exception("ConnectionError %s" % e)
+
+    def flush_all(self):
+        self._cache.flushdb()
+
+    def stats_master(self):
+        try:
+            return self._cache_master.info()
+        except redis.ConnectionError, e:
+            logging.exception("ConnectionError %s" % e)
+
+    def stats_slave(self):
+        try:
+            return self._cache_slave.info()
+        except redis.ConnectionError, e:
+            logging.exception("ConnectionError %s" % e)

@@ -1,14 +1,25 @@
 # coding: utf-8
 #!/usr/bin/env python
 
+from mss.core import meta
 from mss.models.base import Model, Repository
 from sqlalchemy import Column, String, DateTime, Integer
+from mss.core.cache.util import cached, CachedExtension
 
 
 class UserRepository(Repository):
-    pass
+    
+    @staticmethod
+    @cached
+    def get_by(username):
+        session = meta.get_session()  
+        user_db = session.query(User).filter(User.username==username).first()
+
+        return user_db
 
 class User(Model, UserRepository):
+    
+    __mapper_args__ = {'extension': CachedExtension()}
     
     _FEMALE = 'F'
     _MALE = 'M'
