@@ -8,3 +8,4 @@ report.html
 .pydevproject
 log/*.log
 .coverage
+docs/build
