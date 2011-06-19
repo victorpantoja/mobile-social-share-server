@@ -12,5 +12,3 @@ O ojetivo desta aplicação e compartilhar informações sobre o trânsito. As i
 
 	Screeshots da aplicação rodando no Samsung Galaxy
 	
-	
-.. autofunction:: mss.handler.application
