@@ -87,5 +87,5 @@ functional: clean start-memcached
 		cd mss && \
 	    nosetests -s --verbose --with-coverage --cover-package=mss tests/functional/*
 	    
-doc: 
+doc:
 	cd docs && make html && open build/html/index.html

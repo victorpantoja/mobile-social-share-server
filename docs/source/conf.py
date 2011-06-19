@@ -15,6 +15,8 @@ import sys
 from os.path import abspath, join, dirname
 
 sys.path.append(abspath(join(dirname(__file__), '..', '..')))
+sys.path.append(abspath(join(dirname(__file__), '..', '..', 'mss')))
+
 
 from mss import __version__, __release_date__
 
