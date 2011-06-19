@@ -26,7 +26,7 @@ Verifique que a instalação funcionou utilizando o interpretador python (a vers
 Dependências:
 =============
 
-O MSS depende dos seguintes módulos pyton:
+O MSS depende dos seguintes módulos python:
 
 ------------------
 Tornado Web Server
