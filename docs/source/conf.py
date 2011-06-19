@@ -173,7 +173,7 @@ html_show_copyright = False
 #html_file_suffix = ''
 
 # Output file base name for HTML help builder.
-htmlhelp_basename = 'libbydoc'
+htmlhelp_basename = 'mssdoc'
 
 
 # -- Options for LaTeX output --------------------------------------------------

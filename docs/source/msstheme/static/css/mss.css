@@ -1,0 +1,28 @@
+#glb-topo {
+    background:url('../img/bg_header.png') bottom repeat-x;
+}
+#glb-topo .cabecalho-produto {
+    height: 60px;
+    min-height: 60px;
+    padding-top: 37px;
+}
+
+#glb-topo .cabecalho-produto strong{
+    display: block;
+    float: left;
+    position: relative;
+    left: 500px;
+}
+
+#glb-topo .cabecalho-produto span{
+    display: block;
+    float: right;
+}
+
+#glb-topo .cabecalho-sportv .cabecalho-produto .marca-produto {
+    background: url('../img/mss.png') no-repeat 0 0;
+    height: 120px;
+    margin: -15px 0px 9px 150px;
+    width: 120px;
+    position: absolute;
+}

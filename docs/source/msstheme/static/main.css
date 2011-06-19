@@ -13,6 +13,7 @@
     margin-left: auto;
     margin-right: auto;
     width: 960px;
+    border-top: solid 3px #339000;
 }
 
 /* Grid >> Global
@@ -85,6 +86,7 @@
 
 .container_12 .grid_9 {
     width:700px;
+    min-height:500px;
 }
 
 .container_12 .grid_10 {
@@ -382,11 +384,10 @@ dd{
 
 a.logo img {
     border: none;
-    /*background: url('libby.png') no-repeat 0 0;*/
 }
 
 .menu {
-    margin-top: 15px;
+    margin-top: 30px;
 }
 
 .menu h2 {
@@ -410,9 +411,6 @@ a.logo img {
     color: #5493cd;
 }
 
-.contents {
-    margin-top: 15px;
-}
 
 .contents img{
     margin: 10px 0;

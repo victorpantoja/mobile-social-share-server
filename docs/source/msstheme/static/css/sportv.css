@@ -1,0 +1,187 @@
+/* RESET BODY */
+
+.glb-grid-4,
+.glb-grid-8,
+.glb-grid-12 {
+    min-height: 10px;
+}
+
+/* COR PRIMARIA SPORTV */
+#glb-corpo a{color:#b91414;}
+
+/* COR PRODUTO */
+#glb-topo #glb-menu .cor-produto-background {
+    background-color: #BD0101;
+    border-top: 1px solid #990101;
+    height: 3px;
+}
+
+/* CABECALHO */
+#glb-topo .cabecalho-sportv .glb-conteudo {
+    position: relative;
+}
+
+/* MARCA PRODUTO */
+#glb-topo .cabecalho-sportv .cabecalho-produto {
+    height: 105px;
+    min-height: none;
+    padding-top: 0;
+}
+#glb-topo .cabecalho-sportv .cabecalho-produto .marca-produto {
+    background: url('../img/mss.png') no-repeat 0 0;
+    height: 120px;
+    margin: -15px 0px 9px 150px;
+    width: 120px;
+    position: absolute;
+}
+
+
+/* BUSCA */
+#glb-topo .cabecalho-sportv #busca-padrao {
+    float: right;
+    height: 37px;
+    margin-right: 10px;
+    margin-top: -76px;
+    width: 300px;
+    z-index: 999;
+}
+
+#glb-topo .cabecalho-sportv #busca-padrao button {
+    background: url('../../img/bg-btBuscar-sportv.jpg') no-repeat 0 0;
+}
+#glb-topo .cabecalho-sportv #busca-padrao button:hover {
+    background: url('../../img/bg-btBuscar-sportv.jpg') no-repeat 0 -38px;
+}
+
+/* FORMATO COMERCIAL */
+#glb-topo .cabecalho-sportv .cabecalho-produto .formato-comercial {
+    background: #ddd;
+    height: 90px;
+    margin: 8px 0;
+    width: 728px;
+}
+
+
+/* Primeiro Item de Menu */
+#glb-topo .cabecalho-sportv .menu-item-li-first {
+    background: url('../../img/logo-ge-menu-sportv.png') no-repeat center 15px;
+}
+#glb-topo .cabecalho-sportv .menu-item-li-first:hover {
+    background-position: center -25px;
+}
+#glb-topo .cabecalho-sportv .menu-item-li-first .menu-item-a {
+    overflow: hidden;
+    text-indent: -999px;
+    padding-left: 10px;
+    padding-right: 10px;
+    width: 20px;
+}
+
+#glb-topo .cabecalho-sportv .menu-item-li .menu-item-seta {
+    color:#333;
+}
+
+#glb-topo .cabecalho-sportv .menu-item-li .menu-item-a {
+    background-position: -969px -968px;
+    padding-top: 20px;
+}
+#glb-topo .cabecalho-sportv .menu-item-li .menu-item-a:hover {
+    border-color: #bf0101;
+}
+#glb-topo .cabecalho-sportv .submenu-aba span.submenu-aba-n2 {
+    padding-top: 26px;
+}
+#glb-topo .cabecalho-sportv .submenu-aba-seta {
+    background-position: right -948px;
+}
+#glb-topo .cabecalho-sportv a.submenu-aba-n1 {
+    padding-bottom: 10px;
+}
+#glb-topo .cabecalho-sportv .conteudo-subitens {
+    padding-top: 20px;
+}
+
+
+
+
+
+/* MENU */
+#glb-menu .submenu {
+    margin-bottom: 33px;
+    top: 43px;
+}
+#glb-menu .submenu-aba {
+    top: -49px;
+}
+
+#glb-menu .submenu-aba-n1 {
+    height: 54px;
+}
+#glb-topo .cabecalho-sportv .submenu-aba-n1,
+#glb-topo .cabecalho-sportv .submenu-aba-n2 {
+    background-image: url('../../img/sprite_menu_item.png');
+}
+#glb-topo .cabecalho-sportv .submenu-aba-n2 {
+    background-position: right -122px;
+    height: 28px;
+}
+#glb-topo .cabecalho-sportv ul.menu-itens {
+    height: 50px;
+}
+#glb-topo .cabecalho-sportv .conteudo-subitens {
+    padding-top: 5px;
+}
+
+
+/* GLB CONTEUDO WIDE */
+.glb-conteudo-wide {
+    background: url('../../img/bg-galeria-embedded.gif') repeat-x center top;
+    clear: both;
+}
+
+/* DIRETORIO */
+#glb-diretorio {
+    background-color: #b60d3d;
+    font-size: 12px;
+}
+#glb-diretorio .divisoria {
+    border-color: #CC4545;
+}
+
+/* RODAPE */
+#glb-rodape {
+    background-color: #a00b36;
+    font-size: 12px;
+}
+#glb-rodape a, #glb-rodape a:link, #glb-rodape a:visited {
+    color: #FFF;
+}
+#glb-rodape ul li a {
+    border-color: #cc4545;
+}
+#glb-rodape .rodape-menu-produtos {
+    border-color: #aa244a;
+}
+#glb-rodape .rodape-menu-servicos span {
+    color: #FFF;
+}
+
+.destaque-agrupamento .quadruplo li{
+    margin-right:20px;
+}
+
+/* OPEC */
+.glb-opec {
+    margin-bottom: 40px;
+}
+.glb-opec p {
+    color: #999;
+    font-size: 10px;
+    font-weight: bold;
+    margin-bottom: 5px;
+    text-transform: uppercase;
+}
+#glb-topo .cabecalho-sportv{
+    position: relative;
+    z-index: 9999;
+}

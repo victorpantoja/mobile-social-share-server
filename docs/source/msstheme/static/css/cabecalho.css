@@ -1,0 +1,62 @@
+.cabecalho-produto {
+	margin: 0 0.833em;
+    min-height: 90px;
+    overflow: visible;
+    position: relative;
+    z-index: 9000;
+}
+
+.cabecalho-produto .marca-produto {
+    display:block;
+    float:left;
+    height: 90px;
+    overflow:hidden;
+    text-indent:-9999px;
+    width:100px;
+}
+
+.cabecalho-produto .slogan, .cabecalho-produto .editoria {
+    border-left:1px solid #E6E6E6;
+    margin-left:1.41em;
+}
+
+.cabecalho-produto .editoria {
+    float:left;
+    height:46px;
+    margin-top:23px;
+    overflow:hidden;
+    width:245px;
+}
+
+.cabecalho-produto .editoria h1,
+.cabecalho-produto .editoria h3{
+    color:#555555;
+    font-size:2.5em;
+    font-weight: normal;
+    letter-spacing:-0.06em;
+    line-height:42px;
+    padding-left:19px;
+}
+
+.cabecalho-produto .formato-comercial {
+    float: right;
+    margin: 26px 14px 0 40px;
+    width: 88px;
+}
+
+.cabecalho-produto .formato-comercial img {
+    border:1px solid #EEEEEE;
+}
+
+.cabecalho-produto .formato-comercial p {
+    color:#D2D2D2;
+    font-size:9px;
+    margin-bottom:1px;
+    padding-bottom:0.3em;
+    text-align:center;
+}
+
+.cabecalho-produto #busca-padrao {
+    float: right;
+    margin-top:26px;
+}
