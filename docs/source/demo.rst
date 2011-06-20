@@ -11,4 +11,25 @@ O ojetivo desta aplicação e compartilhar informações sobre o trânsito. As i
 .. admonition:: photo
 
 	Screeshots da aplicação rodando no Samsung Galaxy
-	
+
++------------------------------------------------------+--------------------------------+
+| Tela                                                 |                                |
++======================================================+================================+
+| .. image:: img/screenshots/area_de_trabalho.png      | Ícone da Aplicação             |
++------------------------------------------------------+--------------------------------+
+| .. image:: img/screenshots/tela_login.png            | Login                          |
++------------------------------------------------------+--------------------------------+
+| .. image:: img/screenshots/tela_criar_login.png      | Criação de Usuário             |
++------------------------------------------------------+--------------------------------+
+| .. image:: img/screenshots/main_screen.png           | Tela Principal                 |
++------------------------------------------------------+--------------------------------+
+| .. image:: img/screenshots/main_screen_activates.png | Ativando Facebook e Twitter    |
++------------------------------------------------------+--------------------------------+
+| .. image:: img/screenshots/traffic_combo.png         | Seleção de Condição de Tráfego |
++------------------------------------------------------+--------------------------------+
+| .. image:: img/screenshots/normal_trafic.png         | Condição Selecionada           |
++------------------------------------------------------+--------------------------------+
+| .. image:: img/screenshots/friends.png               | Listagem dos Amigos            |
++------------------------------------------------------+--------------------------------+
+| .. image:: img/screenshots/friend_information.png    | Informação do Usuário          |
++------------------------------------------------------+--------------------------------+

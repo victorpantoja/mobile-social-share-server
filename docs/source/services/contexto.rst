@@ -38,7 +38,11 @@ Recebe o contexto enviado por um usuário e distribui pelas redes sociais
 
 	(r"/context", ContextHandler),
 
-Serviço que recebe o contexto enviado por um usuário e distribui pelas redes sociais selecionadas.<br>
+Serviço que recebe o contexto enviado por um usuário e distribui pelas redes sociais selecionadas.
+
+A posição do usuário será enviada para as redes sociais na forma de uma URL encurtada do Google Maps. A figura abaixo exemplifica essa ação:
+
+.. image:: ../img/twitter_example.png
 
 Parâmetros:
 	* auth: string de autenticação do usuário no MSS
@@ -54,7 +58,7 @@ Obter o status do sistema
 
 	(r"/status", StatusHandler),
 
-Serviço que retorna uma página com uma mensagem aos usuários e servir de canal de comunicação entre o administraor do sistema e o usuário.<br>
+Serviço que retorna uma página com uma mensagem aos usuários e servir de canal de comunicação entre o administrador do sistema e o usuário.
 
 Parâmetros:
 	* auth: string de autenticação do usuário no MSS
