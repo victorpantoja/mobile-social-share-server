@@ -89,3 +89,6 @@ functional: clean start-memcached
 	    
 doc:
 	cd docs && make html && open build/html/index.html
+
+#epydoc:
+#    epydoc --html -o docs/epydoc --name "Mobile Social Share" mss && open docs/epydoc/index.html
