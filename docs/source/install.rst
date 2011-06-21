@@ -76,9 +76,9 @@ Routes allows conditional matching based on domain, cookies, HTTP method, or a c
 More information:
 http://routes.groovie.org/
 
---------
-memcache
---------
+---------
+memcached
+---------
 This is a Python based API (implemented in 100% python) for communicating with the memcached distributed memory object cache daemon. 
 
 .. code-block:: bash

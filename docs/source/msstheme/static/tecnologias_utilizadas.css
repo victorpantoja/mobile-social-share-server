@@ -1,70 +1,25 @@
-#glb-diretorio, #tecnologias-usadas {
-    background-color: #0878e7;
+#tecnologias-usadas{
+    border-top: 1px solid #ececec;
 }
 
-#tecnologias-usadas {
-    padding-top: 35px;
-    padding-bottom: 35px;
-    display: block;
-}
-
-#tecnologias-usadas h2, #tecnologias-usadas h3 {
+#tecnologias-usadas h2{
     border-right: 1px solid #9EC7EF;
     color: #9EC7EF;
     display: block;
     float: left;
     font-size: 18px;
-    margin-right: 36px;
     padding-bottom: 16px;
-    padding-right: 36px;
     padding-top: 16px;
     text-align: right;
     width: 100px;
 }
 #tecnologias-usadas ul {
     display: block;
-    width: 720px;
-    height: 58px;
     float: left;
-    background: url('tecnologias-usadas-rodape.gif') no-repeat 0 20px transparent;
-    text-indent: -9999px;
+    height: 70px;
 }
 #tecnologias-usadas ul li, #tecnologias-usadas ul li a {
     display: inline-block;
     float: left;
     height: 66px;
-}
-
-#tecnologias-usadas .tec-solr,#tecnologias-usadas .tec-solr a {
-    margin-right: 20px;
-    width: 57px;
-}
-
-#tecnologias-usadas .tec-mysql, #tecnologias-usadas .tec-mysql a {
-    margin-right: 20px;
-    width: 75px;
-}
-
-#tecnologias-usadas .tec-django, #tecnologias-usadas .tec-django a {
-    margin-right: 20px;
-    width: 67px;
-}
-
-#tecnologias-usadas .tec-jquery, #tecnologias-usadas .tec-jquery a {
-    margin-right: 20px;
-    width: 90px;
-}
-
-#tecnologias-usadas .tec-activemq, #tecnologias-usadas .tec-activemq a {
-    margin-right: 20px;
-    width: 73px;
-}
-
-#tecnologias-usadas .tec-python, #tecnologias-usadas .tec-python a {
-    margin-right: 20px;
-    width: 102px;
-}
-
-#tecnologias-usadas .tec-virtuoso, #tecnologias-usadas .tec-virtuoso a {
-    width: 122px;
-}       
+}    
