@@ -7,15 +7,15 @@ from mss.models.friendship import Friendship
 from mss.models.invite import Invite
 from mss.models.user import User
 from sqlalchemy.exceptions import IntegrityError
+from sqlalchemy.sql.expression import and_
 
 from datetime import datetime
-import hashlib, simplejson
 from mss.models import invite_email
 from mss.models.invite_email import InviteEmail
 from mss.utils.emailhelper import EmailHelper
 from smtplib import SMTPException
 
-import logging
+import logging, hashlib, simplejson
 
 class SendInviteHandler(BaseHandler):
     """
@@ -219,22 +219,28 @@ class AcceptInviteHandler(BaseHandler):
         self.post(user, **kw)
         
     def post(self, user, **kw):
+                        
+        username = self.get_argument('username')
         
-        invite_id = int(self.get_argument('invite_id'))
+        session = meta.get_session()
+        friend = session.query(User).filter(User.username==username).first()
         
-        invite = Invite.get(id=invite_id)
+        if not friend:
+            self.set_header("Content-Type", "application/json; charset=UTF-8")
+            self.write(simplejson.dumps({"status": "error", "msg": "Inexistent user!"}))
+            return
+        
+        invite = session.query(Invite).filter(and_(Invite.user_id==friend.id,Invite.friend_id==user.id)).first()
 
         if not invite:
             self.set_header("Content-Type", "application/json; charset=UTF-8")
             self.write(simplejson.dumps({"status": "error", "msg": "Invite not found."}))  
-            return  
+            return
         
-        friend = User.get(id=invite.friend_id)
-        
-        if invite.user_id == user.id:
+        if invite.friend_id == user.id:
             friendship = Friendship()
             friendship.user_id = user.id
-            friendship.friend_id = invite.friend_id
+            friendship.friend_id = friend.id
             friendship.created_dt = datetime.now()
             
             try:  
