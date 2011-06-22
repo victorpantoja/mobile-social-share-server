@@ -12,6 +12,10 @@ from datetime import datetime
 import hashlib, simplejson
 from mss.models import invite_email
 from mss.models.invite_email import InviteEmail
+from mss.utils.emailhelper import EmailHelper
+from smtplib import SMTPException
+
+import logging
 
 class SendInviteHandler(BaseHandler):
     """
@@ -165,6 +169,25 @@ class SendEmailInviteHandler(BaseHandler):
         invite_email.code = code
         invite_email.date = datetime.now()
         
+        body="""
+              Dear: <br />
+               <br />
+              %s has invited you to join us at Mobile Social Share. <br />
+               <br />
+              To accept this invite, just click <a href="http://myalbumshare.com:8000/api/invite/email/accept?code=%s">here</a> <br />
+               <br />
+              Please let us know if you have any questions. <br />
+               <br />
+              The MSS Team
+              """ % (user.first_name, code)
+              
+        try:
+            mensagem=EmailHelper.mensagem(destinatario=self.get_argument('email'),corpo=body,strFrom='Mobile Social Share Team <mobile.social.share@gmail.com>',subject="Join us at Mobile Social Share")
+            EmailHelper.enviar(mensagem=mensagem,destinatario=self.get_argument('email'))
+
+        except SMTPException, e:
+            logging.exception(str(e))
+            
         try:
             invite_email.save()
         except IntegrityError:
