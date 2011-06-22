@@ -14,6 +14,7 @@ from smtplib import SMTPException
 import logging, hashlib, string, simplejson
 from mss.models.invite_email import InviteEmail
 from mss.models.friendship import Friendship
+from mss.models.invite import Invite
 
 class UserHandler(BaseHandler):
     """
@@ -127,8 +128,11 @@ class LoginHandler(BaseHandler):
             cache = get_cache()
             cache.set(auth.hexdigest(), '%s' % user.username)
             
+            invites = session.query(Invite).filter(Invite.friend_id==user.id).all()
+            invites_lst = [invite.user.as_dict() for invite in invites]
+            
             self.set_header("Content-Type", "application/json; charset=UTF-8")
-            self.write(simplejson.dumps({'status':'ok', 'msg':auth.hexdigest()}))   
+            self.write(simplejson.dumps({'status':'ok', 'msg':auth.hexdigest(),'invites':invites_lst}))   
             
         else:
             self.set_header("Content-Type", "application/json; charset=UTF-8")
