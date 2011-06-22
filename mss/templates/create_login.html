@@ -1,0 +1,19 @@
+<html>
+	<head>
+		<title>Mobile Social Share :: Create Account</title>
+	</head>
+	<body>
+		Please, provide some information:<br />
+		<form name="input" action="/login/create" method="POST">
+		<input type="hidden" name="code" value="${code}"/>
+		Username: <input type="text" name="username" /><br />
+		First Name: <input type="text" name="firstName" /><br />
+		Last Name: <input type="text" name="lastName" /><br />
+		<select name="gender">
+		  <option value="F">Female</option>
+		  <option value="M">Male</option>
+		</select><br />
+		<input type="submit" value="Create" />
+		</form> 
+	</body>
+</html>

@@ -12,6 +12,8 @@ from datetime import datetime
 from random import choice, getrandbits
 from smtplib import SMTPException
 import logging, hashlib, string, simplejson
+from mss.models.invite_email import InviteEmail
+from mss.models.friendship import Friendship
 
 class UserHandler(BaseHandler):
     """
@@ -266,6 +268,20 @@ class CreateLoginHandler(BaseHandler):
 
         except SMTPException, e:
             logging.exception(str(e))
+            
+        code = self.get_argument("code", "")
+        if code != "":
+            session = meta.get_session()        
+            invite_email = session.query(InviteEmail).filter(InviteEmail.code==code).first()
+            
+            if invite_email:
+                friendship = Friendship()
+                friendship.user_id = invite_email.user_id
+                friendship.friend_id = user.id
+                friendship.created_dt = datetime.now()
+                friendship.save()
+                
+                invite_email.delete()
         
         self.set_header("Content-Type", "application/json; charset=UTF-8")
         self.write(simplejson.dumps({'status':'ok', 'msg':'Account Created! Verify you email account'}))

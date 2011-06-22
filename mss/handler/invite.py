@@ -255,20 +255,14 @@ class AcceptEmailInviteHandler(BaseHandler):
         Controller que Gerencia o Aceite de Convites por Email
     """
         
-    def get(self, user, **kw):
+    def get(self, **kw):
         """
         <h2><b>Aceita um determinado convite enviado por email.</b></h2><br>
         Serviço que aceita um determinado convite enviado por email.<br>
         <br><h3><b>Parâmetros:</b></h3><br>
-        id: ID do convite <br />
+        code: código do convite <br />
         <br><h3><b>Retorno:</b></h3><br>
         JSON com o status da ação.
         """
         
-        self.post(user, **kw)
-        
-    def post(self, user, **kw):
-
-        self.set_header("Content-Type", "application/json; charset=UTF-8")
-        self.write(simplejson.dumps({"status": "ok", "msg": ""}))  
-        return
+        self.render_template("create_login.html",code=self.get_argument('code'))
