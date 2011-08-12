@@ -5,6 +5,7 @@ from mss.handler.base import BaseHandler, authenticated
 from mss.core.cache import get_cache
 import simplejson, twitter
 from mss.utils.shorten_url import ShortenURL
+from tornado.web import asynchronous
 
 class WebViewHandler(BaseHandler):
     """
@@ -37,6 +38,7 @@ class ContextHandler(BaseHandler):
     """
     
     @authenticated
+    @asynchronous
     def get(self, user, **kw):
         """
         <h2><b>Recebe o contexto enviado por um usuário e distribui pelas redes sociais.</b></h2><br>
@@ -55,10 +57,10 @@ class ContextHandler(BaseHandler):
         cache.set("locale",self.get_argument('location'))
         cache.set("content",self.get_argument('text'))
         
-        consumer_key = "uXTHwPObQdiDANsQNyN9fA"
-        consumer_secret = 'pPHWgoiVF1pKynGTM77CCv1G9CUgtD0BfWkqBYhtA'
-        access_token_key = '15043020-6FMt90SSPL5coMpTvuTNIjH8Q2hNumSvSEYh2tqXN'
-        access_token_secret = 'cdlZNKne6fSMBVgf80YOiC0J6yin4MtCygHfgkSk'
+        consumer_key = "f1j3JookvHIoe2MBL7HEg"
+        consumer_secret = 'kdgLHtmyFh24UVIDIBtFRC9T5LUlRhgtCskIlG1P08'
+        access_token_key = '353770828-OeTG1nMJEuMHIKEdVQvrFloXnI9hcUXBROZ8oyiX'
+        access_token_secret = 'u30TQhtFmWB9bKgyXrhJ7SNLGuuxO2n3dJfswv66k'
         
         api = twitter.Api(consumer_key, consumer_secret, access_token_key, access_token_secret)
         
@@ -72,9 +74,12 @@ class ContextHandler(BaseHandler):
             status = api.PostUpdate("%s %s #mss" % (self.get_argument('text'), shortened))
             self.set_header("Content-Type", "application/json; charset=UTF-8")
             self.write(simplejson.dumps({'status':'ok', 'msg':status.text}))
-            return
+
         except twitter.TwitterError, e:
             self.set_header("Content-Type", "application/json; charset=UTF-8")
-            self.write(simplejson.dumps({'status':'error', 'msg':e.message}))            
+            self.write(simplejson.dumps({'status':'error', 'msg':e.message}))
+            
+        self.finish()
+        return
 
 
