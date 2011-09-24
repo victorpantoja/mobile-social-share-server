@@ -5,7 +5,7 @@ from datetime import datetime
 from mss.core.cache.util import get_cache
 from mss.models.friendship import Friendship
 from mss.models.invite import Invite
-from mss.models.network import Network
+from mss.models.application import Application
 
 import hashlib
 from mss.models.invite_email import InviteEmail
@@ -72,14 +72,15 @@ def create_invite(user, friend):
     
     return invite
 
-def create_network(name = 'should-be-network-name', icon = 'should-be-network-icon', available = True):
-    network = Network()
-    network.name = name
-    network.icon = icon
-    network.availabe = available
-    network.save()
+def create_application(name = 'should-be-network-name', icon = 'should-be-network-icon', token='should-be-token',callback_url=None):
+    app = Application()
+    app.name = name
+    app.icon = icon
+    app.token = token
+    app.callback_url = callback_url
+    app.save()
     
-    return network
+    return app
 
 def create_invite_email(user,email):
     

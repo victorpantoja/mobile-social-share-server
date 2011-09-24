@@ -48,12 +48,12 @@ class InviteHandlerTestCase(AsyncHTTPTestCase):
         user2.delete()
     
     def test_accept_invite(self):
-        user = create_logged_user()
-        friend = create_user(last_name = 'test_accept_invite', first_name = 'test_accept_invite',  username = 'test_accept_invite')
+        user = create_logged_user(username="test_accept_invite-user")
+        friend = create_user(last_name = 'test_accept_invite', first_name = 'test_accept_invite',  username = 'test_accept_invite-friend')
 
-        invite = create_invite(user, friend)
+        create_invite(friend, user)
 
-        self.http_client.fetch(self.get_url('/invite/accept?invite_id=%s&auth=should-be-user-auth' % invite.id), self.stop)
+        self.http_client.fetch(self.get_url('/invite/accept?username=%s&auth=should-be-user-auth' % friend.username), self.stop)
                 
         response = self.wait()
         
@@ -74,9 +74,10 @@ class InviteHandlerTestCase(AsyncHTTPTestCase):
         user.delete()
         
     def test_accept_inexistent_invite(self):
-        user = create_logged_user()
+        user = create_logged_user(username="test_accept_inexistent_invite-user")
+        friend = create_user(last_name = 'test_accept_invite', first_name = 'test_accept_invite',  username = 'test_accept_inexistent_invite-friend')
         
-        self.http_client.fetch(self.get_url('/invite/accept?invite_id=0&auth=should-be-user-auth'), self.stop)
+        self.http_client.fetch(self.get_url('/invite/accept?username=%s&auth=should-be-user-auth' % friend.username), self.stop)
                 
         response = self.wait()
         
@@ -84,15 +85,16 @@ class InviteHandlerTestCase(AsyncHTTPTestCase):
         self.assertEqual(response.body, '{"status": "error", "msg": "Invite not found."}')
         
         user.delete()
+        friend.delete()
         
     def test_accept_duplicated_invite(self):
-        user = create_logged_user()
-        friend = create_user(last_name = 'test_accept_invite', first_name = 'test_accept_invite',  username = 'test_accept_invite')
-        
+        user = create_logged_user(username='test_accept_duplicated_invite-user')
+        friend = create_user(last_name = 'test_accept_invite', first_name = 'test_accept_invite',  username = 'test_accept_duplicated_invite-friend')
+                
         friendship = create_friendship(user,friend)
-        invite = create_invite(user, friend)
+        invite = create_invite(friend, user)
         
-        self.http_client.fetch(self.get_url('/invite/accept?invite_id=%s&auth=should-be-user-auth' % invite.id), self.stop)
+        self.http_client.fetch(self.get_url('/invite/accept?username=%s&auth=should-be-user-auth' % friend.username), self.stop)
                 
         response = self.wait()
         

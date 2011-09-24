@@ -10,29 +10,53 @@ CREATE TABLE `users` (
   `criate_dt` datetime NOT NULL,
   `lastlogin_dt` datetime NOT NULL,
   PRIMARY KEY (`user_id`),
-  UNIQUE KEY `uk_username` (`username_txt`)
+  UNIQUE KEY `uk_users` (`username_txt`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
-CREATE TABLE `social_network` (
-  `network_id` integer unsigned NOT NULL AUTO_INCREMENT,
-  `name_txt` varchar(200) NOT NULL,
-  `icon_txt` varchar(200) NOT NULL,
-  `available_bln` tinyint(1) DEFAULT '0',
-  PRIMARY KEY (`network_id`),
-  UNIQUE KEY `uk_username` (`name_txt`)
+CREATE TABLE `context_type` (
+  `context_type_id` integer unsigned NOT NULL AUTO_INCREMENT,
+  `description_txt` varchar(20) NOT NULL,
+  PRIMARY KEY (`context_type_id`),
+  UNIQUE KEY `uk_context_type` (`description_txt`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
 CREATE TABLE `context` (
   `context_id` integer unsigned NOT NULL AUTO_INCREMENT,
+  `context_type_id` integer unsigned NOT NULL,
   `user_id` integer unsigned NOT NULL,
-  `status_txt` varchar(144) NOT NULL,
-  `location_txt` varchar(100) NOT NULL,
-  `updated_dt` datetime NOT NULL,
+  `context_txt` varchar(400) NOT NULL,
+  `update_dt` datetime NOT NULL,
   PRIMARY KEY (`context_id`),
   KEY `fk_context_user` (`user_id`),
-  CONSTRAINT `fk_context_user` FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  KEY `fk_context_context_type` (`context_type_id`),
+  CONSTRAINT `fk_context_user` FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_context_context_type` FOREIGN KEY (`context_type_id`) REFERENCES `context_type` (`context_type_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+CREATE TABLE `application` (
+  `application_id` integer unsigned NOT NULL AUTO_INCREMENT,
+  `name_txt` varchar(200) NOT NULL,
+  `icon_txt` varchar(200) NOT NULL,
+  `token_txt` varchar(32) NOT NULL,
+  `callback_url_txt` varchar(200),
+  PRIMARY KEY (`application_id`),
+  UNIQUE KEY `uk_application` (`name_txt`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+CREATE TABLE `context_application` (
+  `context_application_id` integer unsigned NOT NULL AUTO_INCREMENT,
+  `context_id` integer unsigned NOT NULL,
+  `application_id` integer unsigned NOT NULL,
+  PRIMARY KEY (`context_application_id`),
+  UNIQUE KEY `uk_context_application` (`context_id`,`application_id`),
+  KEY `fk_context_application_context_id` (`context_id`),
+  KEY `fk_context_application_application_id` (`application_id`),
+  CONSTRAINT `fk_context_application_context_id` FOREIGN KEY (`context_id`) REFERENCES `context` (`context_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_context_application_application_id` FOREIGN KEY (`application_id`) REFERENCES `application` (`application_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
@@ -75,15 +99,18 @@ CREATE TABLE `invite_email` (
   CONSTRAINT `fk_invite_email_user1` FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+insert into context_type (description_txt) values('location'), ('status');
 
 """
 SQL_DOWN = u"""
 
 drop table invite_email;
 drop table invite;
-drop table context;
 drop table friendship;
-drop table social_network;
+drop table context_application;
+drop table context;
+drop table context_type;
+drop table application;
 drop table users;
 
 """

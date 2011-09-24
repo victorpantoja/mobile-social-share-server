@@ -6,7 +6,7 @@ from mss.handler.base import BaseHandler, authenticated
 from mss.models.friendship import Friendship
 from mss.models.invite import Invite
 from mss.models.user import User
-from sqlalchemy.exceptions import IntegrityError
+from sqlalchemy.exc import IntegrityError
 from sqlalchemy.sql.expression import and_
 
 from datetime import datetime
