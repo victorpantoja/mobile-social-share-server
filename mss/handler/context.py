@@ -3,9 +3,16 @@
 
 from mss.handler.base import BaseHandler, authenticated
 from mss.core.cache import get_cache
-import simplejson, twitter
+from mss.models.application import Application
+from mss.models.context_type import ContextType
+from mss.models.context import Context
+from mss.models.context_application import ContextApplication
 from mss.utils.shorten_url import ShortenURL
+
 from tornado.web import asynchronous
+from datetime import datetime
+
+import simplejson, twitter
 
 class WebViewHandler(BaseHandler):
     """
@@ -36,10 +43,9 @@ class ContextHandler(BaseHandler):
     """
         Controller de Envio de Contexto para as Redes Sociais
     """
-    
+
     @authenticated
-    @asynchronous
-    def get(self, user, **kw):
+    def post(self, user, **kw):
         """
         <h2><b>Recebe o contexto enviado por um usuário e distribui pelas redes sociais.</b></h2><br>
         Serviço que Recebe o contexto enviado por um usuário e distribui pelas redes sociais selecionadas.<br>
@@ -48,15 +54,30 @@ class ContextHandler(BaseHandler):
         <br><h3><b>Retorno:</b></h3><br>
         JSON com Status da Ação e Cópia da Mensagem Enviada para as Redes Sociais
         """
+                        
+        data = simplejson.loads(self.request.body)
         
-        self.post(user, **kw)
+        for app_name in data['application']:
+            application = Application().fetch_by(name=app_name).first()
+            
+            if application:
+                for description in data['context'].keys():
+                    context_type = ContextType().fetch_by(description=description).first()
+                    
+                    if context_type:
+                        context = Context()
+                        context.user_id = user.id
+                        context.context_type_id = context_type.id
+                        context.context = data['context'][description]
+                        context.updated = datetime.now()
+                        context.save()
+                        
+                        context_application = ContextApplication()
+                        context_application.application = application
+                        context_application.context = context
+                        context_application.save()
 
-    def post(self, user, **kw):
-
-        cache = get_cache()
-        cache.set("locale",self.get_argument('location'))
-        cache.set("content",self.get_argument('text'))
-        
+                
         consumer_key = "f1j3JookvHIoe2MBL7HEg"
         consumer_secret = 'kdgLHtmyFh24UVIDIBtFRC9T5LUlRhgtCskIlG1P08'
         access_token_key = '353770828-OeTG1nMJEuMHIKEdVQvrFloXnI9hcUXBROZ8oyiX'
@@ -64,14 +85,14 @@ class ContextHandler(BaseHandler):
         
         api = twitter.Api(consumer_key, consumer_secret, access_token_key, access_token_secret)
         
-        map_url = 'http://maps.google.com/maps?z=18&q=%(location)s(%(text)s)' % {'location':self.get_argument('location'),'text':self.get_argument('text')}
+        map_url = 'http://maps.google.com/maps?z=18&q=%(location)s(%(text)s)' % {'location':data['context']['location'],'text':data['context']['status']}
         
         shortened = ShortenURL().Shorten(map_url)
         
         status = ''
         
         try:
-            status = api.PostUpdate("%s %s #mss" % (self.get_argument('text'), shortened))
+            status = api.PostUpdate("%s %s #mss" % (data['context']['status'], shortened))
             self.set_header("Content-Type", "application/json; charset=UTF-8")
             self.write(simplejson.dumps({'status':'ok', 'msg':status.text}))
 

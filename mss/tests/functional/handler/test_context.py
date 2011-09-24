@@ -1,10 +1,15 @@
 # coding: utf-8
 #!/usr/bin/env python
 
-from mss.core.cache import get_cache
+from mss.models.context import Context
 from mss.handler.context import ContextHandler
+from mss.models.context_application import ContextApplication
+from mss.tests.functional.utils import create_application, create_logged_user
+
 from tornado.testing import AsyncHTTPTestCase
-import tornado
+from tornado.httpclient import HTTPRequest
+
+import tornado, simplejson, string, random
 
 class ContextHandlerTestCase(AsyncHTTPTestCase):
     
@@ -19,17 +24,40 @@ class ContextHandlerTestCase(AsyncHTTPTestCase):
     
     def test_send_context(self):
 
-        cache = get_cache()
-        cache.set('should-be-key', 'should-be-user-auth')
+        user = create_logged_user(username='test_send_context')
+
+        app1 = create_application(name="twitter")
         
-        self.http_client.fetch(self.get_url('/context')+'?location=-22.95835442222223,-43.196200622222214&text=qqcoisa&auth=should-be-key' , self.stop)
+        text = ''.join([random.choice(string.letters) for x in xrange(5)])
+        
+        parameters = {'application':[app1.name],'context':{'location':'-22.95835442222223,-43.196200622222214','status':text}}
+        
+        request = HTTPRequest(url=self.get_url('/context?auth=should-be-user-auth'),method='POST',body=simplejson.dumps(parameters))
+        
+        self.http_client.fetch(request, self.stop)
                 
         response = self.wait()
         self.failIf(response.error)
         
-        cache = get_cache()
-        locale = cache.get("locale")
-        content = cache.get("content")
+        assert simplejson.loads(response.body)['status'] == 'ok'
         
-        assert locale == '-22.95835442222223,-43.196200622222214'
-        assert content == 'qqcoisa'
+        context1 = Context().fetch_by(context=text).first()
+        context2 = Context().fetch_by(context='-22.95835442222223,-43.196200622222214').first()
+        
+        context_applicaton1 = ContextApplication.fetch_by(context_id = context1.id).first()
+        context_applicaton2 = ContextApplication.fetch_by(context_id = context2.id).first()
+        
+        assert context1.context == text
+        assert context2.context == '-22.95835442222223,-43.196200622222214'
+        assert context_applicaton1.context_id == context1.id
+        assert context_applicaton2.context_id == context2.id
+        
+        context_applicaton1.delete()
+        context_applicaton2.delete()
+        
+        context1.delete()
+        context2.delete()
+        
+        user.delete()
+
+        app1.delete()

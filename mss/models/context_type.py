@@ -19,4 +19,3 @@ class ContextType(Model, ContextTypeRepository):
         
     id = Column('context_type_id', Integer, primary_key=True)
     description = Column('description_txt', String)
-    location = Column('location_txt', String)

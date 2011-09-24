@@ -20,9 +20,10 @@ class Context(Model, ContextRepository):
         
     __tablename__ = 'context'
         
-    id = Column('user_id', Integer, primary_key=True)
+    id = Column('context_id', Integer, primary_key=True)
     user_id = Column('user_id', Integer, ForeignKey("users.user_id"))
     context_type_id = Column('context_type_id', Integer, ForeignKey("context_type.context_type_id"))
+    context = Column('context_txt', String)
     updated = Column('update_dt', DateTime)
 
     user = relation(User)
