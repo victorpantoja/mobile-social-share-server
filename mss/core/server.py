@@ -2,7 +2,7 @@
 #!/usr/bin/env python
 
 from mss.core.daemon import Daemon
-from mss.handler.application import ApplicationHandler
+from mss.handler.application import ApplicationHandler, SubscribeHandler
 from mss.handler.context import ContextHandler, WebViewHandler
 from mss.handler.facebook import CanvasHandler
 from mss.handler.friendship import GetFriendshipsHandler, RemoveFriendshipsHandler
@@ -30,6 +30,7 @@ class MSSServer(Daemon):
         routes = [
             (r"/media/(.*)", StaticFileHandler, {"path": options.media_dir}),
             (r"/applications.json", ApplicationHandler),
+            (r"/application/subscribe", SubscribeHandler),
             (r"/canvas/", CanvasHandler),
             (r"/webview/", WebViewHandler),
             (r"/context", ContextHandler),

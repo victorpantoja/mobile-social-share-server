@@ -1,10 +1,11 @@
 # coding: utf-8
 #!/usr/bin/env python
 
-from mss.handler.base import BaseHandler, authenticated
-import simplejson
 from mss.core import meta
+from mss.handler.base import BaseHandler, authenticated
 from mss.models.application import Application
+
+import hashlib, simplejson, logging
 
 class ApplicationHandler(BaseHandler):
     """
@@ -36,4 +37,32 @@ class ApplicationHandler(BaseHandler):
 
         self.set_header("Content-Type", "application/json; charset=UTF-8")
         self.write(simplejson.dumps(dict))
+        return
+    
+class SubscribeHandler(BaseHandler):
+
+    @authenticated
+    def post(self, **kw):
+                
+        data = simplejson.loads(self.request.body)
+        
+        app = Application()
+        app.name = data['name']
+        app.icon = data['icon']
+        app.callback_url = data['callback_url']
+        
+        m = hashlib.md5()
+        m.update(app.name+app.icon)
+        
+        app.token =  m.hexdigest()
+        try:
+            app.save()
+        except Exception, e:
+            logging.exception(e);
+            self.set_header("Content-Type", "application/json; charset=UTF-8")
+            self.write(simplejson.dumps({'status':'error', 'msg':'Application already exists.'}))
+            return
+
+        self.set_header("Content-Type", "application/json; charset=UTF-8")
+        self.write(simplejson.dumps({"status": "ok", "msg": app.token}))
         return
