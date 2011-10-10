@@ -6,22 +6,19 @@ Processo responsavel por consumir a fila do beanstalkd, e expirar o cache nos ng
 
 from mss.core import settings
 from mss.core.daemon import Daemon
-from mss.utils.emailhelper import EmailHelper
-from mss.utils.solrhelper import SolrConnection
+from mss.utils.shorten_url import ShortenURL
 
-import os, sys, atexit, getopt, time, shutil
-import beanstalkc, pycurl, StringIO, logging
-import simplejson
+import time
+import beanstalkc, logging
+import simplejson, twitter
 
-class MssBeanstalk(Daemon):
+class MSSBeanstalk(Daemon):
 
     beanstalkServer = None
-    NGINX_CACHE_ROOT = "/opt/cache/nginx"
     
-    def __init__(self, pidfile, host, nginx, tube):
+    def __init__(self, pidfile, host, tube):
         self.host = host.split(":")[0]
         self.port = host.split(":")[1]
-        self.nginx = nginx
         self.tube = tube
         
         return Daemon.__init__(self, pidfile)
@@ -34,47 +31,36 @@ class MssBeanstalk(Daemon):
             try:
                 self.beanstalkServer = beanstalkc.Connection(host=self.host, port=int(self.port))
                 
-                if self.tube=='game':
-                    self.beanstalkServer.watch("usuario")
-                    self.beanstalkServer.watch("path")
+                if self.tube=='context':
+                    self.beanstalkServer.watch("context")
                 
                 logging.info("Can be connect with beanstalk")
             except beanstalkc.SocketError, se:
                 logging.error("Can not connect to beanstalk on %s:%s" % (self.host, self.port))
                 time.sleep(10)
-    
-    def clear_usuario(self, uri):
-    
-        try:
-            url = "%s/purge%s" %(self.nginx,uri)
-            
-            logging.info("cache purge in %s" % url)
-            content_io = StringIO.StringIO()
-            
-            curl = pycurl.Curl()
-            curl.setopt(pycurl.URL, url)
-            curl.setopt(pycurl.WRITEFUNCTION, content_io.write)
-            curl.perform()
-            
-            data = content_io.getvalue()
-        except Exception, e:
-            logging.exception("failed to connect in %s" % url)
-        finally:
-            curl.close()
 
             
-    def clear_path(self, path):
-    
+    def send_context(self, job):
+        
+        data = simplejson.loads(job)
+                
+        consumer_key = "f1j3JookvHIoe2MBL7HEg"
+        consumer_secret = 'kdgLHtmyFh24UVIDIBtFRC9T5LUlRhgtCskIlG1P08'
+        access_token_key = '353770828-OeTG1nMJEuMHIKEdVQvrFloXnI9hcUXBROZ8oyiX'
+        access_token_secret = 'u30TQhtFmWB9bKgyXrhJ7SNLGuuxO2n3dJfswv66k'
+        
+        api = twitter.Api(consumer_key, consumer_secret, access_token_key, access_token_secret)
+        
+        map_url = 'http://maps.google.com/maps?z=18&q=%(location)s(%(text)s)' % {'location':data['context']['location'],'text':data['context']['status']}
+        
+        shortened = ShortenURL().Shorten(map_url)
+                
         try:
-            full_path = self.NGINX_CACHE_ROOT + "/" + path
-            
-            for fname in os.listdir(full_path):
-                if os.path.isdir(full_path +"/"+ fname):
-                    logging.info("cache clear path %s" % full_path +"/"+ fname)
-                    shutil.rmtree(full_path +"/"+ fname)
-            
-        except Exception, e:
-            logging.exception("failed to remove dir %s" % full_path)
+            logging.debug("Sending tweet")
+            api.PostUpdate("%s %s #mss" % (data['context']['status'], shortened))
+
+        except twitter.TwitterError, e:
+            logging.exception("Can not send tweet on %s" % e)
         
         
     '''
@@ -82,7 +68,7 @@ class MssBeanstalk(Daemon):
     '''
     def run(self):
     
-        logging.info("Cartola Beanstalk Daemon initialized, waiting for job! :D")
+        logging.info("MSS Beanstalk Daemon initialized, waiting for job! :D")
         self.connect()
         
         while True:
@@ -92,11 +78,8 @@ class MssBeanstalk(Daemon):
                 tube = job.stats()['tube']
                 
                 logging.info("job received tube %s" % tube)
-                if tube == 'usuario':
-                    self.clear_usuario(uri=job.body)
-
-                elif tube == 'path':
-                    self.clear_path(path=job.body)
+                if tube == 'context':
+                    self.send_context(job.body)
                     
                 else:
                     logging.error("DESCARTANDO JOB %s!" % tube)

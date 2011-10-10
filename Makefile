@@ -87,6 +87,15 @@ functional: clean start-memcached
 		cd mss && \
 	    nosetests -s --verbose --with-coverage --cover-package=mss tests/functional/*
 	    
+start-beanstalkd:
+	@echo "Starting beanstalkd..."
+	@beanstalkd -d
+
+stop-beanstalkd:
+	@echo "Stopping beanstalkd..."
+#   -ps -ef | egrep 'beanstalkd -d' | egrep -v egrep | tr -s ' ' | cut -f 3 -d ' ' | xargs kill
+	@killall beanstalkd 2> /dev/null; true
+	    
 doc:
 	cd docs && make html && open build/html/index.html
 

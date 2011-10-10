@@ -28,3 +28,7 @@ CACHE_BACKEND_OPTS = ["%s:11211" % box for box in MSS_BOXES]
 
 CACHE_BACKEND = "memcached"
 CACHE_TIMEOUT = 63300
+
+BEANSTALK_BOXES = [ "localhost" ]
+BEANSTALK = "localhost:11300"
+BEANSTALK_HOSTS = [ "%s:11300" % box for box in BEANSTALK_BOXES ]

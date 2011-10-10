@@ -7,12 +7,12 @@ from mss.models.application import Application
 from mss.models.context_type import ContextType
 from mss.models.context import Context
 from mss.models.context_application import ContextApplication
-from mss.utils.shorten_url import ShortenURL
+from mss.utils.context import ContextQueue
 
 from tornado.web import asynchronous
 from datetime import datetime
 
-import simplejson, twitter
+import simplejson
 
 class WebViewHandler(BaseHandler):
     """
@@ -54,7 +54,7 @@ class ContextHandler(BaseHandler):
         <br><h3><b>Retorno:</b></h3><br>
         JSON com Status da Ação e Cópia da Mensagem Enviada para as Redes Sociais
         """
-                        
+                                
         data = simplejson.loads(self.request.body)
         
         for app_name in data['application']:
@@ -76,30 +76,13 @@ class ContextHandler(BaseHandler):
                         context_application.application = application
                         context_application.context = context
                         context_application.save()
-
-                
-        consumer_key = "f1j3JookvHIoe2MBL7HEg"
-        consumer_secret = 'kdgLHtmyFh24UVIDIBtFRC9T5LUlRhgtCskIlG1P08'
-        access_token_key = '353770828-OeTG1nMJEuMHIKEdVQvrFloXnI9hcUXBROZ8oyiX'
-        access_token_secret = 'u30TQhtFmWB9bKgyXrhJ7SNLGuuxO2n3dJfswv66k'
-        
-        api = twitter.Api(consumer_key, consumer_secret, access_token_key, access_token_secret)
-        
-        map_url = 'http://maps.google.com/maps?z=18&q=%(location)s(%(text)s)' % {'location':data['context']['location'],'text':data['context']['status']}
-        
-        shortened = ShortenURL().Shorten(map_url)
-        
-        status = ''
-        
-        try:
-            status = api.PostUpdate("%s %s #mss" % (data['context']['status'], shortened))
-            self.set_header("Content-Type", "application/json; charset=UTF-8")
-            self.write(simplejson.dumps({'status':'ok', 'msg':status.text}))
-
-        except twitter.TwitterError, e:
-            self.set_header("Content-Type", "application/json; charset=UTF-8")
-            self.write(simplejson.dumps({'status':'error', 'msg':e.message}))
-            
+                        
+                        ContextQueue().add(data)
+                        
+                        #TODO - Enfileirar os contextos no beanstalk
+                        
+        self.set_header("Content-Type", "application/json; charset=UTF-8")
+        self.write(simplejson.dumps({'status':'ok', 'msg':"Context Sent"}))
         self.finish()
         return
 
