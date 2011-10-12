@@ -58,11 +58,11 @@ class ContextHandler(BaseHandler):
         data = simplejson.loads(self.request.body)
         
         for app_name in data['application']:
-            application = Application().fetch_by(name=app_name).first()
+            application = Application().get_by(name=app_name)
             
             if application:
                 for description in data['context'].keys():
-                    context_type = ContextType().fetch_by(description=description).first()
+                    context_type = ContextType().get_by(description=description)
                     
                     if context_type:
                         context = Context()
@@ -78,6 +78,16 @@ class ContextHandler(BaseHandler):
                         context_application.save()
                         
                         ContextQueue().add(data)
+                    else:
+                        self.set_header("Content-Type", "application/json; charset=UTF-8")
+                        self.write(simplejson.dumps({'status':'error', 'msg':"Context Not Sent. Invalid context-type."}))
+                        self.finish()
+                        return
+            else:
+                self.set_header("Content-Type", "application/json; charset=UTF-8")
+                self.write(simplejson.dumps({'status':'error', 'msg':"Context Not Sent. Application not registered."}))
+                self.finish()
+                return
                         
         self.set_header("Content-Type", "application/json; charset=UTF-8")
         self.write(simplejson.dumps({'status':'ok', 'msg':"Context Sent"}))

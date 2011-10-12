@@ -20,6 +20,15 @@ class ApplicationRepository(Repository):
         applications = [Application().get(id) for id in ids]
         
         return applications
+    
+    def get_by(self,name):
+        applications = Application().all()
+        
+        for application in applications:
+            if application.name == name:
+                return application
+            
+        return None
 
 class Application(Model, ApplicationRepository):
     """

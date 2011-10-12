@@ -11,7 +11,7 @@ class ApplicationHandler(BaseHandler):
         Controller de Obtenção das Redes Sociais Disponíveis
     """
 
-    #@authenticated    
+    @authenticated    
     def get(self, **kw):
         """
         <h2><b>Obter as Redes Sociais Disponíveis</b></h2><br>
@@ -38,7 +38,7 @@ class ApplicationHandler(BaseHandler):
     
 class SubscribeHandler(BaseHandler):
 
-    #@authenticated
+    @authenticated
     def post(self, **kw):
                 
         data = simplejson.loads(self.request.body)
