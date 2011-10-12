@@ -79,8 +79,6 @@ class ContextHandler(BaseHandler):
                         
                         ContextQueue().add(data)
                         
-                        #TODO - Enfileirar os contextos no beanstalk
-                        
         self.set_header("Content-Type", "application/json; charset=UTF-8")
         self.write(simplejson.dumps({'status':'ok', 'msg':"Context Sent"}))
         self.finish()
