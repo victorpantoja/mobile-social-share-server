@@ -9,7 +9,6 @@ from mss.models.context import Context
 from mss.models.context_application import ContextApplication
 from mss.utils.context import ContextQueue
 
-from tornado.web import asynchronous
 from datetime import datetime
 
 import simplejson
@@ -50,10 +49,10 @@ class ContextHandler(BaseHandler):
         
         contexts_lst = [context.as_dict() for context in contexts]
         
-        dict = {'contexts':contexts_lst}
+        contexts_dict = {'contexts':contexts_lst}
         
         self.set_header("Content-Type", "application/json; charset=UTF-8")
-        self.write(simplejson.dumps(dict))
+        self.write(simplejson.dumps(contexts_dict))
         return
 
     @authenticated
