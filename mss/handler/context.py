@@ -43,6 +43,18 @@ class ContextHandler(BaseHandler):
     """
         Controller de Envio de Contexto para as Redes Sociais
     """
+    
+    @authenticated
+    def get(self, user, **kw):
+        contexts = Context().all()
+        
+        contexts_lst = [context.as_dict() for context in contexts]
+        
+        dict = {'contexts':contexts_lst}
+        
+        self.set_header("Content-Type", "application/json; charset=UTF-8")
+        self.write(simplejson.dumps(dict))
+        return
 
     @authenticated
     def post(self, user, **kw):
