@@ -1,6 +1,8 @@
 # coding: utf-8
 #!/usr/bin/env python
 
+from mss.core.cache import CachedQuery
+
 from sqlalchemy import create_engine
 from sqlalchemy.interfaces import ConnectionProxy
 from sqlalchemy.orm import scoped_session, sessionmaker
@@ -28,7 +30,7 @@ class TimerProxy(ConnectionProxy):
 class UndefinedModel(Exception):
     pass
 
-class CartolaSessionExtension(SessionExtension):
+class MSSSessionExtension(SessionExtension):
     def before_flush(self, session, flush_context, instances):
         session.bind = get_engine(writable=True, max_overflow=10)
         
@@ -53,7 +55,7 @@ def get_engine(writable=False, **kw):
 def get_session(writable=False):
     global __session__
     if not __session__:
-        __session__ = scoped_session(sessionmaker(autocommit=True, autoflush=False, expire_on_commit=False))
+        __session__ = scoped_session(sessionmaker(autocommit=True, autoflush=False, expire_on_commit=False,  query_cls=CachedQuery, extension=MSSSessionExtension()))
     engine = get_engine(writable=writable, max_overflow=10)
     __session__.bind = engine
     return __session__()

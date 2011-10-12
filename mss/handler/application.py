@@ -1,7 +1,6 @@
 # coding: utf-8
 #!/usr/bin/env python
 
-from mss.core import meta
 from mss.handler.base import BaseHandler, authenticated
 from mss.models.application import Application
 
@@ -12,7 +11,7 @@ class ApplicationHandler(BaseHandler):
         Controller de Obtenção das Redes Sociais Disponíveis
     """
 
-    @authenticated    
+    #@authenticated    
     def get(self, **kw):
         """
         <h2><b>Obter as Redes Sociais Disponíveis</b></h2><br>
@@ -26,22 +25,20 @@ class ApplicationHandler(BaseHandler):
         self.post(**kw)
 
     def post(self, **kw):
-        
-        session = meta.get_session()
-        
-        apps = session.query(Application).all()
+                
+        apps = Application.all()
         
         app_list = [app.as_dict() for app in apps]
         
-        dict = {'applications':app_list}
+        app_dict = {'applications':app_list}
 
         self.set_header("Content-Type", "application/json; charset=UTF-8")
-        self.write(simplejson.dumps(dict))
+        self.write(simplejson.dumps(app_dict))
         return
     
 class SubscribeHandler(BaseHandler):
 
-    @authenticated
+    #@authenticated
     def post(self, **kw):
                 
         data = simplejson.loads(self.request.body)
