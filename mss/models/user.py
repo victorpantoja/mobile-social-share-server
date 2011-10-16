@@ -23,7 +23,7 @@ class UserRepository(Repository):
         return applications
     
     def get_by(self,username):
-        users = User().all()
+        users = User.all()
         
         for user in users:
             if user.username == username:

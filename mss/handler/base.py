@@ -57,7 +57,12 @@ def authenticated(fn):
             self.write(simplejson.dumps({'status':'error', 'msg':'User not authenticated.'}))
             return
         else:
-            user = User().get_by(username==username)
+            user = User().get_by(username=username)
+            
+            if not user:
+                self.set_header("Content-Type", "application/json; charset=UTF-8")
+                self.write(simplejson.dumps({'status':'error', 'msg':'User not authenticated.'}))
+                return
 
         return fn(self, user=user, *args, **kw)
 

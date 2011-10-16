@@ -64,10 +64,11 @@ class MSSCurl(Singleton):
 
             # url sem porta       
             curl.setopt(pycurl.URL, url)
-                     
-            logging.debug("[MSSCurl.post()] - conectando na porta %s" % port)   
-            # seta a porta da conexao
-            curl.setopt(pycurl.PORT, port)
+            
+            if port:       
+                logging.debug("[MSSCurl.post()] - conectando na porta %s" % port)   
+                # seta a porta da conexao
+                curl.setopt(pycurl.PORT, port)
             
             # seta o header como list
             curl.setopt(pycurl.HTTPHEADER, ["Accept:application/json","Content-type:application/json"])

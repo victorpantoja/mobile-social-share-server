@@ -9,7 +9,7 @@ from mss.core.daemon import Daemon
 from mss.utils.shorten_url import ShortenURL
 from mss.utils.curl import MSSCurl
 
-import time, urllib
+import time, urllib, tinyurl
 import beanstalkc, logging
 import simplejson, twitter
 
@@ -40,26 +40,36 @@ class MSSBeanstalk(Daemon):
                 logging.error("Can not connect to beanstalk on %s:%s" % (self.host, self.port))
                 time.sleep(10)
 
-            
-    def send_context(self, job):
-        
-        data = simplejson.loads(job)
-        
-        result = self.send_context_facebook(data['context'])
-        twitter = self.send_context_twitter(data['context'])
-        
     
     def send_context_facebook(self,context):
+        logging.debug("Sending to facebook")
+                
         url = 'https://graph.facebook.com/me/feed?access_token=AAABnIwr18EEBAIZCZCVWvEr5jnhKtZCXEjidzisJ62TKhR2ggKvXcgjUwaYvuwv1UjPqmQZCLySfxxv5YCNZAiSZCHHig2knYMF5g2hB7O8hrrtgVOIn7r'
 
-        postfields = urllib.urlencode({'message':context['data']})
+        message = ''
+        if context.get('status'):
+            message+=context.get('status')
+            logging.debug("Context [status]: %s" % context.get('status'))
+        
+        if context.get('location'):
+            map_url = 'http://maps.google.com/maps?z=18&q=%(location)s(%(text)s)' % {'location':context['location'],'text':context['status']}
+            
+            logging.debug("Context [map_url]: %s" % map_url)
+            shortened = tinyurl.create_one(map_url)
+            
+            message+=' %s' % shortened
+            logging.debug("Context [location]: %s" % shortened)
+
+        postfields = urllib.urlencode({'message':message})
 
         try:
-            return MSSCurl.post(url,postfields)
+            return MSSCurl().post(url=url,port=None,postfields=postfields)
         except Exception, e:
-            logging.exception("Can not send tweet on %s" % e)
+            logging.exception("Can not send post to Facebook: %s" % e)
             
     def send_context_twitter(self,context):
+        logging.debug("Sending to Twitter")
+        
         consumer_key = "f1j3JookvHIoe2MBL7HEg"
         consumer_secret = 'kdgLHtmyFh24UVIDIBtFRC9T5LUlRhgtCskIlG1P08'
         access_token_key = '353770828-OeTG1nMJEuMHIKEdVQvrFloXnI9hcUXBROZ8oyiX'
@@ -69,14 +79,19 @@ class MSSBeanstalk(Daemon):
         
         map_url = 'http://maps.google.com/maps?z=18&q=%(location)s(%(text)s)' % {'location':context['location'],'text':context['status']}
         
-        shortened = ShortenURL().Shorten(map_url)
+        shortened = tinyurl.create_one(map_url)
                 
         try:
-            logging.debug("Sending tweet")
-            return api.PostUpdate("%s %s #mss" % (context['status'], shortened))
+            return api.PostUpdates("%s %s #mss" % (context['status'], shortened))
 
         except twitter.TwitterError, e:
             logging.exception("Can not send tweet on %s" % e)
+            
+    def send_generic_context(self, context, application):
+        logging.debug("Sending to %s" % application)
+        
+        return ""
+            
     '''
         consummer loop to cache purge
     '''
@@ -93,11 +108,26 @@ class MSSBeanstalk(Daemon):
                 
                 logging.info("job received tube %s" % tube)
                 if tube == 'context':
-                    self.send_context(job.body)
+                    data = simplejson.loads(job.body)
+                    logging.debug("job: %s" % data)
+                                        
+                    application = data['application']                    
+                    context = data['context']
                     
+                    if application == 'twitter':
+                        result = self.send_context_twitter(context)
+                        logging.debug("Twitter result: %s" % result)
+                    elif application == 'facebook':
+                        result = self.send_context_facebook(context)
+                        logging.debug("Facebook result: %s" % result)
+                    else:
+                        result = self.send_generic_context(context,application)
+                        logging.debug("%s result: %s" % (application,result))
+                            
                 else:
                     logging.error("DESCARTANDO JOB %s!" % tube)
-                    
+                 
+                logging.debug("job done tube %s" % tube)  
                 job.delete()
             except beanstalkc.SocketError, se:
                 logging.exception("lost connect with beanstalk, trying restablish")

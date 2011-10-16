@@ -8,11 +8,13 @@ from mss.utils.beanstalkhelper import BeanstalkHelper
 
 class ContextQueue(Singleton):
     
-    def add(self, context):
+    def add(self, application, context):
         try:
             queue = BeanstalkHelper().getHostLocal()
+            
+            context_item = {'application':application,'context':context}
                         
-            data = simplejson.dumps(context)
+            data = simplejson.dumps(context_item)
             
             logging.debug("[ContextQueue] message=%s" % data)
             

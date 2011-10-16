@@ -22,7 +22,7 @@ class ApplicationRepository(Repository):
         return applications
     
     def get_by(self,name):
-        applications = Application().all()
+        applications = Application.all()
         
         for application in applications:
             if application.name == name:
