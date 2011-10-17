@@ -93,7 +93,7 @@ class ContextHandler(BaseHandler):
                         self.finish()
                         return                     
                                 
-                ContextQueue().add(application.name,data['context'])
+                ContextQueue().add(application.name,data['context'], application.callback_url)
             else:
                 self.set_header("Content-Type", "application/json; charset=UTF-8")
                 self.write(simplejson.dumps({'status':'error', 'msg':"Context Not Sent. Application not registered."}))
@@ -105,4 +105,14 @@ class ContextHandler(BaseHandler):
         self.finish()
         return
 
-
+class ContextTestHandler(BaseHandler):
+    def get(self, **kw):
+        self.post(**kw)
+        
+    def post(self, **kw):
+        
+        self.set_header("Content-Type", "application/json; charset=UTF-8")
+        self.write(simplejson.dumps({'status':'ok', 'msg':"Context Received"}))
+        self.finish()
+        return
+        

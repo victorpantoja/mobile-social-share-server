@@ -6,6 +6,7 @@ Processo responsavel por consumir a fila do beanstalkd, e expirar o cache nos ng
 
 from mss.core import settings
 from mss.core.daemon import Daemon
+from mss.models.application import Application
 from mss.utils.shorten_url import ShortenURL
 from mss.utils.curl import MSSCurl
 
@@ -44,7 +45,7 @@ class MSSBeanstalk(Daemon):
     def send_context_facebook(self,context):
         logging.debug("Sending to facebook")
                 
-        url = 'https://graph.facebook.com/me/feed?access_token=AAABnIwr18EEBAIZCZCVWvEr5jnhKtZCXEjidzisJ62TKhR2ggKvXcgjUwaYvuwv1UjPqmQZCLySfxxv5YCNZAiSZCHHig2knYMF5g2hB7O8hrrtgVOIn7r'
+        url = 'https://graph.facebook.com/me/feed?access_token=AAABnIwr18EEBADdplOMskMQ3wNo0mZCTQ0gTfuNNUd3RP7Y5Fsc1J59Iuk961CX1OXGNLoRcpUFAVWdIwOxkACsLjR6071aBZAiHSNXpDJRpun80An'
 
         message = ''
         if context.get('status'):
@@ -87,10 +88,16 @@ class MSSBeanstalk(Daemon):
         except twitter.TwitterError, e:
             logging.exception("Can not send tweet on %s" % e)
             
-    def send_generic_context(self, context, application):
-        logging.debug("Sending to %s" % application)
+    def send_generic_context(self, context, application_name, callback_url):
+                        
+        logging.debug("Sending to %s via %s" % (application_name, callback_url))
         
-        return ""
+        postfields = urllib.urlencode(context)
+        
+        try:
+            return MSSCurl().post(url=callback_url,port=None,postfields=postfields)
+        except Exception, e:
+            logging.exception("Can not send post to %s: %s" % (application_name, e))
             
     '''
         consummer loop to cache purge
@@ -113,6 +120,7 @@ class MSSBeanstalk(Daemon):
                                         
                     application = data['application']                    
                     context = data['context']
+                    callback = data['callback_url']
                     
                     if application == 'twitter':
                         result = self.send_context_twitter(context)
@@ -121,7 +129,7 @@ class MSSBeanstalk(Daemon):
                         result = self.send_context_facebook(context)
                         logging.debug("Facebook result: %s" % result)
                     else:
-                        result = self.send_generic_context(context,application)
+                        result = self.send_generic_context(context,application,callback)
                         logging.debug("%s result: %s" % (application,result))
                             
                 else:

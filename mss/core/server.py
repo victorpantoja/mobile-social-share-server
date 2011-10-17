@@ -3,7 +3,7 @@
 
 from mss.core.daemon import Daemon
 from mss.handler.application import ApplicationHandler, SubscribeHandler
-from mss.handler.context import ContextHandler, WebViewHandler
+from mss.handler.context import ContextHandler, WebViewHandler, ContextTestHandler
 from mss.handler.facebook import CanvasHandler
 from mss.handler.friendship import GetFriendshipsHandler, RemoveFriendshipsHandler
 from mss.handler.invite import SendInviteHandler, GetInviteHandler, SendEmailInviteHandler, AcceptInviteHandler, AcceptEmailInviteHandler, GetInvitationHandler
@@ -34,6 +34,7 @@ class MSSServer(Daemon):
             (r"/canvas/", CanvasHandler),
             (r"/webview/", WebViewHandler),
             (r"/context", ContextHandler),
+            (r"/context/callback_url", ContextTestHandler),
             (r"/login", LoginHandler),
             (r"/login/create", CreateLoginHandler),
             (r"/friendship/get.json", GetFriendshipsHandler),

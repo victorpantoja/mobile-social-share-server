@@ -8,11 +8,11 @@ from mss.utils.beanstalkhelper import BeanstalkHelper
 
 class ContextQueue(Singleton):
     
-    def add(self, application, context):
+    def add(self, application, context, callback_url):
         try:
             queue = BeanstalkHelper().getHostLocal()
             
-            context_item = {'application':application,'context':context}
+            context_item = {'application':application,'context':context, 'callback_url':callback_url}
                         
             data = simplejson.dumps(context_item)
             
