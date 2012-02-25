@@ -1,1 +1,6 @@
 TODO - Trocar queries por fetch_by
+
+
+curl -F 'access_token=AQCzNITkmvhOLmd_ORYyUsvfndnnojNslKH20XePPeUHcxCZsXadIO1v_RK_MWVj4A12rBRMgQHBSVh3dFy7pBLID-VSyhJtwoJSKVSi3DWA9pVbhoX0HRgen8d8R79-CIXBEllEUsazumr9sJpkE9G6eKr-lOdvDxT99DKKXkNre6Zl1a3VQMlNUEIac72qnsu-EzjXwV0bNGKEBZNMiQ2m#_=_' -F 'message=Hello, Arjun. I like this new API.' https://graph.facebook.com/victor.pantoja/feed
+
+AAABnIwr18EEBAIZCZCVWvEr5jnhKtZCXEjidzisJ62TKhR2ggKvXcgjUwaYvuwv1UjPqmQZCLySfxxv5YCNZAiSZCHHig2knYMF5g2hB7O8hrrtgVOIn7r
