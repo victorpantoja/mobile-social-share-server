@@ -115,10 +115,10 @@ class LoginHandler(BaseHandler):
         session = meta.get_session()        
         user = session.query(User).filter(User.username==username).first()
         
-        m = hashlib.md5()
+        m = hashlib.sha1()
         m.update(password)
         
-        password = m.hexdigest()
+        password = 'sha1$$'+m.hexdigest()
                         
         if user and (user.password == password):
             
@@ -165,10 +165,10 @@ class RescueLoginHandler(BaseHandler):
         if user:
             password = self.create_random_passord()
             
-            m = hashlib.md5()
+            m = hashlib.sha1()
             m.update(password)
             
-            user.password = m.hexdigest()
+            user.password = 'sha1$$'+m.hexdigest()
             user.save()
 
         else:
@@ -222,9 +222,13 @@ class CreateLoginHandler(BaseHandler):
                 
         user = User()
         user.username = self.get_argument('username')
+        user.email = self.get_argument('email')
+        user.is_staff = False
+        user.is_superuser = False
+        user.is_active = True
         
         try:
-            EmailHelper.validateEmail(user.username)
+            EmailHelper.validateEmail(user.email)
         except Exception, e:
             logging.exception(e);
             self.set_header("Content-Type", "application/json; charset=UTF-8")
@@ -237,10 +241,10 @@ class CreateLoginHandler(BaseHandler):
         
         password = self.create_random_passord()
         
-        m = hashlib.md5()
+        m = hashlib.sha1()
         m.update(password)
         
-        user.password = m.hexdigest()
+        user.password = 'sha1$$'+m.hexdigest()
         user.created = datetime.now()
         user.last_login = datetime.now()
         
@@ -267,8 +271,8 @@ class CreateLoginHandler(BaseHandler):
             return
         
         try:
-            mensagem=EmailHelper.mensagem(destinatario=user.username,corpo=body,strFrom='Mobile Social Share Team <mobile.social.share@gmail.com>',subject="Your account has been created")
-            EmailHelper.enviar(mensagem=mensagem,destinatario=user.username)
+            mensagem=EmailHelper.mensagem(destinatario=user.email,corpo=body,strFrom='Mobile Social Share Team <mobile.social.share@gmail.com>',subject="Your account has been created")
+            EmailHelper.enviar(mensagem=mensagem,destinatario=user.email)
 
         except SMTPException, e:
             logging.exception(str(e))

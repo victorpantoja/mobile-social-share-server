@@ -9,6 +9,7 @@ from mss.models.user import User
 from sqlalchemy import Column, String, DateTime, Integer, ForeignKey
 from sqlalchemy.orm import relation
 
+
 class ContextRepository(Repository):
     @cached
     def ids(self):
@@ -20,23 +21,24 @@ class ContextRepository(Repository):
     def all():
         ids = Context().ids()
         applications = [Context().get(id) for id in ids]
-        
+
         return applications
+
 
 class Context(Model, ContextRepository):
     """
         Modelo da Informação de Contexto
     """
-        
+
     __tablename__ = 'context'
-    
+
     __mapper_args__ = {'extension': CachedExtension()}
-    
+
     __expires__ = {"create": ["Context.ids()"],
                    "delete": ["Context.ids()"]}
-        
+
     id = Column('context_id', Integer, primary_key=True)
-    user_id = Column('user_id', Integer, ForeignKey("users.user_id"))
+    user_id = Column('user_id', Integer, ForeignKey("auth_user.id"))
     context_type_id = Column('context_type_id', Integer, ForeignKey("context_type.context_type_id"))
     context = Column('context_txt', String)
     updated = Column('update_dt', DateTime)

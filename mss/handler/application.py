@@ -4,14 +4,17 @@
 from mss.handler.base import BaseHandler, authenticated
 from mss.models.application import Application
 
-import hashlib, simplejson, logging
+import hashlib
+import simplejson
+import logging
+
 
 class ApplicationHandler(BaseHandler):
     """
         Controller de Obtenção das Redes Sociais Disponíveis
     """
 
-    @authenticated    
+    @authenticated
     def get(self, **kw):
         """
         <h2><b>Obter as Redes Sociais Disponíveis</b></h2><br>
@@ -21,43 +24,44 @@ class ApplicationHandler(BaseHandler):
         <br><h3><b>Retorno:</b></h3><br>
         JSON com todas as redes sociais encontrados.
         """
-        
+
         self.post(**kw)
 
     def post(self, **kw):
-                
+
         apps = Application.all()
-        
+
         app_list = [app.as_dict() for app in apps]
-        
-        app_dict = {'applications':app_list}
+
+        app_dict = {'applications': app_list}
 
         self.set_header("Content-Type", "application/json; charset=UTF-8")
         self.write(simplejson.dumps(app_dict))
         return
-    
+
+
 class SubscribeHandler(BaseHandler):
 
     @authenticated
     def post(self, **kw):
-                
+
         data = simplejson.loads(self.request.body)
-        
+
         app = Application()
         app.name = data['name']
         app.icon = data['icon']
         app.callback_url = data['callback_url']
-        
+
         m = hashlib.md5()
-        m.update(app.name+app.icon)
-        
-        app.token =  m.hexdigest()
+        m.update(app.name + app.icon)
+
+        app.token = m.hexdigest()
         try:
             app.save()
         except Exception, e:
             logging.exception(e);
             self.set_header("Content-Type", "application/json; charset=UTF-8")
-            self.write(simplejson.dumps({'status':'error', 'msg':'Application already exists.'}))
+            self.write(simplejson.dumps({'status': 'error', 'msg': 'Application already exists.'}))
             return
 
         self.set_header("Content-Type", "application/json; charset=UTF-8")
