@@ -21,7 +21,7 @@ CREATE TABLE `context_type` (
 CREATE TABLE `context` (
   `context_id` integer unsigned NOT NULL AUTO_INCREMENT,
   `context_type_id` integer unsigned NOT NULL,
-  `user_id` integer NOT NULL UNIQUE,
+  `user_id` integer NOT NULL,
   `context_txt` varchar(400) NOT NULL,
   `update_dt` datetime NOT NULL,
   PRIMARY KEY (`context_id`),
@@ -58,8 +58,8 @@ CREATE TABLE `context_application` (
 
 CREATE TABLE `friendship` (
   `friendship_id` integer unsigned NOT NULL AUTO_INCREMENT,
-  `user_id` integer NOT NULL UNIQUE,
-  `friend_id` integer NOT NULL UNIQUE,
+  `user_id` integer NOT NULL,
+  `friend_id` integer NOT NULL,
   `created_dt` datetime NOT NULL,
   PRIMARY KEY (`friendship_id`),
   UNIQUE KEY `uk_friendship` (`user_id`,`friend_id`),
@@ -72,8 +72,8 @@ CREATE TABLE `friendship` (
 
 CREATE TABLE `invite` (
   `invite_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `user_id` integer NOT NULL UNIQUE,
-  `friend_id` integer NOT NULL UNIQUE,
+  `user_id` integer NOT NULL,
+  `friend_id` integer NOT NULL,
   `invite_dt` datetime NOT NULL,
   PRIMARY KEY (`invite_id`),
   UNIQUE KEY `uk_invite` (`user_id`,`friend_id`),
@@ -86,7 +86,7 @@ CREATE TABLE `invite` (
 
 CREATE TABLE `invite_email` (
   `invite_email_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `user_id` integer NOT NULL UNIQUE,
+  `user_id` integer NOT NULL,
   `code_txt` varchar(32) NOT NULL,
   `invite_dt` datetime NOT NULL,
   PRIMARY KEY (`invite_email_id`),

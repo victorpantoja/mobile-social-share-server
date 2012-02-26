@@ -223,7 +223,7 @@ class CreateLoginHandler(BaseHandler):
         user = User()
         user.username = self.get_argument('username')
         user.email = self.get_argument('email')
-        user.is_staff = False
+        user.is_staff = True
         user.is_superuser = False
         user.is_active = True
         

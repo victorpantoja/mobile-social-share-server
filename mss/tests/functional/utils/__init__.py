@@ -27,10 +27,10 @@ def create_logged_user(last_name='should-be-last-name-1', first_name='test_creat
 
     password = 'should-be-password'
 
-    m = hashlib.md5()
+    m = hashlib.sha1()
     m.update(password)
 
-    user.password = m.hexdigest()
+    user.password = 'sha1$$' + m.hexdigest()
     user.save()
 
     cache = get_cache()
@@ -55,11 +55,10 @@ def create_user(last_name='should-be-last-name-1', first_name='test_create_user-
 
     password = 'should-be-password'
 
-    m = hashlib.md5()
+    m = hashlib.sha1()
     m.update(password)
 
-    user.password = m.hexdigest()
-
+    user.password = 'sha1$$' + m.hexdigest()
     user.save()
 
     return user

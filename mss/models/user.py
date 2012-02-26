@@ -13,8 +13,8 @@ class UserRepository(Repository):
     @cached
     def ids(self):
         session = meta.get_session()
-        result = session.execute('select user_id from users')
-        return [row['user_id'] for row in result.fetchall()]
+        result = session.execute('select id from auth_user')
+        return [row['id'] for row in result.fetchall()]
 
     @staticmethod
     def all():

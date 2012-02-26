@@ -4,7 +4,6 @@
 import tornado
 import simplejson
 
-from mss.core.cache.util import get_cache
 from mss.models.application import Application
 from mss.handler.application import ApplicationHandler, SubscribeHandler
 from mss.tests.functional.utils import create_application, create_logged_user
@@ -29,8 +28,7 @@ class ApplicationHandlerTestCase(AsyncHTTPTestCase):
         app1 = create_application(name="facebook", icon="should-be-logo-1", token="should-be-token-1", callback_url="should-be-callback_url-1")
         app2 = create_application(name="twitter", icon="should-be-logo-2", token="should-be-token-2", callback_url="should-be-callback_url-2")
 
-        cache = get_cache()
-        cache.set('test_get_applications', 'should-be-user-auth')
+        user = create_logged_user(username='test_subscribe')
 
         self.http_client.fetch(self.get_url('/applications.json') + '?auth=should-be-user-auth', self.stop)
 
@@ -44,6 +42,7 @@ class ApplicationHandlerTestCase(AsyncHTTPTestCase):
         finally:
             app1.delete()
             app2.delete()
+            user.delete()
 
     def test_subscribe(self):
         user = create_logged_user(username='test_subscribe')
@@ -71,7 +70,7 @@ class ApplicationHandlerTestCase(AsyncHTTPTestCase):
         assert new_app.callback_url == app.callback_url
         assert new_app.token == token
 
-        self.http_client.fetch(self.get_url('/applications.json')+'?auth=should-be-user-auth' , self.stop)
+        self.http_client.fetch(self.get_url('/applications.json') + '?auth=should-be-user-auth' , self.stop)
 
         response = self.wait()
         self.failIf(response.error)
