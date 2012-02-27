@@ -4,7 +4,7 @@ CREATE TABLE `user_profile` (
   `id` integer AUTO_INCREMENT NOT NULL PRIMARY KEY,
   `user_id` integer NOT NULL UNIQUE,
   `gender_flg` set('F','M','O') NOT NULL,
-  `tokens_txt` varchar(400)
+  `tokens_txt` varchar(400),
   KEY `fk_user` (`user_id`),
   CONSTRAINT `fk_user` FOREIGN KEY (`user_id`) REFERENCES `auth_user` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;

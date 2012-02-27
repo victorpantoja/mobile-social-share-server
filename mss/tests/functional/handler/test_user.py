@@ -2,7 +2,10 @@
 #!/usr/bin/env python
 
 from mss.core.meta import get_session
-from mss.handler.user import CreateLoginHandler, LoginHandler, UserHandler, UserSearchHandler
+from mss.handler.user import CreateLoginHandler
+from mss.handler.user import LoginHandler
+from mss.handler.user import UserHandler
+from mss.handler.user import UserSearchHandler
 from mss.models.user import User
 from tornado.testing import AsyncHTTPTestCase
 
@@ -50,7 +53,7 @@ class UserHandlerTestCase(AsyncHTTPTestCase):
         self.failIf(response.error)
         self.assertEqual(response.body, '{"status": "ok", "msg": "Account Created! Verify you email account"}')
 
-        user_db = self.session.query(User).filter(User.username == 'should-be-username@mss.com').first()
+        user_db = self.session.query(User).filter(User.email == 'should-be-email@mss.com').first()
         user_db.delete()
 
     def test_create_existent_user(self):
@@ -79,8 +82,8 @@ class UserHandlerTestCase(AsyncHTTPTestCase):
         user.delete()
 
     def test_get_other_user(self):
-        user = create_logged_user()
-        user2 = create_user("test_get_other_user", "test_get_other_user", "test_get_other_user")
+        user = create_logged_user(username="test_get_other_user")
+        user2 = create_user(username="test_get_other_user-2")
 
         self.http_client.fetch(self.get_url('/user.json?username=%s&auth=should-be-user-auth' % user2.username), self.stop)
 
@@ -93,7 +96,7 @@ class UserHandlerTestCase(AsyncHTTPTestCase):
         user2.delete()
 
     def test_get_other_inexistent_user(self):
-        user = create_user()
+        user = create_logged_user(username='get_other_inexistent_user')
 
         self.http_client.fetch(self.get_url('/user.json?username=anybody&auth=should-be-user-auth'), self.stop)
 
@@ -105,9 +108,9 @@ class UserHandlerTestCase(AsyncHTTPTestCase):
         user.delete()
 
     def test_search_user(self):
-        user = create_user()
-        user2 = create_user("test_get_other_user-2", "test_get_other_user-2", "test_get_other_user-2")
-        user3 = create_user("test_get_other_user-3", "test_get_other_user-3", "test_get_other_user-3")
+        user = create_logged_user(username="search_user")
+        user2 = create_user(username="test_search_user-2")
+        user3 = create_user(username="test_search_user-3")
 
         self.http_client.fetch(self.get_url('/search/users.json?username=%s&auth=should-be-user-auth' % "test_"), self.stop)
 
