@@ -2,12 +2,13 @@
 #! /usr/bin/env python
 
 from mss.utils import Singleton
-from tornado.web import HTTPError
 
 import re, logging, pycurl, StringIO, simplejson
 
+
 class CurlConnectionException(Exception):
     pass
+
 
 class MSSCurl(Singleton):
     
@@ -20,13 +21,14 @@ class MSSCurl(Singleton):
         try:
             # prepara para receber o content
             content_io = StringIO.StringIO()
-                    
+
             # inicia o curl
             curl = pycurl.Curl()
+            
 
             # url sem porta       
             curl.setopt(pycurl.URL, url)
-                     
+ 
             # seta o header como list
             curl.setopt(pycurl.HTTPHEADER, ["Accept:application/json","Content-type:application/json"])
             
@@ -58,7 +60,7 @@ class MSSCurl(Singleton):
         try:
             # prepara para receber o content
             content_io = StringIO.StringIO()
-                    
+
             # inicia o curl
             curl = pycurl.Curl()
 
@@ -75,7 +77,7 @@ class MSSCurl(Singleton):
             
             # inicia um HTTP POST
             curl.setopt(pycurl.POST, 1)     
-                        
+    
             logging.debug("[MSSCurl.post()] - utilizando postfields (%s)" % postfields)
             curl.setopt(pycurl.POSTFIELDS, postfields)
 
@@ -105,7 +107,7 @@ class MSSCurl(Singleton):
         try:
             # prepara para receber o content
             content_io = StringIO.StringIO()
-                    
+
             # inicia o curl
             curl = pycurl.Curl()
 
