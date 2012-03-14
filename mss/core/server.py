@@ -2,6 +2,7 @@
 #!/usr/bin/env python
 
 from mss.core.daemon import Daemon
+from mss.filters.maps import MapsHandler
 from mss.handler.application import ApplicationHandler, SubscribeHandler
 from mss.handler.context import ContextHandler, WebViewHandler, ContextTestHandler
 from mss.handler.facebook import CanvasHandler
@@ -16,7 +17,6 @@ from tornado.web import Application, StaticFileHandler
 from tornado.ioloop import IOLoop
 
 import logging
-from mss.handler.maps import MapsHandler
 
 COOKIE_SECRET = "29NbhyfgaA092ZkjMbNvCx06789jdA8iIlLqz7d1D9c8"
 
@@ -39,7 +39,7 @@ class MSSServer(Daemon):
             (r"/context/callback_url", ContextTestHandler),
             (r"/login", LoginHandler),
             (r"/login/create", CreateLoginHandler),
-            (r"/maps", MapsHandler),
+            (r"/filters/maps", MapsHandler),
             (r"/friendship/get.json", GetFriendshipsHandler),
             (r"/friendship/remove", RemoveFriendshipsHandler),
             (r"/invite/send", SendInviteHandler),
