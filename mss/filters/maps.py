@@ -8,7 +8,7 @@ import simplejson
 
 class MapsHandler(BaseHandler):
 
-    @authenticated
+    #@authenticated
     def get(self, **kw):
 
         origin = str(self.get_argument('origin')) #-23.0028,-43.3493
@@ -16,12 +16,12 @@ class MapsHandler(BaseHandler):
         filters = str(self.get_argument('filters')).split(',')
 
         self.data = MSSCurl().get("http://maps.google.com/maps/api/directions/json?origin=%s&destination=%s&sensor=true" % (origin, destination) )
-                
+
         resp = {}
-        
+
         for filter in filters:
             keys = filter.split('/')
-            resp[keys[len(keys)-1]] = self._get_value(filter)
+            resp[keys[len(keys) - 1]] = self._get_value(filter)
 
         self.set_header("Content-Type", "application/json; charset=UTF-8")
         self.write(simplejson.dumps(resp))
@@ -29,12 +29,16 @@ class MapsHandler(BaseHandler):
         return
 
     def _get_value(self, filter):
+
+        if not self.data['routes']:
+            return {'text': 'Unknown', 'value': -1}
+
         value = self.data['routes'][0]
-                
+
         for key in filter.split('/'):
             if type(value) == list:
                 value = value[0].get(key)
             else:
                 value = value.get(key)
-        
+
         return value
