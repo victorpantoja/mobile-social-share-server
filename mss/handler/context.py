@@ -65,9 +65,15 @@ class ContextHandler(BaseHandler):
         <br><h3><b>Retorno:</b></h3><br>
         JSON com Status da Ação e Cópia da Mensagem Enviada para as Redes Sociais
         """
-                                
+                
+        if not self.request.body:
+            self.set_header("Content-Type", "application/json; charset=UTF-8")
+            self.write(simplejson.dumps({'status':'error', 'msg':"Context Message is Empty."}))
+            self.finish()
+            return
+                                        
         data = simplejson.loads(self.request.body)
-        
+                
         for app_name in data['application']:
             application = Application().get_by(name=app_name)
             

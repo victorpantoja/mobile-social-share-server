@@ -15,7 +15,7 @@ class MSSCurl(Singleton):
     def __init__(self):
         pass
     
-    def get(self, url):
+    def get(self, url, format='json'):
         #caso ja haja uma conexao no barramento ele retornara uma mensagem de erro
         #testar se vem has_key('error_message'):
         try:
@@ -46,7 +46,7 @@ class MSSCurl(Singleton):
             
             logging.debug("[MSSCurl.put()] - Response [%s]" % data)
             
-            return simplejson.loads(data)
+            return simplejson.loads(data) if format=='json' else data
             
         except Exception, e:
             logging.exception(e)

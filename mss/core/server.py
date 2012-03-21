@@ -5,7 +5,7 @@ from mss.core.daemon import Daemon
 from mss.filters.maps import MapsHandler
 from mss.handler.application import ApplicationHandler, SubscribeHandler
 from mss.handler.context import ContextHandler, WebViewHandler, ContextTestHandler
-from mss.handler.facebook import CanvasHandler
+from mss.handler.facebook import CanvasHandler, AuthorizationHandler
 from mss.handler.friendship import GetFriendshipsHandler, RemoveFriendshipsHandler
 from mss.handler.invite import SendInviteHandler, GetInviteHandler, SendEmailInviteHandler, AcceptInviteHandler, AcceptEmailInviteHandler, GetInvitationHandler
 from mss.handler.status import StatusHandler
@@ -51,6 +51,7 @@ class MSSServer(Daemon):
             (r"/user.json", UserHandler),
             (r"/search/users.json", UserSearchHandler),
             (r"/status", StatusHandler),
+            (r"/auth", AuthorizationHandler),
         ]
 
         application = Application(routes, cookie_secret=COOKIE_SECRET)
