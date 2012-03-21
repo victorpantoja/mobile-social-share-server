@@ -79,12 +79,11 @@ class MSSHandler(RequestHandler):
                         self.write(BaseHandler().render_to_template("/500.html"))
         else:
             logging.info("404 - Pagina nao encontrada %s" % self.request.uri)
-            game, time = self.get_game_time()
             
             if settings.DEBUG:
                 raise HTTPError(404)
             else:
-                self.write(BaseHandler().render_to_template("/404.html", game=game, time=time))
+                self.write(BaseHandler().render_to_template("/404.html"))
     
     def get(self, *args, **kw):
         logging.debug("GET %s processing..." % self.request.uri)

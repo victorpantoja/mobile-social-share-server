@@ -22,12 +22,13 @@ rotas = (
         rota("/invite/email/accept", "AcceptEmailInviteHandler", module="invite", action="index", name="accept_email"),
         rota("/invitation/get.json", "GetInvitationHandler", module="invite", action="index", name="invitation"),
 
-        rota("/user.json", "UserHandler", module="user", action="index", name="users"),
-        rota("/login", "LoginHandler", module="user", action="login", name="login"),
-        rota("/login/create", "CreateLoginHandler", module="user", action="index", name="login_create"),
-        rota("/search/users.json", "UserSearchHandler", module="user", action="search", name="home_index"),
+        rota("/user.json", "UserHandler", module="user", action="user", name="user_user"),
+        rota("/user/create", "UserHandler", module="user", action="create", name="user_create"),
+        rota("/user/login", "UserHandler", module="user", action="login", name="user_login"),
+        rota("/user/search.json", "UserHandler", module="user", action="search", name="user_search"),
+
         rota("/status", "StatusHandler", module="status", action="index", name="status"),
         rota("/auth", "AuthorizationHandler", module="facebook", action="index", name="auth"),
-        
+
         #rota("/filters/maps", "MapsHandler", module="home", action="index", name="maps"),
 )

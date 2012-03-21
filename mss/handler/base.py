@@ -48,21 +48,19 @@ class BaseHandler():
 
 def authenticated(fn):
     def authenticated_fn(self, *args, **kw):
+        request_handler = kw.get('request_handler')    
+
         cache = get_cache()
 
-        username = cache.get(self.get_argument('auth'))
+        username = cache.get(kw.get('auth'))
 
         if not username:
-            self.set_header("Content-Type", "application/json; charset=UTF-8")
-            self.write(simplejson.dumps({'status': 'error', 'msg': 'User not authenticated.'}))
-            return
+            return self.render_to_json({'status': 'error', 'msg': 'User not authenticated.'}, request_handler)
         else:
             user = User().get_by(username=username)
 
             if not user:
-                self.set_header("Content-Type", "application/json; charset=UTF-8")
-                self.write(simplejson.dumps({'status': 'error', 'msg': 'User not authenticated.'}))
-                return
+                return self.render_to_json({'status': 'error', 'msg': 'User not authenticated.'}, request_handler)
 
         return fn(self, user=user, *args, **kw)
 
