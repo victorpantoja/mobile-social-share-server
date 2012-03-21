@@ -16,11 +16,12 @@ from mss.models.invite_email import InviteEmail
 from mss.models.friendship import Friendship
 from mss.models.invite import Invite
 
+
 class UserHandler(BaseHandler):
     """
         Controller de Obtenção das Informações de um Usuário
     """
-    
+
     @authenticated
     def get(self, user, **kw):
         """
@@ -38,8 +39,8 @@ class UserHandler(BaseHandler):
     def post(self, user, **kw):
         self.set_header("Content-Type", "application/json; charset=UTF-8")
                 
-        if self.get_arguments('username'):
-            username = self.get_argument('username')
+        if kw.gets('username'):
+            username = kw.get('username')
             
             session = meta.get_session()  
             user_db = session.query(User).filter(User.username==username).first()
@@ -77,7 +78,7 @@ class UserSearchHandler(BaseHandler):
         
     def post(self, user, **kw):
         
-        username = self.get_argument('username')
+        username = kw.get('username')
         
         #TODO - Escape
         session = meta.get_session()  
@@ -96,21 +97,12 @@ class LoginHandler(BaseHandler):
         Controller de Autenticação de um Usuário
     """
     
-    def get(self, **kw):
-        """
-        <h2><b>Autenticar Usuário</b></h2><br>
-        Serviço que autentica um usuário e retorna um token (auth).<br>
-        <br><h3><b>Parâmetros:</b></h3><br>
-        Nenhum
-        <br><h3><b>Retorno:</b></h3><br>
-        JSON com o status da ação e o token (auth) de autenticação do usuário.
-        """
+    def login(self, **kw):
         
-        self.post(**kw)
+        request_handler = kw.get('request_handler')
         
-    def post(self, **kw):
-        username = self.get_argument('username')
-        password = self.get_argument('password')
+        username = kw.get('username')
+        password = kw.get('password')
         
         session = meta.get_session()        
         user = session.query(User).filter(User.username==username).first()
@@ -129,15 +121,14 @@ class LoginHandler(BaseHandler):
             cache.set(auth.hexdigest(), '%s' % user.username)
             
             invites = session.query(Invite).filter(Invite.friend_id==user.id).all()
-            invites_lst = [invite.user.as_dict() for invite in invites]
-            
-            self.set_header("Content-Type", "application/json; charset=UTF-8")
-            self.write(simplejson.dumps({'status':'ok', 'msg':auth.hexdigest(),'invites':invites_lst}))   
-            
+            invites_lst = [invite.user.as_dict() for invite in invites] 
         else:
             self.set_header("Content-Type", "application/json; charset=UTF-8")
             self.write(simplejson.dumps({'status':'error', 'msg':'Wrong username or password.'}))
             return
+        
+        return self.render_to_json({'status':'ok', 'msg':auth.hexdigest(),'invites':invites_lst}, request_handler)
+
 
 class RescueLoginHandler(BaseHandler):
     """
@@ -221,8 +212,8 @@ class CreateLoginHandler(BaseHandler):
     def post(self, **kw):
                 
         user = User()
-        user.username = self.get_argument('username')
-        user.email = self.get_argument('email')
+        user.username = kw.get('username')
+        user.email = kw.get('email')
         user.is_staff = True
         user.is_superuser = False
         user.is_active = True
@@ -235,9 +226,9 @@ class CreateLoginHandler(BaseHandler):
             self.write(simplejson.dumps({'status':'error', 'msg':'Invalid email.'}))
             return
         
-        user.first_name = self.get_argument('firstName')
-        user.last_name = self.get_argument('lastName')
-        user.gender = self.get_argument('gender')
+        user.first_name = kw.get('firstName')
+        user.last_name = kw.get('lastName')
+        user.gender = kw.get('gender')
         
         password = self.create_random_passord()
         
@@ -277,7 +268,7 @@ class CreateLoginHandler(BaseHandler):
         except SMTPException, e:
             logging.exception(str(e))
             
-        code = self.get_argument("code", "")
+        code = kw.get("code", "")
         if code != "":
             session = meta.get_session()        
             invite_email = session.query(InviteEmail).filter(InviteEmail.code==code).first()

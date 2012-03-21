@@ -19,15 +19,15 @@ stop-memcached:
 
 start-be:
 	@echo "Starting mobile-social-share server..."
-	@python mss/start.py > /dev/null 2>&1 &
+	@cd mss && python start.py --env='LOCAL' > /dev/null 2>&1 &
 	
 start-local:
 	@echo "Starting mobile-social-share server..."
-	@python mss/start.py
+	@cd mss && python start.py --env='LOCAL'
 
 stop-be:
 	@echo "Stopping mobile-social-share server..."
-	@-ps -ef | egrep 'mss/start.py' | egrep -v egrep | tr -s ' ' | cut -f 3 -d ' ' | xargs sudo kill
+	@-ps -ef | egrep 'start.py' | egrep -v egrep | tr -s ' ' | cut -f 3 -d ' ' | xargs sudo kill
 
 start-nginx:
 	@echo "Starting nginx..."
