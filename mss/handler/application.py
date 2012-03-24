@@ -5,7 +5,6 @@ from mss.handler.base import BaseHandler, authenticated
 from mss.models.application import Application
 
 import hashlib
-import simplejson
 import logging
 
 

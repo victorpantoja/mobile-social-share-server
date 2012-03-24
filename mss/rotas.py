@@ -9,8 +9,8 @@ rotas = (
         rota("/applications.json", "ApplicationHandler", module="application", action="applications", name="list_apps"),
         rota("/application/subscribe", "ApplicationHandler", module="application", action="subscribe", name="subscribe"),
 
-        rota("/context", "ContextHandler", module="context", action="index", name="context"),
-        rota("/context/callback_url", "ContextTestHandler", module="context", action="callback", name="context_callback"),
+        rota("/context", "ContextHandler", module="context", action="context", name="context"),
+        rota("/context/callback_url", "ContextHandler", module="context", action="callback", name="context_callback"),
 
         rota("/friendship/get.json", "GetFriendshipsHandler", module="friendship", action="friends", name="friends"),
         rota("/friendship/remove", "RemoveFriendshipsHandler", module="friendship", action="remove", name="remove_friend"),
