@@ -26,4 +26,20 @@ class AuthorizationHandler(BaseHandler):
 
         return self.render_to_json(response, request_handler)
 
-        return
+    def gplus(self, **kw):
+        request_handler = kw.get('request_handler')
+
+        code = kw.get('code')
+
+        client_id = '205845695739-juvl4ruak4faa3qrpk5qn95cos12dbi8.apps.googleusercontent.com'
+        secret = 'hdwj3M8DkQ1X8c5BSv6jJEr7'
+        redirect_uri = 'http://myalbumshare.com:9080/gplus'
+
+        url = 'https://accounts.google.com/o/oauth2/token'
+        postfields = {'code': code, 'client_id': client_id,
+                      'client_secret': secret, 'redirect_uri': redirect_uri,
+                      'grant_type': 'authorization_code'}
+
+        data = MSSCurl().post(url=url, port='', postfields=postfields)
+
+        return self.render_to_json(data, request_handler)

@@ -28,7 +28,9 @@ rotas = (
         rota("/user/search.json", "UserHandler", module="user", action="search", name="user_search"),
 
         rota("/status", "StatusHandler", module="status", action="status", name="status"),
+        
         rota("/auth", "AuthorizationHandler", module="facebook", action="auth", name="auth"),
+        rota("/gplus", "AuthorizationHandler", module="facebook", action="gplus", name="gplus"),
 
         #rota("/filters/maps", "MapsHandler", module="home", action="index", name="maps"),
 )
