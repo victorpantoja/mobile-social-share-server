@@ -9,9 +9,10 @@ import urlparse
 
 class AuthorizationHandler(BaseHandler):
 
-    def get(self, **kw):
+    def auth(self, **kw):
+        request_handler = kw.get('request_handler')
 
-        code = self.get_argument('code')
+        code = kw.get('code')
 
         client_id = '113400205406273'
         secret = '26cfa7320bf675ea1288522178a45bb5'
@@ -23,7 +24,6 @@ class AuthorizationHandler(BaseHandler):
 
         response = urlparse.parse_qs(data)
 
-        self.set_header("Content-Type", "application/json; charset=UTF-8")
-        self.write(simplejson.dumps(response))
+        return self.render_to_json(response, request_handler)
 
         return
