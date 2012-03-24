@@ -10,47 +10,24 @@ import logging
 
 
 class ApplicationHandler(BaseHandler):
-    """
-        Controller de Obtenção das Redes Sociais Disponíveis
-    """
 
     @authenticated
-    def get(self, **kw):
-        """
-        <h2><b>Obter as Redes Sociais Disponíveis</b></h2><br>
-        Serviço que retorna as redes sociais disponíveis no sistema.<br>
-        <br><h3><b>Parâmetros:</b></h3><br>
-        auth: string de autenticação do usuário no MSS <br />
-        <br><h3><b>Retorno:</b></h3><br>
-        JSON com todas as redes sociais encontrados.
-        """
-
-        self.post(**kw)
-
-    def post(self, **kw):
+    def applications(self, **kw):
+        request_handler = kw.get('request_handler')
 
         apps = Application.all()
 
         app_list = [app.as_dict() for app in apps]
 
-        app_dict = {'applications': app_list}
+        return self.render_to_json({'applications': app_list}, request_handler)
 
-        self.set_header("Content-Type", "application/json; charset=UTF-8")
-        self.write(simplejson.dumps(app_dict))
-        return
-
-
-class SubscribeHandler(BaseHandler):
-
-    @authenticated
-    def post(self, **kw):
-
-        data = simplejson.loads(self.request.body)
+    def subscribe(self, **kw):
+        request_handler = kw.get('request_handler')
 
         app = Application()
-        app.name = data['name']
-        app.icon = data['icon']
-        app.callback_url = data['callback_url']
+        app.name = request_handler.get_argument('name')
+        app.icon = request_handler.get_argument('icon')
+        app.callback_url = request_handler.get_argument('callback_url')
 
         m = hashlib.md5()
         m.update(app.name + app.icon)
@@ -60,10 +37,6 @@ class SubscribeHandler(BaseHandler):
             app.save()
         except Exception, e:
             logging.exception(e);
-            self.set_header("Content-Type", "application/json; charset=UTF-8")
-            self.write(simplejson.dumps({'status': 'error', 'msg': 'Application already exists.'}))
-            return
+            return self.render_to_json({'status': 'error', 'msg': 'Application already exists.'}, request_handler)
 
-        self.set_header("Content-Type", "application/json; charset=UTF-8")
-        self.write(simplejson.dumps({"status": "ok", "msg": app.token}))
-        return
+        return self.render_to_json({'status': 'ok', 'msg': app.token}, request_handler)
