@@ -15,12 +15,12 @@ rotas = (
         rota("/friendship/get.json", "FriendshipsHandler", module="friendship", action="friends", name="friends"),
         rota("/friendship/remove", "FriendshipsHandler", module="friendship", action="remove", name="remove_friend"),
 
-        rota("/invite/send", "SendInviteHandler", module="invite", action="send", name="send_invite"),
-        rota("/invite/accept", "AcceptInviteHandler", module="invite", action="accept", name="accept_invite"),
-        rota("/invite/get.json", "GetInviteHandler", module="invite", action="list", name="get_invite"),
-        rota("/invite/email/send", "SendEmailInviteHandler", module="invite", action="email", name="send_email"),
-        rota("/invite/email/accept", "AcceptEmailInviteHandler", module="invite", action="accept_email", name="accept_email"),
-        rota("/invitation/get.json", "GetInvitationHandler", module="invite", action="invitation", name="invitation"),
+        rota("/invite/send", "InviteHandler", module="invite", action="send", name="send_invite"),
+        rota("/invite/accept", "InviteHandler", module="invite", action="accept", name="accept_invite"),
+        rota("/invite/get.json", "InviteHandler", module="invite", action="list", name="get_invite"),
+        rota("/invite/email/send", "InviteHandler", module="invite", action="email", name="send_email"),
+        rota("/invite/email/accept", "InviteHandler", module="invite", action="accept_email", name="accept_email"),
+        rota("/invitation/get.json", "InviteHandler", module="invite", action="invitation", name="invitation"),
 
         rota("/user.json", "UserHandler", module="user", action="user", name="user_user"),
         rota("/user/create", "UserHandler", module="user", action="create", name="user_create"),
