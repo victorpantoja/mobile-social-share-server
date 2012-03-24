@@ -12,8 +12,8 @@ rotas = (
         rota("/context", "ContextHandler", module="context", action="context", name="context"),
         rota("/context/callback_url", "ContextHandler", module="context", action="callback", name="context_callback"),
 
-        rota("/friendship/get.json", "GetFriendshipsHandler", module="friendship", action="friends", name="friends"),
-        rota("/friendship/remove", "RemoveFriendshipsHandler", module="friendship", action="remove", name="remove_friend"),
+        rota("/friendship/get.json", "FriendshipsHandler", module="friendship", action="friends", name="friends"),
+        rota("/friendship/remove", "FriendshipsHandler", module="friendship", action="remove", name="remove_friend"),
 
         rota("/invite/send", "SendInviteHandler", module="invite", action="send", name="send_invite"),
         rota("/invite/accept", "AcceptInviteHandler", module="invite", action="accept", name="accept_invite"),
