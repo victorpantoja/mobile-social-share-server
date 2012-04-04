@@ -19,9 +19,9 @@ class UserRepository(Repository):
     @staticmethod
     def all():
         ids = User().ids()
-        applications = [User().get(id) for id in ids]
+        users = [User().get(id) for id in ids]
 
-        return applications
+        return users
 
     def get_by(self, username):
         users = User.all()
@@ -29,6 +29,23 @@ class UserRepository(Repository):
         for user in users:
             if user.username == username:
                 return user
+
+        return None
+
+    @cached
+    def get_profile_ids(self):
+        session = meta.get_session()
+        result = session.execute('select id from user_profile')
+        return [row['id'] for row in result.fetchall()]
+
+    @staticmethod
+    def get_profile(user_id):
+        ids = User().get_profile_ids()
+        profiles = [UserProfile().get(id) for id in ids]
+
+        for profile in profiles:
+            if profile.user.id == user_id:
+                return profile
 
         return None
 
@@ -46,8 +63,8 @@ class User(Model, UserRepository):
 
     __mapper_args__ = {'extension': CachedExtension()}
 
-    __expires__ = {"create": ["User.ids()"],
-                   "delete": ["User.ids()"]}
+    __expires__ = {"create": ["User.ids()", "User.get_profile_ids()"],
+                   "delete": ["User.ids()", "User.get_profile_ids()"]}
 
     id = Column('id', Integer, primary_key=True)
     last_name = Column('last_name', String)
@@ -76,5 +93,5 @@ class UserProfile(Model, UserRepository):
     id = Column('id', Integer, primary_key=True)
     user_id = Column('user_id', Integer, ForeignKey("auth_user.id"))
     gender = Column('gender_flg', String)
-    token = Column('token_txt', String)
+    tokens = Column('tokens_txt', String)
     user = relation(User, primaryjoin=user_id == User.id)

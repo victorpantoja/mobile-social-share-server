@@ -24,6 +24,10 @@ class ContextHandler(BaseHandler):
 
         data = simplejson.loads(request_handler.request.body)
 
+        profile = user.get_profile(user_id=user.id)
+
+        tokens = simplejson.loads(profile.tokens)
+
         for app_name in data['application']:
             application = Application().get_by(name=app_name)
 
@@ -46,7 +50,7 @@ class ContextHandler(BaseHandler):
                     else:
                         return self.render_to_json({'status': 'error', 'msg': "Context Not Sent. Invalid context-type."}, request_handler)
 
-                ContextQueue().add(application.name, data['context'], application.callback_url)
+                ContextQueue().add(application.name, data['context'], tokens[app_name], application.callback_url)
             else:
                 return self.render_to_json({'status': 'error', 'msg': "Context Not Sent. Application not registered."}, request_handler)
 

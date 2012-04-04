@@ -59,50 +59,48 @@ class MSSCurl(Singleton):
         #caso ja haja uma conexao no barramento ele retornara uma mensagem de erro
         #testar se vem has_key('error_message'):
 
-        try:
-            # prepara para receber o content
-            content_io = StringIO.StringIO()
+        # prepara para receber o content
+        content_io = StringIO.StringIO()
 
-            # inicia o curl
-            curl = pycurl.Curl()
+        # inicia o curl
+        curl = pycurl.Curl()
 
-            # url sem porta
-            curl.setopt(pycurl.URL, url)
+        # url sem porta
+        curl.setopt(pycurl.URL, url)
 
-            if port:
-                logging.debug("[MSSCurl.post()] - conectando na porta %s" % port)
-                # seta a porta da conexao
-                curl.setopt(pycurl.PORT, port)
+        if port:
+            logging.debug("[MSSCurl.post()] - conectando na porta %s" % port)
+            # seta a porta da conexao
+            curl.setopt(pycurl.PORT, port)
 
-            # seta o header como list
-            curl.setopt(pycurl.HTTPHEADER, ["Accept:application/json", "Content-type:application/x-www-form-urlencoded"])
+        # seta o header como list
+        #multipart/form-data
+        curl.setopt(pycurl.HTTPHEADER, ["Accept:application/json", "Content-type:application/x-www-form-urlencoded"])
 
-            # inicia um HTTP POST
-            curl.setopt(pycurl.POST, 1)
+        # inicia um HTTP POST
+        curl.setopt(pycurl.POST, 1)
 
-            post = urllib.urlencode(postfields)
+        body_encoded = urllib.urlencode(postfields)
 
-            logging.debug("[MSSCurl.post()] - utilizando postfields (%s)" % post)
-            curl.setopt(pycurl.POSTFIELDS, post)
+        logging.debug("[MSSCurl.post()] - utilizando postfields (%s)" % body_encoded)
+        curl.setopt(pycurl.POSTFIELDS, body_encoded.encode("utf-8"))
 
-            # seta a resposta da conexao
-            curl.setopt(pycurl.WRITEFUNCTION, content_io.write)
+        # seta a resposta da conexao
+        curl.setopt(pycurl.WRITEFUNCTION, content_io.write)
 
-            logging.debug("[MSSCurl.post()] - Tentando conexao")
-            # abre a conexao
-            curl.perform()
+        logging.debug("[MSSCurl.post()] - Tentando conexao")
+        # abre a conexao
+        curl.perform()
 
-            logging.debug("[MSSCurl.post()] - Conectado")
+        logging.debug("[MSSCurl.post()] - Conectado")
 
-            logging.debug("[MSSCurl.post()] - Recuperando Dados")
-            # recupera o response como string
-            data = content_io.getvalue()
+        logging.debug("[MSSCurl.post()] - Recuperando Dados")
+        # recupera o response como string
+        data = content_io.getvalue()
 
-            logging.debug("[MSSCurl.post()] - Retornando json")
-            return simplejson.loads(data)
+        logging.debug("[MSSCurl.post()] - Retornando json")
+        return simplejson.loads(data)
 
-        except Exception:
-            raise(CurlConnectionException("[MSSCurl.post() ERROR] - Problemas ao conectar com o SDE - url: %s" % url))
 
     def put(self, url):
         try:

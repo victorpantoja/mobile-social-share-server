@@ -4,15 +4,20 @@ TODO - Trocar queries por fetch_by
 Sending Context:
 POST: http://0.0.0.0:9080/context?auth=188f0a3e365bf54f67f615b1ca199c59
 
-Body: {"application":["twitter"],"context":{"location":"aqui"}}
+Body: {"application":["facebook"],"context":{"location":"aqui"}}
 
 
 Facebook:
 curl -F 'access_token=AAABnIwr18EEBAETL1hgLoU3TmL7WammLnJ4nUdZBWhtf0AylUeOEvRqyO7A8WkJf9gg3QN4DhgOttIRL7Q3tJVHpPeQzMOpJjPHhhQCI2aPrNAn3Y' -F 'message=Hello, Arjun. I like this new API.' https://graph.facebook.com/me/feed
 
 
-https://www.facebook.com/dialog/oauth?client_id=113400205406273&redirect_uri=http://myalbumshare.com:9080/auth&state=SOME_ARBITRARY_BUT_UNIQUE_STRING
+https://www.facebook.com/dialog/oauth?client_id=113400205406273&redirect_uri=http://myalbumshare.com:8000/auth&state=SOME_ARBITRARY_BUT_UNIQUE_STRING
 
+client:
+https://www.facebook.com/dialog/oauth?client_id=113400205406273&redirect_uri=http://myalbumshare.com:8000/auth&response_type=token
 
 Google Plus
-https://accounts.google.com/o/oauth2/auth?scope=https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.email+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.profile&state=%2Fprofile&redirect_uri=http://myalbumshare.com:9080/gplus&response_type=code&client_id=205845695739-juvl4ruak4faa3qrpk5qn95cos12dbi8.apps.googleusercontent.com
+https://accounts.google.com/o/oauth2/auth?scope=https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.email+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.profile&state=%2Fprofile&redirect_uri=http://myalbumshare.com:8000/users/userprofile/auth&response_type=code&client_id=205845695739-juvl4ruak4faa3qrpk5qn95cos12dbi8.apps.googleusercontent.com
+
+cliente:
+https://accounts.google.com/o/oauth2/auth?scope=https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.email+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.profile&state=%2Fprofile&redirect_uri=http://myalbumshare.com:8000/users/userprofile/auth&response_type=token&client_id=205845695739-juvl4ruak4faa3qrpk5qn95cos12dbi8.apps.googleusercontent.com

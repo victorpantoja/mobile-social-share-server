@@ -40,10 +40,10 @@ class MSSBeanstalk(Daemon):
                 logging.error("Can not connect to beanstalk on %s:%s" % (self.host, self.port))
                 time.sleep(10)
 
-    def send_context_facebook(self, context):
+    def send_context_facebook(self, context, token):
         logging.debug("Sending to facebook")
 
-        url = 'https://graph.facebook.com/me/feed?access_token=AAABnIwr18EEBADdplOMskMQ3wNo0mZCTQ0gTfuNNUd3RP7Y5Fsc1J59Iuk961CX1OXGNLoRcpUFAVWdIwOxkACsLjR6071aBZAiHSNXpDJRpun80An'
+        url = 'https://graph.facebook.com/me/feed?access_token=%s' % token
 
         message = ''
         if context.get('status'):
@@ -59,14 +59,12 @@ class MSSBeanstalk(Daemon):
             message += ' %s' % shortened
             logging.debug("Context [location]: %s" % shortened)
 
-        postfields = urllib.urlencode({'message': message})
-
         try:
-            return MSSCurl().post(url=url, port=None, postfields=postfields)
+            return MSSCurl().post(url=url, port=None, postfields={'message': message})
         except Exception, e:
             logging.exception("Can not send post to Facebook: %s" % e)
 
-    def send_context_twitter(self, context):
+    def send_context_twitter(self, context, token):
         logging.debug("Sending to Twitter")
 
         consumer_key = "f1j3JookvHIoe2MBL7HEg"
@@ -116,16 +114,17 @@ class MSSBeanstalk(Daemon):
 
                     application = data['application']
                     context = data['context']
+                    token = data['token']
                     callback = data['callback_url']
 
                     if application == 'twitter':
-                        result = self.send_context_twitter(context)
+                        result = self.send_context_twitter(context, token)
                         logging.debug("Twitter result: %s" % result)
                     elif application == 'facebook':
-                        result = self.send_context_facebook(context)
+                        result = self.send_context_facebook(context, token)
                         logging.debug("Facebook result: %s" % result)
                     elif application == 'gplus':
-                        result = self.send_context_gplus(context)
+                        result = self.send_context_gplus(context, token)
                         logging.debug("Google Plus result: %s" % result)
                     else:
                         result = self.send_generic_context(context, application, callback)
