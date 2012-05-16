@@ -45,8 +45,8 @@ class FriendsFinder(Daemon):
         
         key = 'mss.fb_friends.%s' % user.id
         
-        logging.debug("setting cache for key %" % key)
-        result = cache.set(md5key, fb_friends)
+        logging.debug("setting cache for key %s" % key)
+        result = cache.set(key, fb_friends)
 
     '''
         consummer loop to finds friends

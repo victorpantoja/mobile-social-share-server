@@ -14,6 +14,7 @@ rotas = (
 
         rota("/friendship/get.json", "FriendshipsHandler", module="friendship", action="friends", name="friends"),
         rota("/friendship/remove", "FriendshipsHandler", module="friendship", action="remove", name="remove_friend"),
+        rota("/friendship/suggestions", "FriendshipsHandler", module="friendship", action="suggestions", name="suggestions"),
 
         rota("/invite/send", "InviteHandler", module="invite", action="send", name="send_invite"),
         rota("/invite/accept", "InviteHandler", module="invite", action="accept", name="accept_invite"),
