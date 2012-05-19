@@ -23,6 +23,18 @@ class UserRepository(Repository):
 
         return users
 
+    def search_ids(self, parameters):
+        session = meta.get_session()
+        result = session.execute('select id from auth_user where first_name like "%%%s%%" or last_name like "%%%s%%"' % (parameters[0], parameters[1]))
+        return [row['id'] for row in result.fetchall()]
+
+    @staticmethod
+    def search(parameters):
+        ids = User().search_ids(parameters)
+        users = [User().get(id) for id in ids]
+
+        return users
+
     def get_by(self, username):
         users = User.all()
 

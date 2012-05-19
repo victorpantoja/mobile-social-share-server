@@ -50,14 +50,16 @@ class FriendshipsHandler(BaseHandler):
     @authenticated
     def suggestions(self, user, **kw):
         request_handler = kw.get('request_handler')
-        
+
         #TODO - passar para o model
         cache = get_cache()
         key = 'mss.fb_friends.%s' % user.id
-        
+
         friends = cache.get(key)
-        
+
+        #TODO - enviar email se achar?
+
         if friends:
-            return self.render_to_json({"status": "ok", "msg": friends}, request_handler)
-        
+            return self.render_to_json({"status": "ok", "msg": [friend.as_dict() for friend in friends]}, request_handler)
+
         return self.render_to_json({"status": "ok", "msg": "There is no suggestion at this time!"}, request_handler)
