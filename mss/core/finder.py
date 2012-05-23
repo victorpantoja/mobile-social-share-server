@@ -12,6 +12,7 @@ from mss.utils.curl import MSSCurl
 
 import logging
 import simplejson
+import twitter
 
 
 class FriendsFinder(Daemon):
@@ -24,37 +25,58 @@ class FriendsFinder(Daemon):
 
     def _get_facebook_friends(self, user):
 
+        fb_friends = []
         profile = User.get_profile(user.id)
-        friends = []
 
         if profile:
             token = simplejson.loads(profile.tokens)['facebook']
 
-            token = simplejson.loads(user.get_profile(user.id).tokens)['facebook']
+            #TODO - resolver problema de cache do UserProfile
 
             url = 'https://graph.facebook.com/me/friends?access_token=%s' % token
 
             response = MSSCurl().get(url=url)
             for user in response['data']:
                 #profile = MSSCurl().get(url='https://graph.facebook.com/%s' % user['id'])
-                related = self._get_related_friends(user['name'])
+                fb_friends.extend(self._get_related_friends(user['name']))
 
-                for friend in related:
-                    if friend not in friends:
-                        friends.append(friend)
+        return fb_friends
 
-        return friends
+    def _get_twitter_friends(self, user):
+
+        tw_friends = []
+        profile = User.get_profile(user.id)
+
+        if profile:
+            token = simplejson.loads(profile.tokens)['twitter']
+
+            consumer_key = "f1j3JookvHIoe2MBL7HEg"
+            consumer_secret = 'kdgLHtmyFh24UVIDIBtFRC9T5LUlRhgtCskIlG1P08'
+            access_token_key = '353770828-OeTG1nMJEuMHIKEdVQvrFloXnI9hcUXBROZ8oyiX'
+            access_token_secret = 'u30TQhtFmWB9bKgyXrhJ7SNLGuuxO2n3dJfswv66k'
+
+            api = twitter.Api(consumer_key, consumer_secret, access_token_key, access_token_secret)
+
+            try:
+                users = api.GetFriends('sauloaride')
+            except twitter.TwitterError, e:
+                logging.exception("Can not get twitter friends on %s" % e)
+
+            for user in users:
+                tw_friends.extend(self._get_related_friends(user.name))
+
+        return tw_friends
 
     def _get_related_friends(self, name):
         return User.search(name.split(' '))
 
-    def _set_cache(self, user, fb_friends):
+    def _set_cache(self, user, friends):
         cache = get_cache()
 
-        key = 'mss.fb_friends.%s' % user.id
+        key = 'mss.friends.%s' % user.id
 
         logging.debug("setting cache for key %s" % key)
-        cache.set(key, fb_friends)
+        cache.set(key, friends)
 
     '''
         consummer loop to finds friends
@@ -70,12 +92,21 @@ class FriendsFinder(Daemon):
 
                 for user in users:
                     logging.debug("Gonna load friends for user %s!" % user.username)
+
+                    tw_friends = self._get_twitter_friends(user)
                     fb_friends = self._get_facebook_friends(user)
 
-                    if fb_friends:
-                        self._set_cache(user, fb_friends)
-                    else:
-                        logging.debug("User %s is not connected to Facebook" % user.username)
+                    friends = []
+
+                    for friend in tw_friends:
+                        if friend not in friends:
+                            friends.append(friend)
+
+                    for friend in fb_friends:
+                        if friend not in friends:
+                            friends.append(friend)
+
+                    self._set_cache(user, friends)
 
                     logging.debug("Friends Loaded for user %s!" % user.username)
 

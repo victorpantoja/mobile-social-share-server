@@ -25,7 +25,12 @@ class UserRepository(Repository):
 
     def search_ids(self, parameters):
         session = meta.get_session()
-        result = session.execute('select id from auth_user where first_name like "%%%s%%" or last_name like "%%%s%%"' % (parameters[0], parameters[1]))
+        query = 'select id from auth_user where first_name like "%%%s%%"' % parameters[0]
+
+        if len(parameters) > 1:
+            query += ' or last_name like "%%%s%%"' % parameters[1]
+
+        result = session.execute(query)
         return [row['id'] for row in result.fetchall()]
 
     @staticmethod

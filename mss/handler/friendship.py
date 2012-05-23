@@ -53,12 +53,11 @@ class FriendshipsHandler(BaseHandler):
 
         #TODO - passar para o model
         cache = get_cache()
-        key = 'mss.fb_friends.%s' % user.id
+        key = 'mss.friends.%s' % user.id
 
         friends = cache.get(key)
 
         #TODO - enviar email se achar?
-
         if friends:
             return self.render_to_json({"status": "ok", "msg": [friend.as_dict() for friend in friends]}, request_handler)
 
