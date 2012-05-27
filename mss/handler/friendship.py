@@ -59,6 +59,6 @@ class FriendshipsHandler(BaseHandler):
 
         #TODO - enviar email se achar?
         if friends:
-            return self.render_to_json({"status": "ok", "msg": [friend.as_dict() for friend in friends]}, request_handler)
+            return self.render_to_json({"friends": [friend.as_dict() for friend in friends]}, request_handler)
 
         return self.render_to_json({"status": "ok", "msg": "There is no suggestion at this time!"}, request_handler)
