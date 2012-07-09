@@ -55,6 +55,17 @@ CREATE TABLE `context_application` (
   CONSTRAINT `fk_context_application_application_id` FOREIGN KEY (`application_id`) REFERENCES `application` (`application_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+CREATE TABLE `application_context` (
+  `id` integer unsigned NOT NULL AUTO_INCREMENT,
+  `application_id` integer unsigned NOT NULL,
+  `context_type_id` integer unsigned NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `uk_application_context` (`application_id`, `context_type_id`),
+  KEY `fk_application_context_application_id` (`application_id`),
+  KEY `fk_application_context_context_type_id` (`context_type_id`),
+  CONSTRAINT `fk_application_context_application_id` FOREIGN KEY (`application_id`) REFERENCES `application` (`application_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_application_context_ccontext_type_id` FOREIGN KEY (`context_type_id`) REFERENCES `context_type` (`context_type_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 CREATE TABLE `friendship` (
   `friendship_id` integer unsigned NOT NULL AUTO_INCREMENT,
@@ -113,6 +124,7 @@ drop table invite_email;
 drop table invite;
 drop table friendship;
 drop table context_application;
+drop table application_context;
 drop table context;
 drop table context_type;
 drop table application;

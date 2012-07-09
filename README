@@ -1,10 +1,23 @@
-TODO - Trocar queries por fetch_by
+Login:
+http://myalbumshare.com:9080/user/login?username=victor&password=GUO5pc6lV
 
+Create Application:
+http://myalbumshare.com:9080/application/create?name=mss2&icon=icone.png&callback_url=l
+
+Remove Application:
+http://myalbumshare.com:9080/application/remove?token=5fc90514f6a7f65a3b4993846b5e56f7
+
+Subscribe:
+http://myalbumshare.com:9080/application/subscribe?token=5fc90514f6a7f65a3b4993846b5e56f7
+
+
+List Application:
+http://myalbumshare.com:9080/applications.json?auth=0cbcd4451a1403b269d703b722abd2b7
 
 Sending Context:
 POST: http://0.0.0.0:9080/context?auth=188f0a3e365bf54f67f615b1ca199c59
 
-Body: {"application":["facebook"],"context":{"location":"aqui"}}
+Body: {"application":["facebook", "twitter", "gplus", "mss"],"context":{"location":"aqui"}}
 
 
 Facebook:

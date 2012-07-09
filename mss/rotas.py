@@ -7,7 +7,10 @@ def rota(route=None, controller=None, action="index", name=None, module=None):
 
 rotas = (
         rota("/applications.json", "ApplicationHandler", module="application", action="applications", name="list_apps"),
-        rota("/application/subscribe", "ApplicationHandler", module="application", action="subscribe", name="subscribe"),
+        rota("/application/create", "ApplicationHandler", module="application", action="create", name="app_create"),
+        rota("/application/remove", "ApplicationHandler", module="application", action="unsubscribe", name="app_remove"),
+        rota("/application/subscribe", "ApplicationHandler", module="application", action="subscribe", name="app_subscribe"),
+        rota("/application/unsubscribe", "ApplicationHandler", module="application", action="unsubscribe", name="app_unsubscribe"),
 
         rota("/context", "ContextHandler", module="context", action="context", name="context"),
         rota("/context/callback_url", "ContextHandler", module="context", action="callback", name="context_callback"),

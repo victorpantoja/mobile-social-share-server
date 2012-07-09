@@ -6,6 +6,7 @@ import logging
 from mss.core import settings
 from mss.core.cache import get_cache
 from mss.models.user import User
+from mss.models.application import Application
 
 from mako import exceptions
 from mako.lookup import TemplateLookup
@@ -63,5 +64,18 @@ def authenticated(fn):
                 return self.render_to_json({'status': 'error', 'msg': 'User not authenticated.'}, request_handler)
 
         return fn(self, user=user, *args, **kw)
+
+    return authenticated_fn
+
+def auth_application(fn):
+    def authenticated_fn(self, *args, **kw):
+        request_handler = kw.get('request_handler')    
+
+        application = Application().get_by_token(token=kw.get('token'))
+
+        if not application:
+            return self.render_to_json({'status': 'error', 'msg': 'Invalid Token or Application.'}, request_handler)
+
+        return fn(self, application=application, *args, **kw)
 
     return authenticated_fn

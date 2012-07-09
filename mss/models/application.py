@@ -27,6 +27,13 @@ class ApplicationRepository(Repository):
         for application in applications:
             if application.name == name:
                 return application
+                
+    def get_by_token(self, token):
+        applications = Application.all()
+
+        for application in applications:
+            if application.token == token:
+                return application
             
         return None
 
