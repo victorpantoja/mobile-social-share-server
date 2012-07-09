@@ -3,7 +3,7 @@
 
 from mss.handler.base import BaseHandler, authenticated, auth_application
 from mss.models.application import Application
-from mss.models.application_context import ApplicationContext
+from mss.models.applicationcontext import ApplicationContext
 from mss.models.context_type import ContextType
 
 import hashlib
@@ -81,10 +81,18 @@ class ApplicationHandler(BaseHandler):
     def unsubscribe(self, application, **kw):
         request_handler = kw.get('request_handler')
         
-        try:
-            pass
-        except Exception, e:
-            logging.exception(e);
-            return self.render_to_json({'status': 'error', 'msg': 'You have not unsubscribed!'}, request_handler)
+        if not request_handler.request.body:
+            return self.render_to_json({'status': 'error', 'msg': "No context specified."}, request_handler)
+        
+        contexts = simplejson.loads(request_handler.request.body)
+                
+        for context in contexts['context']:
+            context_type = ContextType().get_by(description=context)
+            
+            if context_type:
+                application_context = ApplicationContext().get_by(application_id=application.id, context_type_id=context_type.id)
+                application_context.delete()
+            else:
+                return self.render_to_json({'status': 'error', 'msg': "Error while unsubscribing. Invalid context-type."}, request_handler)
         
         return self.render_to_json({'status': 'ok', 'msg': 'You have unsubscribed succesfuly.'}, request_handler)

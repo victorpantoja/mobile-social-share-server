@@ -28,6 +28,8 @@ class ApplicationRepository(Repository):
             if application.name == name:
                 return application
                 
+        return None
+                
     def get_by_token(self, token):
         applications = Application.all()
 
