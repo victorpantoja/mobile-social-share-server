@@ -9,7 +9,11 @@ http://myalbumshare.com:9080/application/remove?token=5fc90514f6a7f65a3b4993846b
 
 Subscribe:
 http://myalbumshare.com:9080/application/subscribe?token=5fc90514f6a7f65a3b4993846b5e56f7
+Body: {"context":["location"]}
 
+Unsubscribe:
+http://myalbumshare.com:9080/application/unsubscribe?token=5fc90514f6a7f65a3b4993846b5e56f7
+Body: {"context":["location"]}
 
 List Application:
 http://myalbumshare.com:9080/applications.json?auth=0cbcd4451a1403b269d703b722abd2b7

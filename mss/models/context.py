@@ -20,10 +20,9 @@ class ContextRepository(Repository):
     @staticmethod
     def all():
         ids = Context().ids()
-        applications = [Context().get(id) for id in ids]
+        contexts = [Context().get(id) for id in ids]
 
-        return applications
-
+        return contexts
 
 class Context(Model, ContextRepository):
     """

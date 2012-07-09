@@ -5,7 +5,7 @@ from mss.handler.base import BaseHandler, authenticated
 from mss.models.application import Application
 from mss.models.context_type import ContextType
 from mss.models.context import Context
-from mss.models.context_application import ContextApplication
+from mss.models.contextapplication import ContextApplication
 from mss.utils.context import ContextQueue
 
 from datetime import datetime
@@ -32,6 +32,7 @@ class ContextHandler(BaseHandler):
             application = Application().get_by(name=app_name)
 
             if application:
+                #TODO - verificar se a aplicacao assina o contexto
                 for description in data['context'].keys():
                     context_type = ContextType().get_by(description=description)
 

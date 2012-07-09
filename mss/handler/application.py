@@ -4,6 +4,7 @@
 from mss.handler.base import BaseHandler, authenticated, auth_application
 from mss.models.application import Application
 from mss.models.applicationcontext import ApplicationContext
+from mss.models.contextapplication import ContextApplication
 from mss.models.context_type import ContextType
 
 import hashlib
@@ -22,6 +23,18 @@ class ApplicationHandler(BaseHandler):
         app_list = [app.as_dict() for app in apps]
         
         return self.render_to_json({'applications': app_list}, request_handler)
+        
+    @auth_application
+    def application(self, application, **kw):
+        request_handler = kw.get('request_handler')
+        
+        contexts = ContextApplication().get_by(application_id=application.id)
+        
+        contexts_list = [{'context': context_application.context.context,
+                        'type':context_application.context.context_type.description,
+                        'updated': self._format_date(context_application.context.updated)} for context_application in contexts]
+
+        return self.render_to_json({'contextos': contexts_list}, request_handler)
     
     def create(self, **kw):
         request_handler = kw.get('request_handler')
@@ -96,3 +109,6 @@ class ApplicationHandler(BaseHandler):
                 return self.render_to_json({'status': 'error', 'msg': "Error while unsubscribing. Invalid context-type."}, request_handler)
         
         return self.render_to_json({'status': 'ok', 'msg': 'You have unsubscribed succesfuly.'}, request_handler)
+   
+    def _format_date(self, date):
+        return date.isoformat()

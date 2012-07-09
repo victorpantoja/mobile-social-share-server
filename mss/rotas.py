@@ -6,6 +6,7 @@ def rota(route=None, controller=None, action="index", name=None, module=None):
     return [name, route, controller, action, module]
 
 rotas = (
+        rota("/application.json", "ApplicationHandler", module="application", action="application", name="app_application"),
         rota("/applications.json", "ApplicationHandler", module="application", action="applications", name="list_apps"),
         rota("/application/create", "ApplicationHandler", module="application", action="create", name="app_create"),
         rota("/application/remove", "ApplicationHandler", module="application", action="unsubscribe", name="app_remove"),
